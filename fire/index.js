@@ -2,12 +2,13 @@ const firebase = require('firebase')
 
 // -- // -- // -- // Firebase Config // -- // -- // -- //
 const config = {
-  apiKey: 'AIzaSyBzz-Wq2dzMgM7E8cdSYnYoX5fbVUT-XQo',
-  authDomain: 'firebones-6bc2a.firebaseapp.com',
-  databaseURL: 'https://firebones-6bc2a.firebaseio.com',
-  projectId: 'firebones-6bc2a',
-  storageBucket: 'firebones-6bc2a.appspot.com',
-  messagingSenderId: '1030378391678'
+  apiKey: 'AIzaSyAqgrRwGVrKLpgxG1GdxwOKHWd-f_uEA8U',
+  authDomain: 'attune-d8afe.firebaseapp.com',
+  databaseURL: 'https://attune-d8afe.firebaseio.com',
+  projectId: 'attune-d8afe',
+  storageBucket: '',
+  messagingSenderId: '336858110264'
+
 }
 // -- // -- // -- // -- // -- // -- // -- // -- // -- //
 
