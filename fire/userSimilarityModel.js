@@ -37,10 +37,21 @@ let intersection = new Set([...user1Set].filter(trackId => {
   return user2Set.has(trackId)
 }))
 
-console.log('intersection', intersection)
-// console.log('user1Arr', user1Arr)
-// console.log('user2Arr', user2Arr)
-// console.log('user1Set', user1Set)
-// console.log('user2Set', user2Set)
+let intersectionScore = user1Arr.reduce((accumulator, track) => {
+  if ([...intersection].indexOf(track.id) > -1) {
+    return accumulator + track.popularityScore
+  } else return accumulator}, 0)
 
-let intersectionScores = [...intersection]
+let user1Total = user1Arr.reduce((accumulator, track)=> {
+  return accumulator + track.popularityScore
+}, 0)
+
+let user2Total = user2Arr.reduce((accumulator, track)=> {
+  return accumulator + track.popularityScore
+}, 0)
+
+let unionScore = user1Total + user2Total
+
+let similarityScore = intersectionScore/unionScore
+
+console.log(similarityScore)
