@@ -12,6 +12,7 @@ const fetchTopArtists = () => {
        artist.id = obj.id;
        artist.name = obj.name;
        artist.popularity = obj.popularity;
+       artist.popularityMultiplier = 101 - obj.popularity;
        artist.genres = obj.genres;
        return artist
       })
@@ -33,7 +34,8 @@ const fetchTopTracks = () => {
         track.id = obj.id;
         track.artist = track.artist.map((artist) => artist.name)
         track.name = obj.name;
-        track.popularity = obj.popularity
+        track.popularity = obj.popularity;
+        track.popularityMultiplier = 101 - obj.popularity;
       })
     })
     .then(topTracksArr => {
@@ -54,6 +56,7 @@ const fetchRecentTracks = () => {
         track.artist = track.artist.map((artist) => artist.name)
         track.name = obj.name;
         track.popularity = obj.popularity
+        track.popularityMultiplier = 101 - obj.popularity
       })
     })
     .then(recentTracksArr => {
@@ -73,7 +76,7 @@ const spotifyUserProfile = () => {
       if(data.birthdate) user.birthdate = data.birthday;
       if (data.country) user.counter = data.country;
       if (data.email) user.email = data.email;
-      if (data.images) user.images = data.images;
+      if (data.images) user.image = data.images[0].url;
 //also available: external urls, followers(href and total)
     })
 }
