@@ -21,7 +21,7 @@ module.exports = {
   context: __dirname,
   devtool: devMode && USE_FAST_SOURCE_MAPS
     ? 'cheap-module-eval-source-map'
-    : 'source-map',
+    : 'inline-source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.json', '*']
   },
