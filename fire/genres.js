@@ -8,45 +8,43 @@
 const user1Genres = require('./User1TopArtists')
 const user2Genres = require ('./User2TopArtists')
 
-let user1Arr = user1Genres.map(artist => {
-  return artist.genres.split('')
+const user1Arr = user1Genres.map(artist => {
+  return artist.genres
 })
 
-console.log(user1Arr)
+const user1Concat = [].concat.apply([], user1Arr)
 
-let user2Arr = user2RecentTracks.map(track => {
-  let id = track.id
-  let popularityScore = track.popularityScore
-  return {id, popularityScore}
+const user2Arr = user2Genres.map(artist => {
+  return artist.genres
 })
 
-let user1Set = new Set(user1Arr.map(track => {
-  return track.id
+const user2Concat = [].concat.apply([], user2Arr)
+
+
+let user1Set = new Set(user1Concat)
+
+let user2Set = new Set(user2Concat)
+
+
+let intersectionGenres = new Set([...user1Set].filter(genre => {
+  return user2Set.has(genre)
 }))
 
-let user2Set = new Set(user2Arr.map(track => {
-  return track.id
-}))
+let intersectionScoreGenres = ([...intersectionGenres].reduce((accumulator, genre)=> {
+  return accumulator + 1
+}, 0))*100
 
-let intersection = new Set([...user1Set].filter(trackId => {
-  return user2Set.has(trackId)
-}))
-
-let intersectionScoreRecent = user1Arr.reduce((accumulator, track) => {
-  if ([...intersection].indexOf(track.id) > -1) {
-    return accumulator + track.popularityScore
-  } else return accumulator}, 0)
-
-let user1Total = user1Arr.reduce((accumulator, track)=> {
-  return accumulator + track.popularityScore
+let user1Total = user1Concat.reduce((accumulator, genre)=> {
+  return accumulator + 1
 }, 0)
 
-let user2Total = user2Arr.reduce((accumulator, track)=> {
-  return accumulator + track.popularityScore
+let user2Total = user2Concat.reduce((accumulator, genre)=> {
+  return accumulator + 1
 }, 0)
 
-let unionScoreRecent = user1Total + user2Total
+let unionScoreGenres = (user1Total + user2Total) * 100
 
-let similarityScore = intersectionScoreRecent/unionScoreRecent
+let similarityScore = intersectionScoreGenres/unionScoreGenres
 
-module.exports ={intersectionScoreRecent, unionScoreRecent}
+
+module.exports ={intersectionScoreGenres, unionScoreGenres}
