@@ -5,8 +5,8 @@ const {intersectionScoreTopArtists, unionScoreTopArtists} = require('./topArtist
 const {intersectionScoreGenres, unionScoreGenres} = require('./genres')
 
 
-const totalIntersectScore = intersectionScoreRecent + intersectionScoreTopTracks + intersectionScoreTopArtists
-const totalUnionScore = unionScoreRecent + unionScoreTopTracks + unionScoreTopArtists
+const totalIntersectScore = intersectionScoreRecent + intersectionScoreTopTracks + intersectionScoreTopArtists + intersectionScoreGenres
+const totalUnionScore = unionScoreRecent + unionScoreTopTracks + unionScoreTopArtists + unionScoreGenres
 
 let similarityScore = (totalIntersectScore) / (totalUnionScore)
 
