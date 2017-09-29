@@ -1,15 +1,7 @@
 const firebase = require('firebase')
 
 // -- // -- // -- // Firebase Config // -- // -- // -- //
-const config = {
-  apiKey: 'AIzaSyAqgrRwGVrKLpgxG1GdxwOKHWd-f_uEA8U',
-  authDomain: 'attune-d8afe.firebaseapp.com',
-  databaseURL: 'https://attune-d8afe.firebaseio.com',
-  projectId: 'attune-d8afe',
-  storageBucket: '',
-  messagingSenderId: '336858110264'
-
-}
+const config = require('./config')
 // -- // -- // -- // -- // -- // -- // -- // -- // -- //
 
 // Initialize the app, but make sure to do it only once.
