@@ -50,7 +50,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-follow-read user-top-read user-read-recently-played user-read-private user-read-email user-library-read';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -108,9 +108,9 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          const {uri, id, images: [{url: profilePic}]} = body
+          const {uri, id, display_name, images: [{url: profilePic}]} = body
           console.log("BODY", body)
-          console.log('uri', uri, 'id', id, 'profilePic', profilePic, access_token, refresh_token)          
+          console.log('display name', display_name, 'uri', uri, 'id', id, 'profilePic', profilePic, 'access token', access_token)          
           createFirebaseAccount(uri, id, profilePic, access_token, refresh_token)
             .then(firebaseToken => {
               res.send(signInFirebaseTemplate(firebaseToken));
@@ -178,6 +178,19 @@ function signInFirebaseTemplate(token) {
 }
 
 function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshToken) {
+    var options = {
+      url: 'https://api.spotify.com/v1/me/player/recently-played',
+      headers: { 'Authorization': 'Bearer ' + accessToken },
+      json: true,
+      limit: 50
+    };
+    request.get(options, function(error, response, body){
+      console.log("RECENTLY PLAYED BODY ITEMS", body.items)
+      const items = body.items
+      const getRecentSongs = admin.database().ref(`/recentSongs/${uid}`)
+          .set({songs: items})
+    })
+
     const databaseTask = admin.database().ref(`/spotifyAccessToken/${uid}`)
         .set({accessToken, refreshToken});
     const userCreationTask = admin.auth().updateUser(uid, {
@@ -203,6 +216,7 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
   }
 
   
+
 
 console.log('Listening on 1337');
 app.listen(1337);
