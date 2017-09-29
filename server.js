@@ -67,7 +67,6 @@ app.get('/redirect', function(req, res){
 })
 
 app.get('/callback', function(req, res) {
-  console.log("IN CALLBACK")
   // your application requests refresh and access tokens
   // after checking the state parameter
 
@@ -110,7 +109,7 @@ app.get('/callback', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           const {uri, id, images: [{url: profilePic}]} = body
-          console.log(body)
+          console.log("BODY", body)
           console.log('uri', uri, 'id', id, 'profilePic', profilePic, access_token, refresh_token)          
           createFirebaseAccount(uri, id, profilePic, access_token, refresh_token)
             .then(firebaseToken => {
@@ -181,7 +180,6 @@ function signInFirebaseTemplate(token) {
 function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshToken) {
     const databaseTask = admin.database().ref(`/spotifyAccessToken/${uid}`)
         .set({accessToken, refreshToken});
-  
     const userCreationTask = admin.auth().updateUser(uid, {
       displayName: displayName,
       photoURL: photoURL
@@ -196,12 +194,14 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       throw error;
     });
   
+    
     return Promise.all([userCreationTask, databaseTask]).then(() => {
       const token = admin.auth().createCustomToken(uid);
       console.log('Created Custom token for UID "', uid, '" Token:', token);
       return token;
     });
   }
+
   
 
 console.log('Listening on 1337');
