@@ -109,9 +109,12 @@ app.get('/callback', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           const {uri, id, display_name, images: [{url: profilePic}]} = body
+          //KNOWN BUG: if not logged into facebook, then at least no display name or images 
+          // if (display_name === null || undefined)  display_name = id
+          // if(!images.length) profilePic = 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAAAAJGY5YjFhN2Q2LTUyNjMtNDQ4OS04Mzk5LTcyMGQyM2E0MTgwOA.jpg'
           console.log("BODY", body)
           console.log('display name', display_name, 'uri', uri, 'id', id, 'profilePic', profilePic, 'access token', access_token)          
-          createFirebaseAccount(uri, id, profilePic, access_token, refresh_token)
+          createFirebaseAccount(uri, display_name, profilePic, access_token, refresh_token)
             .then(firebaseToken => {
               res.send(signInFirebaseTemplate(firebaseToken));
             })
@@ -178,18 +181,42 @@ function signInFirebaseTemplate(token) {
 }
 
 function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshToken) {
-    var options = {
-      url: 'https://api.spotify.com/v1/me/player/recently-played',
+  const optionsRecent = {
+      url: 'https://api.spotify.com/v1/me/player/recently-played?limit=50',
       headers: { 'Authorization': 'Bearer ' + accessToken },
-      json: true,
-      limit: 50
+      json: true
     };
-    request.get(options, function(error, response, body){
-      console.log("RECENTLY PLAYED BODY ITEMS", body.items)
+
+    const optionsTopArtists = {
+      url: 'https://api.spotify.com/v1/me/top/artists?limit=50',
+      headers: { 'Authorization': 'Bearer ' + accessToken },
+      json: true
+    };
+
+    const optionsTopTracks = {
+      url: 'https://api.spotify.com/v1/me/top/tracks?limit=50',
+      headers: { 'Authorization': 'Bearer ' + accessToken },
+      json: true
+    }
+
+    request.get(optionsRecent, function(error, response, body){
       const items = body.items
-      const getRecentSongs = admin.database().ref(`/recentSongs/${uid}`)
+      const getRecentSongs = admin.database().ref(`/Users/${uid}/recentSongs`)
           .set({songs: items})
     })
+
+    request.get(optionsTopArtists, function(error, response, body){
+      const items = body.items
+      const getTopArists = admin.database().ref(`/Users/${uid}/topArtists`)
+          .set({artists: items})
+    })
+
+    request.get(optionsTopTracks, function(error, response, body){
+      const items = body.items
+      const getTopTracks = admin.database().ref(`Users/${uid}/topTracks`)
+          .set({tracks: items})
+    })
+
 
     const databaseTask = admin.database().ref(`/spotifyAccessToken/${uid}`)
         .set({accessToken, refreshToken});
@@ -207,7 +234,6 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       throw error;
     });
   
-    
     return Promise.all([userCreationTask, databaseTask]).then(() => {
       const token = admin.auth().createCustomToken(uid);
       console.log('Created Custom token for UID "', uid, '" Token:', token);
@@ -215,8 +241,24 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
     });
   }
 
-  
-
+  function listAllUsers(nextPageToken) {
+    // List batch of users, 1000 at a time.
+    admin.auth().listUsers(1000, nextPageToken)
+      .then(function(listUsersResult) {
+        listUsersResult.users.forEach(function(userRecord) {
+          console.log("user", userRecord.toJSON());
+        });
+        if (listUsersResult.pageToken) {
+          // List next batch of users.
+          listAllUsers(listUsersResult.pageToken)
+        }
+      })
+      .catch(function(error) {
+        console.log("Error listing users:", error);
+      });
+  }
+  // Start listing users from the beginning, 1000 at a time.
+  listAllUsers();
 
 console.log('Listening on 1337');
 app.listen(1337);
