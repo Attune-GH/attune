@@ -1,0 +1,56 @@
+
+body {
+  background-color: black
+}
+
+/* start of styling for login button */
+.btn-primary {
+  color: #fff;
+  background-color: #2ebd59;
+  border-color: #29a84f;
+}
+.btn {
+  font-size: 18px;
+  line-height: 1.5;
+  border-radius: 500px;
+  padding: 12px 47px 8px;
+  -webkit-transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+  -o-transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+  border-width: 0;
+  letter-spacing: 1.2px;
+  min-width: 130px;
+  text-transform: uppercase;
+  white-space: normal
+}
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 600;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.btn-primary:focus,
+.btn-primary:hover{
+  color: #fff;
+  background-color: #1ed760
+}
+.btn-primary {
+    background-image: url(https://image.ibb.co/d5BsQb/Spotify_Icon_RGB_White.png); /* 16px x 16px */
+    background-size: 40px;
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 20px 10px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 60px;           /* make this the size of your image */
+    padding-left: 80px;     /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+}
+/* end of styling for login button */
