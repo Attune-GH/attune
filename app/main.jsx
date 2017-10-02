@@ -5,6 +5,7 @@ import {render} from 'react-dom'
 
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
+import UserProfile from './components/UserProfile'
 
 import firebase from 'APP/fire'
 
@@ -52,12 +53,13 @@ const App = ({children}) =>
   </div>
 
 render(
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <IndexRedirect to="demos"/>
-      {Demos /* Put all the demos and a description page at /demos */}
-    </Route>
-    <Route path='*' component={NotFound}/>
-  </Router>,
+  // <Router history={browserHistory}>
+  //   <Route path="/" component={App}>
+  //     <IndexRedirect to="demos"/>
+  //     {Demos /* Put all the demos and a description page at /demos */}
+  //   </Route>
+  //   <Route path='*' component={NotFound}/>
+  // </Router>,
+  <UserProfile />,
   document.getElementById('main')
 )
