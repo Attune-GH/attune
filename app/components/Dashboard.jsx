@@ -9,10 +9,10 @@ import firebase from 'APP/fire'
 // console.log(currentUser)
 export default () => <div>
 
-  {/* <h2><Link to={`/profile/${currentUser.uid}`}>Profile</Link></h2> */}
+  <h2><Link to={`/profile/:userId`}>Profile</Link></h2>
 
   <h2><Link to='/messages'>Messages</Link></h2>
-heya
+
   <h2><Link to='/matches'>Matches</Link></h2>
 
 </div>
