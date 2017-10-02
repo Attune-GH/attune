@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button, Image } from 'react-bootstrap'
 
 const dummy = {
   "country" : "US",
@@ -261,15 +262,16 @@ const tracks = {
 
 export default () => {
   return (
+    //if ISUSER then render the log out button
     <div>
       <div>
-        <img src={dummy.images[0].url} />
-        <div>{dummy.display_name.split(' ').slice(0, 1).join('')}</div>
+        <Image src={dummy.images[0].url} className="user-img" circle />
+        <div>{dummy.display_name.split(' ').slice(0, 1).join('') || dummy.id} </div>
       </div>
       <button>follow || message</button>
       <button>block</button>
       <div>
-      <a href={dummy.external_urls.spotify} className="btn btn-default">Spotify Profile</a>
+      <button className="btn btn-primary btn-profile"><a href={dummy.external_urls.spotify}>View Spotify Profile</a></button>
       </div>
       <div>
         <div>Recently Played</div>

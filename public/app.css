@@ -55,3 +55,15 @@ body {
     vertical-align: middle; /* align the text vertically centered */
 }
 /* end of styling for login button */
+
+
+/* .user-img {
+  border-radius: 400px;
+  height: 100px
+} */
+
+.btn-profile > a {
+  text-decoration: none;
+  color: white;
+  height: 20px
+}
