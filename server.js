@@ -105,13 +105,12 @@ app.get('/callback', function(req, res) {
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
-
+        
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
+          if (body.display_name === null || undefined)  body.display_name = body.id
+          if(!body.images.length) body.images.push({url: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAAAAJGY5YjFhN2Q2LTUyNjMtNDQ4OS04Mzk5LTcyMGQyM2E0MTgwOA.jpg'}) 
           const {uri, id, display_name, images: [{url: profilePic}]} = body
-          //KNOWN BUG: if not logged into facebook, then at least no display name or images 
-          // if (display_name === null || undefined)  display_name = id
-          // if(!images.length) profilePic = 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAAAAJGY5YjFhN2Q2LTUyNjMtNDQ4OS04Mzk5LTcyMGQyM2E0MTgwOA.jpg'
           console.log("BODY", body)
           console.log('display name', display_name, 'uri', uri, 'id', id, 'profilePic', profilePic, 'access token', access_token)          
           createFirebaseAccount(uri, display_name, profilePic, access_token, refresh_token)
@@ -240,25 +239,6 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       return token;
     });
   }
-
-  function listAllUsers(nextPageToken) {
-    // List batch of users, 1000 at a time.
-    admin.auth().listUsers(1000, nextPageToken)
-      .then(function(listUsersResult) {
-        listUsersResult.users.forEach(function(userRecord) {
-          console.log("user", userRecord.toJSON());
-        });
-        if (listUsersResult.pageToken) {
-          // List next batch of users.
-          listAllUsers(listUsersResult.pageToken)
-        }
-      })
-      .catch(function(error) {
-        console.log("Error listing users:", error);
-      });
-  }
-  // Start listing users from the beginning, 1000 at a time.
-  listAllUsers();
 
 console.log('Listening on 1337');
 app.listen(1337);
