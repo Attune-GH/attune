@@ -57,10 +57,9 @@ body {
 /* end of styling for login button */
 
 
-/* .user-img {
-  border-radius: 400px;
-  height: 100px
-} */
+.user-img {
+  margin: 10px
+}
 
 .btn-profile > a {
   text-decoration: none;

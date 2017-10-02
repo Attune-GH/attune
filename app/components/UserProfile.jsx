@@ -263,18 +263,20 @@ const tracks = {
 export default () => {
   return (
     //if ISUSER then render the log out button
-    <div>
-      <div>
+    <div className="container">
+      {/* <div > */}
         <Image src={dummy.images[0].url} className="user-img" circle />
-        <div>{dummy.display_name.split(' ').slice(0, 1).join('') || dummy.id} </div>
-      </div>
-      <button>follow || message</button>
-      <button>block</button>
+        <div>
+          <h1>{dummy.display_name.split(' ').slice(0, 1).join('') || dummy.id}</h1>
+          </div>
+      {/* </div> */}
+      <button className="btn">message</button>
+      <button className="btn">block</button>
       <div>
       <button className="btn btn-primary btn-profile"><a href={dummy.external_urls.spotify}>View Spotify Profile</a></button>
       </div>
       <div>
-        <div>Recently Played</div>
+        <div><h1>Recently Played</h1></div>
         <div>
           <div>{
             tracks.items.map((track) => <div id={track.id}><iframe src={`https://open.spotify.com/embed?uri=${track.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
