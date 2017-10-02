@@ -1,6 +1,6 @@
 'use strict'
 import React from 'react'
-import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
+import {Router, Route, IndexRedirect, browserHistory, Switch} from 'react-router'
 import {render} from 'react-dom'
 
 import WhoAmI from './components/WhoAmI'
@@ -17,8 +17,6 @@ import firebase from 'APP/fire'
 
 // Get the auth API from Firebase.
 const auth = firebase.auth()
-
-console.log(auth.uid)
 // Ensure that we have (almost) always have a user ID, by creating
 // an anonymous user if nobody is signed in.
 // auth.onAuthStateChanged(user => user || auth.signInAnonymously())
@@ -45,13 +43,13 @@ console.log(auth.uid)
 
 render(
   <Router history={browserHistory}>
-    <Route path="/" component={Entry} />
-    <Route path='/dashboard' component={Dashboard}/>
-    <Route path='/messages' component={AllConversations}/>
-    <Route path='/messages/:userId' component={OneConversation}/>
-    <Route path='/matches' component={AllMatches}/>
-    <Route path='/profile/:userId' component={UserProfile} />
-    <Route path='*' component={NotFound}/>
+      <Route path="/" component={Entry} />
+      <Route path='/dashboard' component={Dashboard}/>
+      <Route path='/messages' component={AllConversations}/>
+      <Route path='/messages/:userId' component={OneConversation}/>
+      <Route path='/matches' component={AllMatches}/>
+      <Route path='/profile/:userId' component={UserProfile} />
+      <Route path='*' component={NotFound}/>
   </Router>,
   document.getElementById('main')
 )
