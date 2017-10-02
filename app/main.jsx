@@ -6,14 +6,19 @@ import {render} from 'react-dom'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import UserProfile from './components/UserProfile'
+import Dashboard from './components/Dashboard'
+import Entry from './components/Entry'
+import AllConversations from './components/AllConversations'
+import OneConversation from './components/OneConversation'
+import AllMatches from './components/AllMatches'
 
 import firebase from 'APP/fire'
 
-import Demos from 'APP/demos'
 
 // Get the auth API from Firebase.
 const auth = firebase.auth()
 
+console.log(auth.uid)
 // Ensure that we have (almost) always have a user ID, by creating
 // an anonymous user if nobody is signed in.
 // auth.onAuthStateChanged(user => user || auth.signInAnonymously())
@@ -38,28 +43,15 @@ const auth = firebase.auth()
 //
 // If you don't want this behavior, just remove the line above.
 
-// Our root App component just renders a little frame with a nav
-// and whatever children the router gave us.
-const App = ({children}) =>
-  <div>
-    <nav>
-      {/* WhoAmI takes a firebase auth API and renders either a
-          greeting and a logout button, or sign in buttons, depending
-          on if anyone's logged in */}
-      <WhoAmI auth={auth}/>
-    </nav>
-    {/* Render our children (whatever the router gives us) */}
-    {children}
-  </div>
-
 render(
-  // <Router history={browserHistory}>
-  //   <Route path="/" component={App}>
-  //     <IndexRedirect to="demos"/>
-  //     {Demos /* Put all the demos and a description page at /demos */}
-  //   </Route>
-  //   <Route path='*' component={NotFound}/>
-  // </Router>,
-  <UserProfile />,
+  <Router history={browserHistory}>
+    <Route path="/" component={Entry} />
+    <Route path='/dashboard' component={Dashboard}/>
+    <Route path='/messages' component={AllConversations}/>
+    <Route path='/messages/:userId' component={OneConversation}/>
+    <Route path='/matches' component={AllMatches}/>
+    <Route path='/profile/:userId' component={UserProfile} />
+    <Route path='*' component={NotFound}/>
+  </Router>,
   document.getElementById('main')
 )
