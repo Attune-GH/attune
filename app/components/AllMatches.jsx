@@ -2,6 +2,7 @@ import React from 'react'
 import Slider from 'react-slick'
 import { Image } from 'react-bootstrap'
 import UserProfile from './UserProfile'
+import OneMatch from './OneMatch'
 
 class SimpleSlider extends React.Component {
 
@@ -12,16 +13,16 @@ class SimpleSlider extends React.Component {
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
-      arrows: false
+      arrows: true
     }
     return (
-      <div className="container">
+      <div >
         <h1>Your Matches</h1>
-        <Slider {...settings}>
-          <div><UserProfile /></div>
-          <div><UserProfile /></div>
-          <div><UserProfile /></div>
-          <div><UserProfile /></div>
+        <Slider {...settings} className="container">
+          <div><OneMatch /></div>
+          <div><OneMatch /></div>
+          <div><OneMatch /></div>
+          <div><OneMatch /></div>
         </Slider>
       </div>
     )
