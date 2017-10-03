@@ -62,10 +62,6 @@ app.get('/login', function(req, res) {
 });
 
 
-app.get('/redirect', function(req, res){
-  res.send(req.query)
-})
-
 app.get('/callback', function(req, res) {
   // your application requests refresh and access tokens
   // after checking the state parameter
@@ -77,7 +73,7 @@ app.get('/callback', function(req, res) {
   if (state === null || state !== storedState) {
     res.redirect('/#' +
       querystring.stringify({
-        error: 'state_mismatch'
+        error: 'State mismatch between request and cookie'
       }));
   } else {
     res.clearCookie(stateKey);
@@ -111,8 +107,7 @@ app.get('/callback', function(req, res) {
           if (body.display_name === null || undefined)  body.display_name = body.id
           if(!body.images.length) body.images.push({url: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAAAAJGY5YjFhN2Q2LTUyNjMtNDQ4OS04Mzk5LTcyMGQyM2E0MTgwOA.jpg'}) 
           const {uri, id, display_name, images: [{url: profilePic}]} = body
-          console.log("BODY", body)
-          console.log('display name', display_name, 'uri', uri, 'id', id, 'profilePic', profilePic, 'access token', access_token)          
+
           createFirebaseAccount(uri, display_name, profilePic, access_token, refresh_token)
             .then(firebaseToken => {
               res.send(signInFirebaseTemplate(firebaseToken));
@@ -120,12 +115,6 @@ app.get('/callback', function(req, res) {
             .catch(console.error)
         });
 
-        // we can also pass the token to the browser to make requests from there
-        // res.redirect('/#' +
-        //   querystring.stringify({
-        //     access_token: access_token,
-        //     refresh_token: refresh_token
-        //   }));
       } else {
         res.redirect('/#' +
           querystring.stringify({
@@ -203,18 +192,22 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       const getRecentSongs = admin.database().ref(`/Users/${uid}/recentSongs`)
           .set({songs: items})
     })
+      
 
     request.get(optionsTopArtists, function(error, response, body){
       const items = body.items
       const getTopArists = admin.database().ref(`/Users/${uid}/topArtists`)
           .set({artists: items})
     })
+  
+
 
     request.get(optionsTopTracks, function(error, response, body){
       const items = body.items
       const getTopTracks = admin.database().ref(`Users/${uid}/topTracks`)
           .set({tracks: items})
     })
+    
 
 
     const databaseTask = admin.database().ref(`/spotifyAccessToken/${uid}`)
