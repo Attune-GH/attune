@@ -1,28 +1,28 @@
 
 body {
-  background-color: black;
-  color: white
+    background-color: black;
+    color: white
 }
 
 /* start of styling for login button */
 .btn-primary {
-  color: #fff;
-  background-color: #2ebd59;
-  border-color: #29a84f;
+    color: #fff;
+    background-color: #2ebd59;
+    border-color: #29a84f;
 }
 .btn {
-  font-size: 18px;
-  line-height: 1.5;
-  border-radius: 500px;
-  padding: 12px 47px 8px;
-  -webkit-transition: background-color .15s ease, border-color .15s ease, color .15s ease;
-  -o-transition: background-color .15s ease, border-color .15s ease, color .15s ease;
-  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
-  border-width: 0;
-  letter-spacing: 1.2px;
-  min-width: 130px;
-  text-transform: uppercase;
-  white-space: normal
+    font-size: 18px;
+    line-height: 1.5;
+    border-radius: 500px;
+    padding: 12px 47px 8px;
+    -webkit-transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+    -o-transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+    border-width: 0;
+    letter-spacing: 1.2px;
+    min-width: 130px;
+    text-transform: uppercase;
+    white-space: normal
 }
 .btn {
     display: inline-block;
@@ -40,8 +40,8 @@ body {
 }
 .btn-primary:focus,
 .btn-primary:hover{
-  color: #fff;
-  background-color: #1ed760
+    color: #fff;
+    background-color: #1ed760
 }
 .btn-primary {
     background-image: url(https://image.ibb.co/d5BsQb/Spotify_Icon_RGB_White.png); /* 16px x 16px */
@@ -55,3 +55,14 @@ body {
     vertical-align: middle; /* align the text vertically centered */
 }
 /* end of styling for login button */
+
+
+.user-img {
+    margin: 10px
+}
+
+.btn-profile > a {
+    text-decoration: none;
+    color: white;
+    height: 20px
+}
