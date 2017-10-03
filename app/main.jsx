@@ -11,6 +11,7 @@ import Entry from './components/Entry'
 import AllConversations from './components/AllConversations'
 import OneConversation from './components/OneConversation'
 import AllMatches from './components/AllMatches'
+import MatchesChart from './components/MatchesChart'
 
 import firebase from 'APP/fire'
 
@@ -44,10 +45,11 @@ const auth = firebase.auth()
 render(
   <Router history={browserHistory}>
       <Route path="/" component={Entry} />
+      <Route exact path='/matchesChart' component={MatchesChart} />
       <Route path='/dashboard' component={Dashboard}/>
       <Route path='/messages' component={AllConversations}/>
       <Route path='/messages/:userId' component={OneConversation}/>
-      <Route path='/matches' component={AllMatches}/>
+      <Route exact path='/matches' component={AllMatches}/>
       <Route path='/profile/:userId' component={UserProfile} />
       <Route path='*' component={NotFound}/>
   </Router>,
