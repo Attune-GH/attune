@@ -262,14 +262,11 @@ const tracks = {
 
 export default () => {
   return (
-    //if ISUSER then render the log out button
     <div className="container">
-      {/* <div > */}
         <Image src={dummy.images[0].url} className="user-img" circle />
         <div>
           <h1>{dummy.display_name.split(' ').slice(0, 1).join('') || dummy.id}</h1>
           </div>
-      {/* </div> */}
       <button className="btn">message</button>
       <button className="btn">block</button>
       <div>
