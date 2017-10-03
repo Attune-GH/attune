@@ -24,6 +24,7 @@ class SimpleSlider extends React.Component {
           <div><OneMatch /></div>
           <div><OneMatch /></div>
         </Slider>
+        <div>Swipe Through</div>
       </div>
     )
   }
