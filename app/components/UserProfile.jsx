@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button, Image } from 'react-bootstrap'
 
 const dummy = {
   "country" : "US",
@@ -261,18 +262,18 @@ const tracks = {
 
 export default () => {
   return (
-    <div>
+    <div className="container">
+        <Image src={dummy.images[0].url} className="user-img" circle />
+        <div>
+          <h1>{dummy.display_name.split(' ').slice(0, 1).join('') || dummy.id}</h1>
+          </div>
+      <button className="btn">message</button>
+      <button className="btn">block</button>
       <div>
-        <img src={dummy.images[0].url} />
-        <div>{dummy.display_name.split(' ').slice(0, 1).join('')}</div>
+      <button className="btn btn-primary btn-profile"><a href={dummy.external_urls.spotify}>View Spotify Profile</a></button>
       </div>
-      <button>follow || message</button>
-      <button>block</button>
       <div>
-      <a href={dummy.external_urls.spotify} className="btn btn-default">Spotify Profile</a>
-      </div>
-      <div>
-        <div>Recently Played</div>
+        <div><h1>Recently Played</h1></div>
         <div>
           <div>{
             tracks.items.map((track) => <div id={track.id}><iframe src={`https://open.spotify.com/embed?uri=${track.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)

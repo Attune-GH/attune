@@ -29,6 +29,8 @@ exports.findMatches = functions.database.ref('/Users/{uri}')
         const user2TopTracks = childSnapshot.val().topTracks.tracks
         const user2RecentSongs = childSnapshot.val().recentSongs.songs
 
+        console.log(user2RecentSongs)
+
         const genreScore = genreSimScore(user1TopArtists, user2TopArtists)
         const recentSongsScore = recentSongsSimScore(user1RecentSongs, user2RecentSongs)
         const artistsScore = topArtistsSimScore(user1TopArtists, user2TopArtists)
