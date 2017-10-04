@@ -2,14 +2,14 @@
 
 module.exports = function(user1RecentTracks, user2RecentTracks) {
   let user1Arr = user1RecentTracks.map(track => {
-    let id = track.id
-    let popularityScore = 101 - track.popularity
+    let id = track.track.id
+    let popularityScore = 101 - track.track.popularity
     return {id, popularityScore}
   })
 
   let user2Arr = user2RecentTracks.map(track => {
-    let id = track.id
-    let popularityScore = 101 - track.popularityScore
+    let id = track.track.id
+    let popularityScore = 101 - track.track.popularity
     return {id, popularityScore}
   })
 
@@ -40,8 +40,7 @@ module.exports = function(user1RecentTracks, user2RecentTracks) {
 
   let unionScoreRecent = user1Total + user2Total
 
-  // return intersectionScoreRecent/unionScoreRecent
+  return intersectionScoreRecent/unionScoreRecent
 
-  return user1Arr
 }
 
