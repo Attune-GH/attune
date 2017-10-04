@@ -1323,10 +1323,18 @@ chalk@^1.0.0, chalk@^1.1.0, chalk@^1.1.1, chalk@^1.1.3:
     supports-color "^2.0.0"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 "charenc@>= 0.0.1":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
 =======
+=======
+
+"charenc@>= 0.0.1":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
+  
+>>>>>>> 9f856e27bb24bc6a7779e6d73ac908de510ab84e
 chart.js@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.7.0.tgz#330dbbee0c66199eb715f60fbf8ca4029609a529"
@@ -1346,7 +1354,10 @@ chartjs-color@~2.2.0:
   dependencies:
     chartjs-color-string "^0.5.0"
     color-convert "^0.5.3"
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> 9f856e27bb24bc6a7779e6d73ac908de510ab84e
 
 check-node-version@^1.1.2:
   version "1.1.2"
