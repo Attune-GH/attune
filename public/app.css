@@ -1,10 +1,26 @@
-
-@import "~slick-carousel/slick/slick.css";
-@import "~slick-carousel/slick/slick-theme.css";
-
+@font-face {
+  font-family: HelveticaNeue;
+  src: url("./font/HelveticaNeue.ttf");
+}
 body {
   background-color: black;
-  color: white
+  color: white;
+  font-family: HelveticaNeue
+}
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
 }
 
 /* start of styling for login button */
@@ -13,6 +29,7 @@ body {
   background-color: #2ebd59;
   border-color: #29a84f;
 }
+
 .btn {
   font-size: 18px;
   line-height: 1.5;
@@ -27,6 +44,7 @@ body {
   text-transform: uppercase;
   white-space: normal
 }
+
 .btn {
     display: inline-block;
     margin-bottom: 0;
@@ -41,13 +59,15 @@ body {
     -ms-user-select: none;
     user-select: none;
 }
+
 .btn-primary:focus,
 .btn-primary:hover{
   color: #fff;
   background-color: #1ed760
 }
+
 .btn-primary {
-    background-image: url(https://image.ibb.co/d5BsQb/Spotify_Icon_RGB_White.png); /* 16px x 16px */
+    background-image: url('/img/Spotify_Icon_RGB_White.png'); /* 16px x 16px */
     background-size: 40px;
     background-repeat: no-repeat;  /* make the background image appear only once */
     background-position: 20px 10px;  /* equivalent to 'top left' */
