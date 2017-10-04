@@ -5,8 +5,6 @@ import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router'
 import firebase from 'APP/fire'
 
 
-// const currentUser = firebase.auth().currentUser
-// console.log(currentUser)
 export default () => <div>
 
   <h2><Link to={`/profile/:userId`}>Profile</Link></h2>
