@@ -73,7 +73,6 @@ export default class MatchesChart extends Component {
     return (
       
       <div style={styles.graphContainer}>
-        {console.log(options)}
         <Radar data={data} options={options} />
       </div>
     )
