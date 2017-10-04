@@ -2,15 +2,13 @@ var functions = require('firebase-functions')
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-
 const genreSimScore = require('./genres');
 const recentSongsSimScore = require('./recentTracks');
 const topArtistsSimScore = require('./topArtists');
 const topTrackSimScore = require('./topTracks');
 
-exports.findMatches = functions.database.ref('/Users/{uri}')
+exports.findMatches = functions.database.ref('/Users/{uid}')
   .onWrite(event => {
-
     //we need top tracks, top artists, recent tracks, genres
     // const userId = event.params.userId
 
@@ -20,13 +18,12 @@ exports.findMatches = functions.database.ref('/Users/{uri}')
 
     // //we also need all of this for all other users
     // //dict  of key userId; value of matchScore
-    const matchDict = {}
+    const matchDict = {};
+    let uid;
 
     event.data.ref.parent.once('value', function(snapshot){
-        const users = Object.keys(snapshot.val())
-        console.log('snapshot.val', snapshot.val())
-        console.log('users', users)
 
+        const users = Object.keys(snapshot.val())
 
         users.forEach(user => {
 
@@ -43,8 +40,20 @@ exports.findMatches = functions.database.ref('/Users/{uri}')
 
           const matchScore = (genreScore + recentSongsScore + artistsScore + tracksScore)/4
 
-          if (!matchDict[user] & matchScore !== 0.5) matchDict[user] = matchScore
-          console.log(matchDict)
+          if (!matchDict[user] & matchScore !== 0.5) matchDict[user.toString()] = matchScore
+          if (matchScore === 0.5) uid = user
+
         })
+
+        return matchDict
     })
+    .then(u => {
+      return admin.database().ref(`/Users/${uid}/matches`).set({matchScores: matchDict})
+    })
+    .then(result => console.log('new matches written'))
+
+
+
+
+
 })
