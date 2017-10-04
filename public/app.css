@@ -4,6 +4,10 @@ body {
     color: white
 }
 
+.formInput {
+  color: black
+}
+
 /* start of styling for login button */
 .btn-primary {
     color: #fff;

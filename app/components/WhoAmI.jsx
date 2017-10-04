@@ -6,7 +6,7 @@ import Login from './Login'
 
 export const name = user => {
   if (!user) return 'Nobody'
-  if (user.isAnonymous) return 'Anonymous'
+  // if (user.isAnonymous) return 'Anonymous'
   return user.displayName || user.email
 }
 

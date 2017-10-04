@@ -204,7 +204,7 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
 
     request.get(optionsTopTracks, function(error, response, body){
       const items = body.items
-      const getTopTracks = admin.database().ref(`Users/${uid}/topTracks`)
+      const getTopTracks = admin.database().ref(`/Users/${uid}/topTracks`)
           .set({tracks: items})
     })
     
