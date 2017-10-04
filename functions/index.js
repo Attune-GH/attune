@@ -41,9 +41,9 @@ exports.findMatches = functions.database.ref('/Users/{uri}')
           const artistsScore = topArtistsSimScore(user1TopArtists, user2TopArtists)
           const tracksScore = topTrackSimScore(user1TopTracks, user2TopTracks)
 
-          const masterScore = (genreScore + recentSongsScore + artistsScore + tracksScore)/4
+          const matchScore = (genreScore + recentSongsScore + artistsScore + tracksScore)/4
 
-          if (!matchDict[user]) matchDict[user] = masterScore
+          if (!matchDict[user] & matchScore !== 0.5) matchDict[user] = matchScore
           console.log(matchDict)
         })
     })
