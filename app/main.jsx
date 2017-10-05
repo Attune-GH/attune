@@ -13,12 +13,8 @@ import Entry from './components/Entry'
 import AllConversations from './components/AllConversations'
 import OneConversation from './components/OneConversation'
 import AllMatches from './components/AllMatches'
-<<<<<<< HEAD
 import Convo from './components/Convo'
-=======
 import MatchesChart from './components/MatchesChart'
-
->>>>>>> master
 import firebase from 'APP/fire'
 // Get the auth API from Firebase.
 const auth = firebase.auth()

@@ -16,8 +16,15 @@ export default class Convo extends Component {
   }
 
   componentDidMount(){
+   //temporary until store is set up
     const {auth} = this.props
     this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));  
+
+
+
+
+
+
   }
 
   componentWillUnmount() {
@@ -36,16 +43,28 @@ export default class Convo extends Component {
 
     //Creates a new Convo Key for the convo *IF NO CONVO EXISTS WITH THE USER*
     const newConvoKey = firebase.database().ref().child('Convos').push().key
+      //writes to Users/UserId/ConvoIds to add a record of that conversation
+      firebase.database().ref(`Users/${userId}/ConvoIds`).update({"SarahUID:": newConvoKey})
+       
+      // firebase.database().ref(`Users/${userId}/ConvoIds`).push({"BobUID": newConvoKey})
+
+
+
       // var updates = {};
       // updates['/Convos/' + newConvoKey] = {}
       // firebase.database().ref().update(updates)
     
     //Write to Convos table at that Convo Key
-    firebase.database().ref('Convos/' + newConvoKey).push({author: this.state.currentUser.uid, content: this.state.enteredMessage})
+    firebase.database().ref('Convos/' + newConvoKey).push({from: this.state.currentUser.uid, content: this.state.enteredMessage})
     
     var updates = {};
     updates[`Users/${userId}/ConvoIds`] = newConvoKey
-    firebase.database().ref(`Users/${userId}/ConvoIds`).push(newConvoKey)
+
+  
+
+
+
+
     // firebase.database().ref().update(updates)
     // firebase.database().ref(`Users/${userId}/ConvoIds`).update(newConvoKey)
     
