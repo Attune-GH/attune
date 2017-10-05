@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import firebase from 'APP/fire'
+import { connect } from 'react-redux'
+import store from '../store/index'
 const auth = firebase.auth()
+import { fetchConvoIdThunk } from '../store/convo'
 
-
-export default class Convo extends Component {
+class Convo extends Component {
   constructor(props){
     super(props)
 
@@ -20,11 +22,8 @@ export default class Convo extends Component {
     const {auth} = this.props
     this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));  
 
-
-
-
-
-
+    //FOR NOW, FRIEND UID IS ALWAYS JUAN. WILL PASS IN AS PROPS SOMEHOW L8R
+    this.props.initializeConvo(this.state.currentUser.uid, "spotify:user:jpvelez")
   }
 
   componentWillUnmount() {
@@ -42,9 +41,9 @@ export default class Convo extends Component {
     const userId = this.state.currentUser.uid
 
     //Creates a new Convo Key for the convo *IF NO CONVO EXISTS WITH THE USER*
-    const newConvoKey = firebase.database().ref().child('Convos').push().key
+    
       //writes to Users/UserId/ConvoIds to add a record of that conversation
-      firebase.database().ref(`Users/${userId}/ConvoIds`).update({"SarahUID:": newConvoKey})
+      
        
       // firebase.database().ref(`Users/${userId}/ConvoIds`).push({"BobUID": newConvoKey})
 
@@ -55,16 +54,12 @@ export default class Convo extends Component {
       // firebase.database().ref().update(updates)
     
     //Write to Convos table at that Convo Key
-    firebase.database().ref('Convos/' + newConvoKey).push({from: this.state.currentUser.uid, content: this.state.enteredMessage})
+    firebase.database().ref('Convos/' + this.props.convoId).push({from: this.state.currentUser.uid, content: this.state.enteredMessage})
     
-    var updates = {};
-    updates[`Users/${userId}/ConvoIds`] = newConvoKey
+    // var updates = {};
+    // updates[`Users/${userId}/ConvoIds`] = newConvoKey
 
   
-
-
-
-
     // firebase.database().ref().update(updates)
     // firebase.database().ref(`Users/${userId}/ConvoIds`).update(newConvoKey)
     
@@ -112,6 +107,20 @@ export default class Convo extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch)=> {
+  return {
+    initializeConvo: function(uid, friendUid){
+      console.log("hit initialize convo!!!!!!!!!")
+      dispatch(fetchConvoIdThunk(uid, friendUid))
+    }
+  }
+}
 
-
-
+const mapStateToProps = state => {
+  return {
+    messages: state.messages,
+    convoId: state.convoId,
+    user: state.defaultUser
+  }
+}
+export default Convo = connect(mapStateToProps, mapDispatchToProps)(Convo)

@@ -56,8 +56,10 @@ render(
               <Route exact path="/" component={Entry} />
               <Route exact path='/matchesChart' component={MatchesChart} />
               <Route path='/dashboard' component={Dashboard}/>
+
+              <Route exact path='/messages/:userId' component={(props)=> <Convo auth={auth}/>}/>
               <Route path='/messages' component={AllConversations}/>
-              <Route path='/messages/:userId' component={(props)=> <Convo auth={auth}/>}/>
+
               <Route exact path='/matches' component={AllMatches}/>
               <Route path='/profile/:userId' component={UserProfile} />
               <Route path='*' component={NotFound}/>
