@@ -276,7 +276,7 @@ export default () => {
         <div><h1>Recently Played</h1></div>
         <div>
           <div>{
-            tracks.items.map((track) => <div id={track.id}><iframe src={`https://open.spotify.com/embed?uri=${track.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
+            tracks.items.map((track) => <div key={track.id}><iframe src={`https://open.spotify.com/embed?uri=${track.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
             }</div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 'use strict'
 import React from 'react'
-import {Router, Route, IndexRedirect, browserHistory, Switch} from 'react-router'
+import { Route, Switch } from 'react-router'
+import { BrowserRouter as Router } from 'react-router-dom'
 import {render} from 'react-dom'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -14,6 +15,7 @@ import AllConversations from './components/AllConversations'
 import OneConversation from './components/OneConversation'
 import AllMatches from './components/AllMatches'
 import MatchesChart from './components/MatchesChart'
+import Navbar from './components/Navbar'
 
 import firebase from 'APP/fire'
 // Get the auth API from Firebase.
@@ -41,18 +43,22 @@ const auth = firebase.auth()
 // the authentication information is fetched.
 //
 // If you don't want this behavior, just remove the line above.
-
 render(
   <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-    <Router history={browserHistory}>
-        <Route path="/" component={Entry} />
-        <Route exact path='/matchesChart' component={MatchesChart} />
-        <Route path='/dashboard' component={Dashboard}/>
-        <Route path='/messages' component={AllConversations}/>
-        <Route path='/messages/:userId' component={OneConversation}/>
-        <Route exact path='/matches' component={AllMatches}/>
-        <Route path='/profile/:userId' component={UserProfile} />
-        <Route path='*' component={NotFound}/>
+    <Router>
+      <div>
+        <Navbar/>
+          <Switch>
+            <Route exact path="/" component={Entry} />
+            <Route exact path='/matchesChart' component={MatchesChart} />
+            <Route path='/dashboard' component={Dashboard}/>
+            <Route path='/messages' component={AllConversations}/>
+            <Route path='/messages/:userId' component={OneConversation}/>
+            <Route exact path='/matches' component={AllMatches}/>
+            <Route path='/profile/:userId' component={UserProfile} />
+            <Route path='*' component={NotFound}/>
+          </Switch>
+        </div>
     </Router>
   </MuiThemeProvider>,
   document.getElementById('main')

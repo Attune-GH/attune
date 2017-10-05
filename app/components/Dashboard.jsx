@@ -1,8 +1,13 @@
 'use strict'
 
+<<<<<<< HEAD
 import React, { Component } from 'react'
 import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router'
 import { connect } from 'react-redux'
+=======
+import React from 'react'
+import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router-dom'
+>>>>>>> master
 import firebase from 'APP/fire'
 import store, { fetchUser } from '../store'
 
