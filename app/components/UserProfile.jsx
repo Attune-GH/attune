@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Image } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import store from '../store'
+import firebase from 'APP/fire'
 
 const dummy = {
   "country" : "US",
@@ -263,27 +263,30 @@ const tracks = {
   "href" : "https://api.spotify.com/v1/me/player/recently-played?limit=3"
 }
 
+const db = firebase.database()
+const recentTracks = db.ref('Users')
 
 
 const UserProfile = (props) => {
-  console.log(this.props)
+  const {user} = props
+  console.log(recentTracks)
   return (
     <div className="container">
-        <Image src={dummy.images[0].url} className="user-img" circle />
+        <Image src={user.photoURL} className="user-img" circle />
         <div>
-          <h1>{dummy.display_name.split(' ').slice(0, 1).join('') || dummy.id}</h1>
+          <h1>{user.displayName}</h1>
           </div>
       <button className="btn">message</button>
       <button className="btn">block</button>
       <div>
-      <button className="btn btn-primary btn-profile"><a href={dummy.external_urls.spotify}>View Spotify Profile</a></button>
+      <button className="btn btn-primary btn-profile"><a href={`https://open.spotify.com/user/${user.displayName}`}>View Spotify Profile</a></button>
       </div>
       <div>
         <div><h1>Recently Played</h1></div>
         <div>
-          <div>{
+          {/* <div>{
             tracks.items.map((track) => <div key={track.id}><iframe src={`https://open.spotify.com/embed?uri=${track.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
-            }</div>
+            }</div> */}
         </div>
       </div>
     </div>
@@ -293,16 +296,8 @@ const UserProfile = (props) => {
 
 const mapState = (state, ownProps) => {
   return {
-      user: state.users
+      user: state.user
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    getUser() {
-
-    }
-  }
-}
-
-export default withRouter(connect(mapState, mapDispatch)(UserProfile));
+export default withRouter(connect(mapState)(UserProfile));
