@@ -283,3 +283,13 @@ export default () => {
     </div>
   )
 }
+
+
+
+const mapDispatch = dispatch => {
+  return {
+    getUser() {
+
+    }
+  }
+}
