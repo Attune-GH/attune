@@ -1,17 +1,40 @@
 'use strict'
 
-import React from 'react'
-import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router'
+import React, {Component} from 'react'
+import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router-dom'
 import firebase from 'APP/fire'
+import store, { fetchUser } from '../store'
+import {connect} from 'react-redux'
 
 
-export default () => <div>
+class Dashboard extends Component {
+  constructor(props) {
+    super(props)
+  }
 
-  <h2><Link to={`/profile/:userId`}>Profile</Link></h2>
+  componentDidMount() {
+    store.dispatch(fetchUser())
+  }
 
-  <h2><Link to='/messages'>Messages</Link></h2>
+  render() {
+    return (
+      <div>
 
-  <h2><Link to='/matches'>Matches</Link></h2>
+        <h2><Link to={`/profile/${this.props.userId}`}>Profile</Link></h2>
 
-</div>
+        <h2><Link to='/messages'>Messages</Link></h2>
 
+        <h2><Link to='/matches'>Matches</Link></h2>
+
+      </div>
+    )
+  }
+}
+
+const mapState = state => {
+  return {
+    userId: state.user.uid
+  }
+}
+
+export default connect(mapState)(Dashboard)
