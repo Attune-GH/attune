@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <link rel="stylesheet" href="/app.css">
     <link rel="manifest" href="/manifest.json">
@@ -12,35 +14,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <!-- Make sure theme-color is defined -->
     <meta name="theme-color" content="#536878">
-    <style type="text/css">
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-      }
-      .App {
-        text-align: center;
-      }
-      .App-header {
-        background-color: #222;
-        height: 150px;
-        padding: 20px;
-        color: white;
-      }
-      .App-intro {
-        font-size: large;
-      }
-    </style>
   </head>
   <body>
       <div id="main">
           <div class="App">
           <div class="App-header">
-            <h2>Home</h2>
           </div>
-          <p class="App-intro">
-            Loading site...
-          </p>
+          <img src="/img/Radio.svg" class="load" />
         </div>
         <script>
           if ('serviceWorker' in navigator) {
