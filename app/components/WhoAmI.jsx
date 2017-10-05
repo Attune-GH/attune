@@ -39,7 +39,6 @@ class SmartWhoAmI extends React.Component {
   }
 
   login() {
-    console.log('login function')
     this.props.history.push('/dashboard')
   }
 

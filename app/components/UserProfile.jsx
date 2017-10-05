@@ -1,5 +1,8 @@
 import React from 'react'
 import { Button, Image } from 'react-bootstrap'
+import { withRouter } from 'react-router'
+import { connect } from 'react-redux'
+import store from '../store'
 
 const dummy = {
   "country" : "US",
@@ -260,7 +263,10 @@ const tracks = {
   "href" : "https://api.spotify.com/v1/me/player/recently-played?limit=3"
 }
 
-export default () => {
+
+
+const UserProfile = (props) => {
+  console.log(this.props)
   return (
     <div className="container">
         <Image src={dummy.images[0].url} className="user-img" circle />
@@ -285,6 +291,11 @@ export default () => {
 }
 
 
+const mapState = (state, ownProps) => {
+  return {
+      user: state.users
+  }
+}
 
 const mapDispatch = dispatch => {
   return {
@@ -293,3 +304,5 @@ const mapDispatch = dispatch => {
     }
   }
 }
+
+export default withRouter(connect(mapState, mapDispatch)(UserProfile));
