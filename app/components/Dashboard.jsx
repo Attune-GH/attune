@@ -1,7 +1,8 @@
 'use strict'
 
-import React from 'react'
+import React, { Component } from 'react'
 import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router'
+import { connect } from 'react-redux'
 import firebase from 'APP/fire'
 import store, { fetchUser } from '../store'
 
@@ -36,3 +37,4 @@ const mapState = state => {
   }
 }
 
+export default connect(mapState)(Dashboard)
