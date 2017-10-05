@@ -2,7 +2,9 @@
 import React from 'react'
 import {Router, Route, IndexRedirect, browserHistory, Switch} from 'react-router'
 import {render} from 'react-dom'
-
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import UserProfile from './components/UserProfile'
@@ -14,8 +16,6 @@ import AllMatches from './components/AllMatches'
 import MatchesChart from './components/MatchesChart'
 
 import firebase from 'APP/fire'
-
-
 // Get the auth API from Firebase.
 const auth = firebase.auth()
 // Ensure that we have (almost) always have a user ID, by creating
@@ -43,15 +43,17 @@ const auth = firebase.auth()
 // If you don't want this behavior, just remove the line above.
 
 render(
-  <Router history={browserHistory}>
-      <Route path="/" component={Entry} />
-      <Route exact path='/matchesChart' component={MatchesChart} />
-      <Route path='/dashboard' component={Dashboard}/>
-      <Route path='/messages' component={AllConversations}/>
-      <Route path='/messages/:userId' component={OneConversation}/>
-      <Route exact path='/matches' component={AllMatches}/>
-      <Route path='/profile/:userId' component={UserProfile} />
-      <Route path='*' component={NotFound}/>
-  </Router>,
+  <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+    <Router history={browserHistory}>
+        <Route path="/" component={Entry} />
+        <Route exact path='/matchesChart' component={MatchesChart} />
+        <Route path='/dashboard' component={Dashboard}/>
+        <Route path='/messages' component={AllConversations}/>
+        <Route path='/messages/:userId' component={OneConversation}/>
+        <Route exact path='/matches' component={AllMatches}/>
+        <Route path='/profile/:userId' component={UserProfile} />
+        <Route path='*' component={NotFound}/>
+    </Router>
+  </MuiThemeProvider>,
   document.getElementById('main')
 )
