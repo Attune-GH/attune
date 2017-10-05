@@ -10,7 +10,8 @@ const topTrackSimScore = require('./topTracks');
 exports.findMatches = functions.database.ref('/Users/{uid}')
   .onWrite(event => {
     //we need top tracks, top artists, recent tracks, genres
-    // const userId = event.params.userId
+    const userId = event.params.uid
+    console.log('userId', userId)
 
     const user1TopArtists = event.data.val().topArtists.artists
     const user1TopTracks = event.data.val().topTracks.tracks
@@ -28,6 +29,7 @@ exports.findMatches = functions.database.ref('/Users/{uid}')
         users.forEach(user => {
 
           const userInfo = (snapshot.val()[user])
+          console.log('user in loop', userInfo)
 
           const user2TopArtists = userInfo.topArtists.artists
           const user2TopTracks = userInfo.topTracks.tracks
@@ -41,14 +43,19 @@ exports.findMatches = functions.database.ref('/Users/{uid}')
           const matchScore = (genreScore + recentSongsScore + artistsScore + tracksScore)/4
 
           if (!matchDict[user] & matchScore !== 0.5) matchDict[user.toString()] = matchScore
-          if (matchScore === 0.5) uid = user
+
+          if (matchScore === 0.5) {
+            uid = user
+            console.log('i think ive matched with user1 uid', uid)
+          }
 
         })
 
         return matchDict
     })
     .then(u => {
-      return admin.database().ref(`/Users/${uid}/matches`).set({matchScores: matchDict})
+      console.log('where im writing to', `/Users/${uid}/matches`)
+      return admin.database().ref(`/Users/${uid}/matches`).update({matchScores: matchDict})
     })
     .then(result => console.log('new matches written'))
 
