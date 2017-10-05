@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 const auth = firebase.auth()
 
+
 export default class Convo extends Component {
   constructor(props){
     super(props)
@@ -33,7 +34,7 @@ export default class Convo extends Component {
     event.preventDefault()
     const userId = this.state.currentUser.uid
 
-    //Creates a new Convo Key for the convo
+    //Creates a new Convo Key for the convo *IF NO CONVO EXISTS WITH THE USER*
     const newConvoKey = firebase.database().ref().child('Convos').push().key
       // var updates = {};
       // updates['/Convos/' + newConvoKey] = {}
