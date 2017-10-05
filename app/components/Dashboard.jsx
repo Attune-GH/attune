@@ -3,15 +3,36 @@
 import React from 'react'
 import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router'
 import firebase from 'APP/fire'
+import store, { fetchUser } from '../store'
 
 
-export default () => <div>
+class Dashboard extends Component {
+  constructor(props) {
+    super(props)
+  }
 
-  <h2><Link to={`/profile/:userId`}>Profile</Link></h2>
+  componentDidMount() {
+    store.dispatch(fetchUser())
+  }
 
-  <h2><Link to='/messages'>Messages</Link></h2>
+  render() {
+    return (
+      <div>
 
-  <h2><Link to='/matches'>Matches</Link></h2>
+        <h2><Link to={this.props.userID && `/profile/${this.props.userID}`}>Profile</Link></h2>
 
-</div>
+        <h2><Link to='/messages'>Messages</Link></h2>
+
+        <h2><Link to='/matches'>Matches</Link></h2>
+
+      </div>
+    )
+  }
+}
+
+const mapState = state => {
+  return {
+    userId: state.user.uid
+  }
+}
 
