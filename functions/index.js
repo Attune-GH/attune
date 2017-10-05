@@ -54,7 +54,6 @@ exports.findMatches = functions.database.ref('/Users/{uid}/')
 
           if (matchScore === 0.5) {
             uid = user
-            console.log('i think ive matched with user1 uid', uid)
           }
 
         })
