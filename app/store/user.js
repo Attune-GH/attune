@@ -27,7 +27,6 @@ const removeUser = () => ({type: REMOVE_USER})
 export const fetchUser = () =>
   dispatch =>
     auth.onAuthStateChanged(currentUser => dispatch(getUser(currentUser)))
-      .catch(err => console.log(err))
 
 // export const auth = (email, password, method) =>
 //   dispatch =>

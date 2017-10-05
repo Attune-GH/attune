@@ -16,6 +16,8 @@ import OneConversation from './components/OneConversation'
 import AllMatches from './components/AllMatches'
 import MatchesChart from './components/MatchesChart'
 import Navbar from './components/Navbar'
+import store from './store'
+import {Provider} from 'react-redux'
 
 import firebase from 'APP/fire'
 // Get the auth API from Firebase.
@@ -44,22 +46,24 @@ const auth = firebase.auth()
 //
 // If you don't want this behavior, just remove the line above.
 render(
-  <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-    <Router>
-      <div>
-        <Navbar/>
-          <Switch>
-            <Route exact path="/" component={Entry} />
-            <Route exact path='/matchesChart' component={MatchesChart} />
-            <Route path='/dashboard' component={Dashboard}/>
-            <Route path='/messages' component={AllConversations}/>
-            <Route path='/messages/:userId' component={OneConversation}/>
-            <Route exact path='/matches' component={AllMatches}/>
-            <Route path='/profile/:userId' component={UserProfile} />
-            <Route path='*' component={NotFound}/>
-          </Switch>
-        </div>
-    </Router>
-  </MuiThemeProvider>,
+  <Provider store={store}>
+    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+      <Router>
+        <div>
+          <Navbar/>
+            <Switch>
+              <Route exact path="/" component={Entry} />
+              <Route exact path='/matchesChart' component={MatchesChart} />
+              <Route path='/dashboard' component={Dashboard}/>
+              <Route path='/messages' component={AllConversations}/>
+              <Route path='/messages/:userId' component={OneConversation}/>
+              <Route exact path='/matches' component={AllMatches}/>
+              <Route path='/profile/:userId' component={UserProfile} />
+              <Route path='*' component={NotFound}/>
+            </Switch>
+          </div>
+      </Router>
+    </MuiThemeProvider>
+  </Provider>,
   document.getElementById('main')
 )

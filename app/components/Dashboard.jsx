@@ -1,15 +1,10 @@
 'use strict'
 
-<<<<<<< HEAD
-import React, { Component } from 'react'
-import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router'
-import { connect } from 'react-redux'
-=======
-import React from 'react'
+import React, {Component} from 'react'
 import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router-dom'
->>>>>>> master
 import firebase from 'APP/fire'
 import store, { fetchUser } from '../store'
+import {connect} from 'react-redux'
 
 
 class Dashboard extends Component {
@@ -25,7 +20,7 @@ class Dashboard extends Component {
     return (
       <div>
 
-        <h2><Link to={this.props.userID && `/profile/${this.props.userID}`}>Profile</Link></h2>
+        <h2><Link to={`/profile/${this.props.userId}`}>Profile</Link></h2>
 
         <h2><Link to='/messages'>Messages</Link></h2>
 
