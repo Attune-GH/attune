@@ -39,7 +39,8 @@ class SmartWhoAmI extends React.Component {
   }
 
   login() {
-    this.props.router.push('/dashboard')
+    console.log('login function')
+    this.props.history.push('/dashboard')
   }
 
   render() {
@@ -51,6 +52,6 @@ class SmartWhoAmI extends React.Component {
 export default withRouter(SmartWhoAmI)
 
 // Logout button
-{/* <div> 
+{/* <div>
   <button className='btn btn-primary' onClick={() => auth.signOut()}>Logout</button>
 </div> */}

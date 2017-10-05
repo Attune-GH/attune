@@ -2,7 +2,7 @@ import React from 'react'
 import firebase from 'APP/fire'
 
 
-const google = new firebase.auth.GoogleAuthProvider()
+// const google = new firebase.auth.GoogleAuthProvider()
 
 
 export default ({ auth }) =>

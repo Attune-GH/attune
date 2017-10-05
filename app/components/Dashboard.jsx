@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router'
+import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router-dom'
 import firebase from 'APP/fire'
 
 

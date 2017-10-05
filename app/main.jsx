@@ -51,8 +51,8 @@ render(
       <div>
         <Navbar/>
           <Switch>
-            <Route path="/" component={Entry} />
-            <Route exact path='/matchesChart' component={MatchesChart} />
+            <Route exact path="/" component={Entry} />
+            {/* <Route exact path='/matchesChart' component={MatchesChart} /> */}
             <Route path='/dashboard' component={Dashboard}/>
             <Route path='/messages' component={AllConversations}/>
             <Route path='/messages/:userId' component={OneConversation}/>
