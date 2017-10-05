@@ -1,7 +1,6 @@
 'use strict'
 import React from 'react'
-// import {Router, Route, IndexRedirect, browserHistory, Switch} from 'react-router'
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router'
 import { BrowserRouter as Router } from 'react-router-dom'
 import {render} from 'react-dom'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
@@ -44,7 +43,6 @@ const auth = firebase.auth()
 // the authentication information is fetched.
 //
 // If you don't want this behavior, just remove the line above.
-console.log(Navbar)
 render(
   <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
     <Router>
@@ -52,7 +50,7 @@ render(
         <Navbar/>
           <Switch>
             <Route exact path="/" component={Entry} />
-            {/* <Route exact path='/matchesChart' component={MatchesChart} /> */}
+            <Route exact path='/matchesChart' component={MatchesChart} />
             <Route path='/dashboard' component={Dashboard}/>
             <Route path='/messages' component={AllConversations}/>
             <Route path='/messages/:userId' component={OneConversation}/>
