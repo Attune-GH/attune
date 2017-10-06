@@ -3,7 +3,7 @@ import { Button, Image } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import firebase from 'APP/fire'
-import { getRecentSongs, getMatches } from 'APP/fire/refs'
+import { getRecentSongs,  } from 'APP/fire/refs'
 const auth = firebase.auth()
 
 const db = firebase.database()
@@ -12,19 +12,21 @@ class UserProfile extends Component {
   constructor(props) {
     super()
     this.state = {
-      recentSongs: []
+      recentSongs: [],
+      user: {}
     }
   }
 
   componentDidMount() {
     const uid = this.props.match.params.userId
     getRecentSongs(uid).then(recentSongs => this.setState({ recentSongs }))
+    getUserProfile(uid).then(user => this.setState({ user }))
   }
 
   render() {
-    const { user } = this.props || this.state.user
+    const { user } = this.props || this.state
     const recentSongs = this.state.recentSongs.slice(0, 3)
-
+    console.log(this.state.user)
     return (
       <div className="container">
         <Image src={user.photoURL} className="user-img" circle />

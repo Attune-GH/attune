@@ -101,11 +101,11 @@ app.get('/callback', function(req, res) {
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
-        
+
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           if (body.display_name === null || undefined)  body.display_name = body.id
-          if(!body.images.length) body.images.push({url: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAAAAJGY5YjFhN2Q2LTUyNjMtNDQ4OS04Mzk5LTcyMGQyM2E0MTgwOA.jpg'}) 
+          if(!body.images.length) body.images.push({url: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAAAAJGY5YjFhN2Q2LTUyNjMtNDQ4OS04Mzk5LTcyMGQyM2E0MTgwOA.jpg'})
           const {uri, id, display_name, images: [{url: profilePic}]} = body
 
           createFirebaseAccount(uri, display_name, profilePic, access_token, refresh_token)
@@ -169,6 +169,13 @@ function signInFirebaseTemplate(token) {
 }
 
 function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshToken) {
+
+  const userProfile = {
+      url: 'https://api.spotify.com/v1/me',
+      headers: { 'Authorization': 'Bearer ' + accessToken },
+      json: true
+    };
+
   const optionsRecent = {
       url: 'https://api.spotify.com/v1/me/player/recently-played?limit=50',
       headers: { 'Authorization': 'Bearer ' + accessToken },
@@ -187,19 +194,25 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       json: true
     }
 
+    request.get(userProfile, function(error, response, body){
+      const items = body.items
+      const getUserProfile = admin.database().ref(`/Users/${uid}/userProfile`)
+          .set({userProfile: items})
+    })
+
     request.get(optionsRecent, function(error, response, body){
       const items = body.items
       const getRecentSongs = admin.database().ref(`/Users/${uid}/recentSongs`)
           .set({songs: items})
     })
-      
+
 
     request.get(optionsTopArtists, function(error, response, body){
       const items = body.items
       const getTopArists = admin.database().ref(`/Users/${uid}/topArtists`)
           .set({artists: items})
     })
-  
+
 
 
     request.get(optionsTopTracks, function(error, response, body){
@@ -207,7 +220,6 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       const getTopTracks = admin.database().ref(`Users/${uid}/topTracks`)
           .set({tracks: items})
     })
-    
 
 
     const databaseTask = admin.database().ref(`/spotifyAccessToken/${uid}`)
@@ -225,13 +237,14 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       }
       throw error;
     });
-  
+
     return Promise.all([userCreationTask, databaseTask]).then(() => {
       const token = admin.auth().createCustomToken(uid);
       console.log('Created Custom token for UID "', uid, '" Token:', token);
       return token;
     });
   }
+
 
 console.log('Listening on 1337');
 app.listen(1337);
