@@ -21,7 +21,6 @@ class Routes extends Component {
 
 
   render() {
-    // let {user} = this.props
     const {user} = store.getState()
     if(!user.uid && this.props.location.pathname !== '/' ) {
       return (
