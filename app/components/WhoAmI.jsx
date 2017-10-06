@@ -20,7 +20,7 @@ export const WhoAmI = ({user}) => {
         (!user.uid)?
         // ...then show signin links...
         <Login auth={auth}/>
-        /// ...otherwise, show a logout button.
+        /// ...otherwise, go to dashboard
         :
         <Redirect to="/dashboard"/>
         }

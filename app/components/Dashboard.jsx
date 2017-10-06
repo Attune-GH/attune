@@ -11,6 +11,12 @@ const auth = firebase.auth()
 class Dashboard extends Component {
   constructor(props) {
     super(props)
+    this.onLogout = this.onLogout.bind(this)
+  }
+
+  onLogout() {
+    auth.signOut()
+    .then(() => this.props.history.push('/'))
   }
 
 
@@ -26,7 +32,7 @@ class Dashboard extends Component {
 
         {/* Logout button, temporary placement */}
         <div>
-          <button className='btn btn-primary' onClick={() => auth.signOut()}>Logout</button>
+          <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
       </div>
     )
