@@ -1,5 +1,5 @@
 import firebase from 'APP/fire'
-import getMessagesThunk from './messages'
+import { getMessagesThunk } from './messages'
 
 const UsersRef = firebase.database().ref(`/Users`)
 
@@ -39,7 +39,7 @@ const findConvoId = convoId => ({type: FIND_CONVO_ID, convoId})
               console.log("updating friend node")
               var updateFriend = {}
               updateFriend[uid] = newConvoKey
-              return firebase.database().ref(`Users/${friendUid}/ConvoIds/${uid}`).update(updates) 
+              return firebase.database().ref(`Users/${friendUid}/ConvoIds`).update(updateFriend) 
               // return firebase.database().ref(`Users/${friendUid}/ConvoIds`).update({uid: newConvoKey}) 
             })
             .then(()=> {
@@ -63,7 +63,7 @@ const findConvoId = convoId => ({type: FIND_CONVO_ID, convoId})
 
 //REDUCER
 
-export default function reducer(convoId = [], action){
+export default function reducer(convoId = '', action){
   switch(action.type){
 
     case FIND_CONVO_ID:

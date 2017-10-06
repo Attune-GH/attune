@@ -5,28 +5,27 @@ import store from '../store/index'
 const auth = firebase.auth()
 import { fetchConvoIdThunk } from '../store/convo'
 
+let friendUid = "spotify:user:jpvelez"
+
 class Convo extends Component {
   constructor(props){
     super(props)
 
     this.state = {
-      currentUser: {},
+      // currentUser: {},
       enteredMessage: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount(){
-   //temporary until store is set up
-    const {auth} = this.props
+  componentWillReceiveProps(nextProps){
     // this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));  
 
     //FOR NOW, FRIEND UID IS ALWAYS JUAN. WILL PASS IN AS PROPS SOMEHOW L8R
-
-    console.log("THIS.PROPS.USER!!!!!!!!!", this.props.user)
-    console.log("THIS.PROPS.USER.UID", this.props.user.uid)
-    this.props.initializeConvo(this.props.user.uid, "spotify:user:jpvelez")
+    if(this.props.user.uid !== nextProps.user.uid){
+      this.props.initializeConvo(nextProps.user.uid, friendUid)
+    }
   }
 
   componentWillUnmount() {
@@ -50,14 +49,14 @@ class Convo extends Component {
        
       // firebase.database().ref(`Users/${userId}/ConvoIds`).push({"BobUID": newConvoKey})
 
-
-
       // var updates = {};
       // updates['/Convos/' + newConvoKey] = {}
       // firebase.database().ref().update(updates)
     
     //Write to Convos table at that Convo Key
-    firebase.database().ref('Convos/' + this.props.convoId).push({from: this.state.currentUser.uid, content: this.state.enteredMessage})
+    console.log("this.props.convoId", this.props.convoId)
+    console.log("THIS PROPS", this.props)
+    firebase.database().ref('Convos/' + this.props.convoId).push({from: this.props.user.uid, content: this.state.enteredMessage})
     
     // var updates = {};
     // updates[`Users/${userId}/ConvoIds`] = newConvoKey
@@ -84,12 +83,12 @@ class Convo extends Component {
     <div className = "container">
       <h3> Scintillating Conversation Between Two Interesting People Who Love The Same Music </h3>
         <br/>
-        {this.state.currentUser.displayName}: YOURE SO CHARMING
+        {this.props.user.displayName}: YOURE SO CHARMING
         <br/>
-        Bob: NO YOURE SO CHARMING
+        {friendUid.slice(13)}: NO YOURE SO CHARMING
         <div >
         <form onSubmit = {this.handleSubmit}>
-            <label>{this.state.currentUser.displayName}:</label> 
+            <label>{this.props.user.displayName}:</label> 
             <input
               className = "formInput"
               name="messageField"
@@ -121,7 +120,7 @@ const mapDispatchToProps = (dispatch)=> {
 const mapStateToProps = state => {
   return {
     messages: state.messages,
-    convoId: state.convoId,
+    convoId: state.convo,
     user: state.user
   }
 }

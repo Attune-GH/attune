@@ -12,7 +12,7 @@ const GET_USER = 'GET_USER'
 /**
  * INITIAL STATE
  */
-const defaultUser = null
+const defaultUser = {}
 
 /**
  * ACTION CREATORS
