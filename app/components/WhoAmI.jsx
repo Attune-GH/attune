@@ -20,15 +20,13 @@ export const WhoAmI = ({user}) => {
         (!user.uid)?
         // ...then show signin links...
         <Login auth={auth}/>
-        /// ...otherwise, show a logout button.
+        /// ...otherwise, go to dashboard
         :
         <Redirect to="/dashboard"/>
         }
     </div>
   )
 }
-  
-
 
 const mapState = state => {
   return {
@@ -36,11 +34,4 @@ const mapState = state => {
   }
 }
 
-
-
 export default connect(mapState)(WhoAmI)
-
-// Logout button
-{/* <div>
-  <button className='btn btn-primary' onClick={() => auth.signOut()}>Logout</button>
-</div> */}

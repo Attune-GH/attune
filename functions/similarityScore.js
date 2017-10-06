@@ -12,7 +12,7 @@ let similarityScore = (totalIntersectScore) / (totalUnionScore)
 
 
     const recentSongs = event.data.val().recentSongs.songs.{id}.track
-    const topTracks = event.data.val().topTracks.tracks.{id}
+    const topTracks = event.data.topTracks.tracks.{id}
     const topArtists = event.data.val().topArtists.artists.{id}
 
 

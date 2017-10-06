@@ -54,10 +54,12 @@ class Convo extends Component {
       // firebase.database().ref().update(updates)
     
     //Write to Convos table at that Convo Key
-    console.log("this.props.convoId", this.props.convoId)
-    console.log("THIS PROPS", this.props)
-    firebase.database().ref('Convos/' + this.props.convoId).push({from: this.props.user.uid, content: this.state.enteredMessage})
-    
+    console.log("I HAVE BEEN CLICKED")
+    firebase.database().ref(`Convos/${this.props.convoId}`).push({from: this.props.user.uid, content: this.state.enteredMessage})
+    firebase.database().ref(`Convos/${this.props.convoId}`).on("child_added", ()=> {
+      console.log("SENT A MESSAGE IM IN THE CALLBACK")
+      console.log("this.props.messages MEOW!!!!!!", this.props.messages)
+    })
     // var updates = {};
     // updates[`Users/${userId}/ConvoIds`] = newConvoKey
 
@@ -83,6 +85,11 @@ class Convo extends Component {
     <div className = "container">
       <h3> Scintillating Conversation Between Two Interesting People Who Love The Same Music </h3>
         <br/>
+
+        {Object.entries(this.props.messages).map((message)=> {
+          <h3>{message[1].content}</h3>
+        })}
+
         {this.props.user.displayName}: YOURE SO CHARMING
         <br/>
         {friendUid.slice(13)}: NO YOURE SO CHARMING
