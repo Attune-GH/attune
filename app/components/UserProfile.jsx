@@ -22,6 +22,8 @@ class UserProfile extends Component {
 
   render() {
     const { user } = this.props
+    const recentSongs = this.state.recentSongs.slice(0, 3)
+    if (recentSongs[0]) console.log(recentSongs[0].track.uri)
     return (
       <div className="container">
         <Image src={user.photoURL} className="user-img" circle />
