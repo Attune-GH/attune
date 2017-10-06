@@ -5,9 +5,16 @@ import UserProfile from './UserProfile'
 import OneMatch from './OneMatch'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
+import { getMatches } from 'APP/fire/refs'
 
 class SimpleSlider extends React.Component {
 
+  constructor(props) {
+    super()
+    this.state = {
+      matches: []
+    }
+  }
 
   render() {
     var settings = {
@@ -18,13 +25,20 @@ class SimpleSlider extends React.Component {
       slidesToScroll: 1,
       arrows: true
     }
-    //we need to pass in match props
-    //assuming state.matches is an array of 4 and that it is sorted
-    //this is a big assumption
-    //(when we assume we make an ass of u and me)
+
+  componentWillReceiveProps(nextProps){
+    if(this.props.user.uid !== nextProps.user.uid){
+    }
+  }
+
+  componentDidMount() {
+    const uid = this.props.user.uid
+    getMatches(uid).then(matches => this.setState({ matches }))
+  }
 
     return (
-      const matches = props.matches
+      const matches = this.state.matches
+      console.log(matches)
       <div >
         <h1>Your Matches</h1>
         <Slider {...settings} className="container">
@@ -40,7 +54,7 @@ class SimpleSlider extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    matches: state.matches
+    user: state.user
   }
 }
 
