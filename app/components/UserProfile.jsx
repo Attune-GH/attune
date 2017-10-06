@@ -22,7 +22,6 @@ class UserProfile extends Component {
 
   render() {
     const { user } = this.props
-    console.log(this.state.matches)
     return (
       <div className="container">
         <Image src={user.photoURL} className="user-img" circle />
