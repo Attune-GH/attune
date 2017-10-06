@@ -1,5 +1,9 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Button, Image } from 'react-bootstrap'
+import firebase from 'APP/fire'
+import store from '../store'
+import {connect} from 'react-redux'
+
 
 const dummy = {
   "country" : "US",
@@ -260,36 +264,52 @@ const tracks = {
   "href" : "https://api.spotify.com/v1/me/player/recently-played?limit=3"
 }
 
-export default () => {
-  return (
-    <div className="container">
+class UserProfile extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    const user = this.props.user
+    console.log(user && user)
+    return (
+      <div className="container">
         <Image src={dummy.images[0].url} className="user-img" circle />
+          <div>
+            <h1>{dummy.display_name.split(' ').slice(0, 1).join('') || dummy.id}</h1>
+            </div>
+        <button className="btn">message</button>
+        <button className="btn">block</button>
         <div>
-          <h1>{dummy.display_name.split(' ').slice(0, 1).join('') || dummy.id}</h1>
+        <button className="btn btn-primary btn-profile"><a href={dummy.external_urls.spotify}>View Spotify Profile</a></button>
+        </div>
+        <div>
+          <div><h1>Recently Played</h1></div>
+          <div>
+            {/* <div>{
+              tracks.items.map((track) => <div key={track.id}><iframe src={`https://open.spotify.com/embed?uri=${track.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
+              }</div> */}
           </div>
-      <button className="btn">message</button>
-      <button className="btn">block</button>
-      <div>
-      <button className="btn btn-primary btn-profile"><a href={dummy.external_urls.spotify}>View Spotify Profile</a></button>
-      </div>
-      <div>
-        <div><h1>Recently Played</h1></div>
-        <div>
-          <div>{
-            tracks.items.map((track) => <div key={track.id}><iframe src={`https://open.spotify.com/embed?uri=${track.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
-            }</div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
+  
 }
 
 
-
-const mapDispatch = dispatch => {
+const mapState = state => {
   return {
-    getUser() {
-
-    }
+    user: state.user
   }
 }
+
+// const mapDispatch = dispatch => {
+//   return {
+//     getUser() {
+
+//     }
+//   }
+// }
+
+export default connect(mapState)(UserProfile)

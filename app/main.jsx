@@ -6,23 +6,13 @@ import {render} from 'react-dom'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import WhoAmI from './components/WhoAmI'
-import NotFound from './components/NotFound'
-import UserProfile from './components/UserProfile'
-import Dashboard from './components/Dashboard'
-import Entry from './components/Entry'
-import AllConversations from './components/AllConversations'
-import OneConversation from './components/OneConversation'
-import AllMatches from './components/AllMatches'
-import Convo from './components/Convo'
-import MatchesChart from './components/MatchesChart'
-import Navbar from './components/Navbar'
 import store from './store'
 import {Provider} from 'react-redux'
+import Routes from './routes'
 
 import firebase from 'APP/fire'
 // Get the auth API from Firebase.
-const auth = firebase.auth()
+
 // Ensure that we have (almost) always have a user ID, by creating
 // an anonymous user if nobody is signed in.
 // auth.onAuthStateChanged(user => user || auth.signInAnonymously())
@@ -49,23 +39,7 @@ const auth = firebase.auth()
 render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-      <Router>
-        <div>
-          <Navbar/>
-            <Switch>
-              <Route exact path="/" component={Entry} />
-              <Route exact path='/matchesChart' component={MatchesChart} />
-              <Route path='/dashboard' component={Dashboard}/>
-
-              <Route exact path='/messages/:userId' component={(props)=> <Convo auth={auth}/>}/>
-              <Route path='/messages' component={AllConversations}/>
-
-              <Route exact path='/matches' component={AllMatches}/>
-              <Route path='/profile/:userId' component={UserProfile} />
-              <Route path='*' component={NotFound}/>
-            </Switch>
-          </div>
-      </Router>
+      <Routes />
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('main')

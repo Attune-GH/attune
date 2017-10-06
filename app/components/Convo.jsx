@@ -23,6 +23,8 @@ class Convo extends Component {
     this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));  
 
     //FOR NOW, FRIEND UID IS ALWAYS JUAN. WILL PASS IN AS PROPS SOMEHOW L8R
+    console.log("this.props.user.uid in componentdidmount", this.props.user)
+    console.log("THIS STATE CURRENTUSER.UID IN COMPONENTDIDMOUNT", this.state.currentUser.uid)
     this.props.initializeConvo(this.state.currentUser.uid, "spotify:user:jpvelez")
   }
 
@@ -38,7 +40,7 @@ class Convo extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-    const userId = this.state.currentUser.uid
+    // const userId = this.state.currentUser.uid
 
     //Creates a new Convo Key for the convo *IF NO CONVO EXISTS WITH THE USER*
     
@@ -110,7 +112,6 @@ class Convo extends Component {
 const mapDispatchToProps = (dispatch)=> {
   return {
     initializeConvo: function(uid, friendUid){
-      console.log("hit initialize convo!!!!!!!!!")
       dispatch(fetchConvoIdThunk(uid, friendUid))
     }
   }
