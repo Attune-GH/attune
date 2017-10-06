@@ -27,8 +27,6 @@ export const WhoAmI = ({user}) => {
     </div>
   )
 }
-  
-
 
 const mapState = state => {
   return {
@@ -37,8 +35,3 @@ const mapState = state => {
 }
 
 export default connect(mapState)(WhoAmI)
-
-// Logout button
-{/* <div>
-  <button className='btn btn-primary' onClick={() => auth.signOut()}>Logout</button>
-</div> */}
