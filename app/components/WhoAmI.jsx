@@ -1,6 +1,7 @@
 import React from 'react'
 import firebase from 'APP/fire'
-import { withRouter } from 'react-router'
+import { withRouter, Redirect } from 'react-router'
+import {connect} from 'react-redux'
 const auth = firebase.auth()
 
 import Login from './Login'
@@ -11,7 +12,7 @@ export const name = user => {
   return user.displayName || user.email
 }
 
-export const WhoAmI = ({user, auth, login}) =>
+export const WhoAmI = ({user}) =>
   <div className="whoami">
     <span className="whoami-user-name">Hello, {name(user)}</span>
     { // If nobody is logged in, or the current user is anonymous,
@@ -19,36 +20,18 @@ export const WhoAmI = ({user, auth, login}) =>
       // ...then show signin links...
       <Login auth={auth}/>
       /// ...otherwise, show a logout button.
-      : login()
+      : <Redirect to="/dashboard"/>
        }
   </div>
 
-class SmartWhoAmI extends React.Component {
-  constructor() {
-    super()
-    this.login = this.login.bind(this)
-  }
 
-  componentDidMount() {
-    const {auth} = this.props
-    this.unsubscribe = auth.onAuthStateChanged(user => this.setState({user}))
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe()
-  }
-
-  login() {
-    this.props.history.push('/dashboard')
-  }
-
-  render() {
-    const {user} = this.state || {}
-    return <WhoAmI user={user} auth={auth} login={this.login}/>
+const mapState = state => {
+  return {
+    user: state.user
   }
 }
 
-export default withRouter(SmartWhoAmI)
+export default connect(mapState)(WhoAmI)
 
 // Logout button
 {/* <div>
