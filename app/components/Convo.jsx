@@ -81,14 +81,19 @@ class Convo extends Component {
     console.log("THE STATE IN HERE", this.state)
     // console.log("this.state.currentUser.uid", this.state.currentUser.uid)
     console.log("THIS PROPS", this.props)
+
+    const messageArray = Object.entries(this.props.messages)
+
     return(
     <div className = "container">
       <h3> Scintillating Conversation Between Two Interesting People Who Love The Same Music </h3>
         <br/>
 
-        {Object.entries(this.props.messages).map((message)=> {
-          <h3>{message[1].content}</h3>
-        })}
+        {messageArray.map(message=> {
+        {console.log("message1content", message[1].content)}
+        {/* <h3>{message[1].content}</h3> */}
+        }
+        )}
 
         {this.props.user.displayName}: YOURE SO CHARMING
         <br/>
