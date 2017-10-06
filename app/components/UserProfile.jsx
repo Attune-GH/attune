@@ -24,6 +24,7 @@ class UserProfile extends Component {
   }
 
   render() {
+    //this isn't going to work. there will always be a user on props
     const { user } = this.props || this.state
     const recentSongs = this.state.recentSongs.slice(0, 3)
     console.log(this.state.user)
