@@ -21,10 +21,11 @@ const OneMatch = props  => {
         </Link>
       </div>
     </div>
+    )
 }
 
 const mapStateToProps = (state) => {
 
 }
 
-export default = withRouter(connect(mapStateToProps)(OneMatch));
+export default withRouter(connect(mapStateToProps)(OneMatch));

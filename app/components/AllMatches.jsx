@@ -16,6 +16,18 @@ class SimpleSlider extends React.Component {
     }
   }
 
+
+  componentWillReceiveProps(nextProps){
+    if(this.props.user.uid !== nextProps.user.uid){
+    }
+  }
+
+  componentDidMount() {
+    const uid = this.props.user.uid
+    console.log('uid', uid)
+    getMatches(uid).then(matches => this.setState({ matches }))
+  }
+
   render() {
     var settings = {
       dots: false,
@@ -26,32 +38,27 @@ class SimpleSlider extends React.Component {
       arrows: true
     }
 
-  componentWillReceiveProps(nextProps){
-    if(this.props.user.uid !== nextProps.user.uid){
-    }
-  }
-
-  componentDidMount() {
-    const uid = this.props.user.uid
-    getMatches(uid).then(matches => this.setState({ matches }))
-  }
-
+    const matches = this.state.matches
+    const matchNames = Object.keys(matches)
+    console.log('matches obj', matches)
+    console.log('matches keys', matchNames)
     return (
-      const matches = this.state.matches
-      console.log(matches)
       <div >
-        <h1>Your Matches</h1>
-        <Slider {...settings} className="container">
-        {matches .map(match => {
-          <div><OneMatch match={match}/></div>
-        })}
-        </Slider>
+        <h1>Your Matches!!!!</h1>
+
+        {matches && matchNames.map(match =>
+          <h1>{match.slice(13)}</h1>
+        )}
+
         <div>Swipe Through</div>
       </div>
     )
   }
 }
 
+//<div><OneMatch match={match}/></div>
+//        <Slider {...settings} className="container">
+//        </Slider>
 const mapStateToProps = (state) => {
   return {
     user: state.user
