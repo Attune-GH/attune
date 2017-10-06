@@ -23,7 +23,7 @@ class UserProfile extends Component {
   render() {
     const { user } = this.props
     const recentSongs = this.state.recentSongs.slice(0, 3)
-    if (recentSongs[0]) console.log(recentSongs[0].track.uri)
+    if (recentSongs[0]) console.log(recentSongs)
     return (
       <div className="container">
         <Image src={user.photoURL} className="user-img" circle />
@@ -38,9 +38,9 @@ class UserProfile extends Component {
         <div>
           <div><h1>Recently Played</h1></div>
           <div>
-            {/* <div>{
-            tracks.items.map((track) => <div key={track.id}><iframe src={`https://open.spotify.com/embed?uri=${track.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
-            }</div> */}
+            <div>{
+            recentSongs.map((song) => <div key={song.track.id}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
+            }</div>
           </div>
         </div>
       </div>
