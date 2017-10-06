@@ -1,11 +1,16 @@
 import firebase from 'APP/fire'
 const db = firebase.database()
-const admin = require('firebase-admin')
+// const admin = require('firebase-admin')
 
-exports.getRecentTracks = id => ({
-  recentTracks: db.ref(`Users/${id}/recentSongs/songs`).once('value').then(snapshot => snapshot.val().songs)
-})
+exports.getRecentSongs = id => (
+  db.ref(`Users/${id}/recentSongs/songs`).once('value').then(snapshot => snapshot.val())
+)
 
-exports.getUserProfile = id => ({
-  userProfile: admin.auth().getUser(id)
-})
+exports.getMatches = id => (
+  db.ref(`Users/${id}/matches/matchScores`).once('value').then(snapshot => snapshot.val())
+)
+
+// exports.getUserProfile = id => (
+//   admin.auth().getUser(id)
+//   .then(user => user)
+// )

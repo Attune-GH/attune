@@ -3,12 +3,17 @@ import { Button, Image } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import firebase from 'APP/fire'
-import {getRecentTracks} from 'APP/fire/refs'
+import {getRecentSongs} from 'APP/fire/refs'
+
+const db = firebase.database()
+
+
+
 
 const UserProfile = (props) => {
   const {user} = props
-  const recentTracks = getRecentTracks(user.uid)
-  console.log(recentTracks)
+  const recentSongs = getRecentSongs(user.uid)
+  console.log(recentSongs)
   return (
     <div className="container">
         <Image src={user.photoURL} className="user-img" circle />
@@ -35,7 +40,7 @@ const UserProfile = (props) => {
 
 const mapState = (state, ownProps) => {
   return {
-      user: state.user
+    user: state.user
   }
 }
 
