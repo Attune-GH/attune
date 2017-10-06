@@ -76,7 +76,7 @@ class Convo extends Component {
   render(){
     console.log("THE STATE IN HERE", this.state)
     console.log("this.state.currentUser.uid", this.state.currentUser.uid)
-    
+    console.log("THIS PROPS", this.props)
     return(
     <div className = "container">
       <h3> Scintillating Conversation Between Two Interesting People Who Love The Same Music </h3>
@@ -120,7 +120,7 @@ const mapStateToProps = state => {
   return {
     messages: state.messages,
     convoId: state.convoId,
-    user: state.defaultUser
+    user: state.user
   }
 }
 export default Convo = connect(mapStateToProps, mapDispatchToProps)(Convo)

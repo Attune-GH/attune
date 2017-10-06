@@ -12,7 +12,7 @@ const findConvoId = convoId => ({type: FIND_CONVO_ID, convoId})
 //THUNK CREATOR
  export const fetchConvoIdThunk = (uid, friendUid) => {
   console.log("IM A THUNK")
-
+  console.log("UID UP HERE", uid)
   return dispatch => {
     console.log("DISPATCHED A THING")
     return UsersRef.child(`${uid}/ConvoIds`).once('value')
@@ -20,7 +20,7 @@ const findConvoId = convoId => ({type: FIND_CONVO_ID, convoId})
         console.log("SNAPSHOT!!!!", snapshot)
         if (snapshot.hasChild(`${friendUid}`)){
           console.log("snapshot.val", snapshot.val())
-          const convoKey = snapshot.val()
+          const convoKey = snapshot.val()[`${friendUid}`]
           console.log(convoKey, "convoId")
           //get value, 
           dispatch(findConvoId(convoKey));
@@ -33,10 +33,16 @@ const findConvoId = convoId => ({type: FIND_CONVO_ID, convoId})
           const newConvoKey = firebase.database().ref().child('Convos').push().key
           console.log("NEW CONVO KEY", newConvoKey)
           //push to both user's convoId nodes
-          return firebase.database().ref(`Users/${uid}/ConvoIds`).update({friendUid: newConvoKey})
+          var updates = {};
+          updates[friendUid] = newConvoKey
+          console.log("UID!!!!!", uid)
+          return firebase.database().ref(`Users/${uid}/ConvoIds`).update(updates)
             .then(()=> {
               console.log("updating friend node")
-              return firebase.database().ref(`Users/${friendUid}/ConvoIds`).update({uid: newConvoKey}) 
+              var updateFriend = {}
+              updateFriend[uid] = newConvoKey
+              return firebase.database().ref(`Users/${friendUid}/ConvoIds/${uid}`).update(updates) 
+              // return firebase.database().ref(`Users/${friendUid}/ConvoIds`).update({uid: newConvoKey}) 
             })
             .then(()=> {
               console.log("returning convo key")

@@ -8,10 +8,12 @@ const getMessages  = allMessages => ({type: GET_MESSAGES, allMessages})
 
 //THUNK CREATOR
 export const getMessagesThunk = (convoKey) => {
-  dispatch => {
+  return dispatch => {
+    console.log("IM IN A THUNK!!!!!")
     return firebase.database.ref(`Convos/${convoKey}`).once('value')
       .then(snapshot => snapshot.val())
       .then(allMessages => {
+        console.log("ALL MESSAGES", allMessages)
         dispatch(getMessages(allMessages))
       })
   }
