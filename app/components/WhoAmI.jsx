@@ -36,8 +36,6 @@ const mapState = state => {
   }
 }
 
-
-
 export default connect(mapState)(WhoAmI)
 
 // Logout button
