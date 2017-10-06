@@ -23,9 +23,10 @@ class Convo extends Component {
     this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));  
 
     //FOR NOW, FRIEND UID IS ALWAYS JUAN. WILL PASS IN AS PROPS SOMEHOW L8R
-    console.log("this.props.user.uid in componentdidmount", this.props.user)
-    console.log("THIS STATE CURRENTUSER.UID IN COMPONENTDIDMOUNT", this.state.currentUser.uid)
-    this.props.initializeConvo(this.state.currentUser.uid, "spotify:user:jpvelez")
+
+    console.log("THIS.PROPS.USER!!!!!!!!!", this.props.user)
+    console.log("THIS.PROPS.USER.UID", this.props.user.uid)
+    this.props.initializeConvo(this.props.user.uid, "spotify:user:jpvelez")
   }
 
   componentWillUnmount() {

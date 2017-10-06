@@ -11,17 +11,15 @@ const findConvoId = convoId => ({type: FIND_CONVO_ID, convoId})
 
 //THUNK CREATOR
  export const fetchConvoIdThunk = (uid, friendUid) => {
-  console.log("IM A THUNK")
   console.log("UID UP HERE", uid)
   return dispatch => {
     console.log("DISPATCHED A THING")
     return UsersRef.child(`${uid}/ConvoIds`).once('value')
       .then(snapshot=> {
-        console.log("SNAPSHOT!!!!", snapshot)
         if (snapshot.hasChild(`${friendUid}`)){
           console.log("snapshot.val", snapshot.val())
           const convoKey = snapshot.val()[`${friendUid}`]
-          console.log(convoKey, "convoId")
+          console.log("CONVO KEY", convoKey)
           //get value, 
           dispatch(findConvoId(convoKey));
           dispatch(getMessagesThunk(convoKey))
