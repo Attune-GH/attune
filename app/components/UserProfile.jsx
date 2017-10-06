@@ -3,10 +3,8 @@ import { Button, Image } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import firebase from 'APP/fire'
-import { getRecentSongs,  } from 'APP/fire/refs'
+import { getRecentSongs, getUserProfile } from 'APP/fire/refs'
 const auth = firebase.auth()
-
-const db = firebase.database()
 
 class UserProfile extends Component {
   constructor(props) {
@@ -25,9 +23,11 @@ class UserProfile extends Component {
 
   render() {
     //this isn't going to work. there will always be a user on props
-    const { user } = this.props || this.state
+    // const authUser = this.state.user.uid === this.props.user.uid
+    // const {user} = authUser ? this.props : this.state
     const recentSongs = this.state.recentSongs.slice(0, 3)
-    console.log(this.state.user)
+    if (this.state.user.uid) console.log(this.state.user, 'state')
+    // if (this.props.user.uid) console.log(this.props.user, 'props')
     return (
       <div className="container">
         <Image src={user.photoURL} className="user-img" circle />

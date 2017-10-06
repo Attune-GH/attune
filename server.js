@@ -115,6 +115,7 @@ app.get('/callback', function(req, res) {
             .catch(console.error)
         });
 
+
       } else {
         res.redirect('/#' +
           querystring.stringify({
@@ -170,11 +171,6 @@ function signInFirebaseTemplate(token) {
 
 function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshToken) {
 
-  const userProfile = {
-      url: 'https://api.spotify.com/v1/me',
-      headers: { 'Authorization': 'Bearer ' + accessToken },
-      json: true
-    };
 
   const optionsRecent = {
       url: 'https://api.spotify.com/v1/me/player/recently-played?limit=50',
@@ -194,11 +190,9 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       json: true
     }
 
-    request.get(userProfile, function(error, response, body){
-      const items = body.items
-      const getUserProfile = admin.database().ref(`/Users/${uid}/userProfile`)
-          .set({userProfile: items})
-    })
+
+    admin.database().ref(`/Users/${uid}/`)
+          .set({profile: {uid, displayName, photoURL }})
 
     request.get(optionsRecent, function(error, response, body){
       const items = body.items
