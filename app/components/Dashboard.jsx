@@ -5,6 +5,7 @@ import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router-dom
 import firebase from 'APP/fire'
 import store, { fetchUser } from '../store'
 import {connect} from 'react-redux'
+const auth = firebase.auth()
 
 
 class Dashboard extends Component {
@@ -12,9 +13,6 @@ class Dashboard extends Component {
     super(props)
   }
 
-  componentDidMount() {
-    store.dispatch(fetchUser())
-  }
 
   render() {
     return (
@@ -26,6 +24,10 @@ class Dashboard extends Component {
 
         <h2><Link to='/matches'>Matches</Link></h2>
 
+        {/* Logout button, temporary placement */}
+        <div>
+          <button className='btn btn-primary' onClick={() => auth.signOut()}>Logout</button>
+        </div>
       </div>
     )
   }
