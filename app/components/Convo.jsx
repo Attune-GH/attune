@@ -20,7 +20,7 @@ class Convo extends Component {
   componentDidMount(){
    //temporary until store is set up
     const {auth} = this.props
-    this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));  
+    // this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));  
 
     //FOR NOW, FRIEND UID IS ALWAYS JUAN. WILL PASS IN AS PROPS SOMEHOW L8R
 
@@ -78,7 +78,7 @@ class Convo extends Component {
 
   render(){
     console.log("THE STATE IN HERE", this.state)
-    console.log("this.state.currentUser.uid", this.state.currentUser.uid)
+    // console.log("this.state.currentUser.uid", this.state.currentUser.uid)
     console.log("THIS PROPS", this.props)
     return(
     <div className = "container">

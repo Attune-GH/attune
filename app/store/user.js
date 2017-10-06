@@ -12,7 +12,7 @@ const GET_USER = 'GET_USER'
 /**
  * INITIAL STATE
  */
-const defaultUser = {}
+const defaultUser = null
 
 /**
  * ACTION CREATORS
@@ -26,6 +26,7 @@ export const fetchUser = () => {
   return dispatch => {
     try {
       return auth.onAuthStateChanged(currentUser => {
+        console.log("CURRENT USER IN FETCH USER", currentUser)
         dispatch(getUser(currentUser))
       })
     } catch(e) {

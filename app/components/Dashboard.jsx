@@ -19,6 +19,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+      {this.props.userId && <div>
 
         <h2><Link to={`/profile/${this.props.userId}`}>Profile</Link></h2>
 
@@ -26,15 +27,20 @@ class Dashboard extends Component {
 
         <h2><Link to='/matches'>Matches</Link></h2>
 
+      </div>}
       </div>
     )
   }
 }
 
 const mapState = state => {
-  return {
-    userId: state.user.uid
+  console.log("IM IN A STATE", state)
+  if(state.user){
+    return {
+      userId: state.user.uid
+    }
   }
+  else return {}
 }
 
 export default connect(mapState)(Dashboard)
