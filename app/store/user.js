@@ -22,11 +22,12 @@ const getUser = user => ({type: GET_USER, user})
 /**
  * THUNK CREATORS
  */
-export const fetchUser = () => {
+export const constantlyUpdateUser = () => {
   return dispatch => {
     try {
       return auth.onAuthStateChanged(currentUser => {
-        dispatch(getUser(currentUser))
+        if(!currentUser) dispatch(getUser({}))
+        else dispatch(getUser(currentUser))
       })
     } catch(e) {
       console.error(e)

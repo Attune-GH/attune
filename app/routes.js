@@ -11,12 +11,12 @@ import OneConversation from './components/OneConversation'
 import AllMatches from './components/AllMatches'
 import MatchesChart from './components/MatchesChart'
 import Navbar from './components/Navbar'
-import store, {fetchUser} from './store'
+import store, {constantlyUpdateUser} from './store'
 import {Provider} from 'react-redux'
 
 class Routes extends Component {
   componentDidMount() {
-    store.dispatch(fetchUser())
+    store.dispatch(constantlyUpdateUser())
   }
 
   render() {
