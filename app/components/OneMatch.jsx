@@ -1,5 +1,8 @@
 import React from 'react'
 import { Button, Image } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import store from '../store'
+import { connect } from 'react-redux'
 
 const dummy = {
   "country" : "US",
@@ -269,8 +272,8 @@ export default () => {
           </div>
       <button className="btn">View Compatibility</button>
       <div>
-      <button className="btn"><a href={dummy.external_urls.spotify}>View Profile</a></button>
+      <Link to={`profile/${userId}`}>
+      <button className="btn">View Profile</button>
+      </Link>
       </div>
     </div>
-  )
-}
