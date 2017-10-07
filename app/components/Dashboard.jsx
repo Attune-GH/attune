@@ -11,14 +11,10 @@ const auth = firebase.auth()
 class Dashboard extends Component {
   constructor(props) {
     super(props)
-    this.onLogout = this.onLogout.bind(this)
+
     this.onRequestMatches = this.onRequestMatches.bind(this)
   }
 
-  onLogout() {
-    auth.signOut()
-    .then(() => this.props.history.push('/'))
-  }
 
   onRequestMatches() {
     console.log('inOnRequestMatches')
@@ -26,6 +22,7 @@ class Dashboard extends Component {
       lastMatchRefreshRequested: new Date()
     });
   }
+
 
   render() {
     return (
@@ -39,11 +36,6 @@ class Dashboard extends Component {
 
         <div>
           <button className='btn btn-primary' onClick={() => this.onRequestMatches()}>Get New Matches</button>
-        </div>
-
-        {/* Logout button, temporary placement */}
-        <div>
-          <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
 
       </div>
