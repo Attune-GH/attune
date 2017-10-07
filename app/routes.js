@@ -24,7 +24,8 @@ class Routes extends Component {
     const {user} = store.getState()
     if(!user.uid && this.props.location.pathname !== '/' ) {
       return (
-        <Redirect to="/" />
+        // <Redirect to="/" />
+        <div>haai</div>
       )
     }
 
