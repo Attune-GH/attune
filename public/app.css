@@ -5,13 +5,19 @@
 }
 
 body {
-  background-color: black;
+  background-color: #212121;
   color: white;
   font-family: HelveticaNeue
 }
 
 .load{
   height: 200px
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center
 }
 
 .chat {
@@ -23,7 +29,7 @@ body {
 }
 
 .App-header {
-  background-color: black;
+  background-color: #212121;
   height: 150px;
   padding: 20px;
   color: white;
@@ -31,7 +37,7 @@ body {
 
 .App-intro {
   font-size: large;
-  background-color: black;
+  background-color: #212121;
   color: white
 }
 
@@ -58,7 +64,9 @@ body {
 }
 
 .btn {
-    display: inline-block;
+    height: 50px;
+    width: 350px;
+    /* display: inline-block; */
     margin-bottom: 0;
     font-weight: 600;
     text-align: center;
@@ -70,6 +78,7 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    text-decoration: none;
 }
 
 .btn-primary:focus,
@@ -80,12 +89,12 @@ body {
 
 .btn-primary {
     background-image: url('/img/Spotify_Icon_RGB_White.png'); /* 16px x 16px */
-    background-size: 40px;
+    background-size: 30px;
     background-repeat: no-repeat;  /* make the background image appear only once */
     background-position: 20px 10px;  /* equivalent to 'top left' */
     border: none;           /* assuming we don't want any borders */
     cursor: pointer;        /* make the cursor like hovering over an <a> element */
-    height: 60px;           /* make this the size of your image */
+    height: 50px;           /* make this the size of your image */
     padding-left: 80px;     /* make text start to the right of the image */
     vertical-align: middle; /* align the text vertically centered */
 }
@@ -96,8 +105,8 @@ body {
     margin: 10px
 }
 
-.btn-profile > a {
+/* .btn > a {
     text-decoration: none;
     color: white;
     height: 20px
-}
+} */

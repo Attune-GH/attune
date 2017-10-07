@@ -16,13 +16,10 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-
-        <h2><Link to={`/profile/${this.props.userId}`}>Profile</Link></h2>
-
-        <h2><Link to='/messages'>Messages</Link></h2>
-
-        <h2><Link to='/matches'>Matches</Link></h2>
-
+        <button className="btn"><Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}
+        >Profile</Link></button>
+        <button className="btn"><Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}>Messages</Link></button>
+        <button className="btn"><Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}>Matches</Link></button>
       </div>
     )
   }

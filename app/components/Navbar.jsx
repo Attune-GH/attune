@@ -1,9 +1,9 @@
 import React from 'react'
 
 
-//hold for logo and also maybe a redirect to Dashboard
+//hold for logo and also  a redirect to Dashboard
 const Navbar = () => {
-  return (<div><h1>Attune</h1></div>)
+  return (<div className="logo"><h1>Attune</h1></div>)
 }
 
 export default Navbar
