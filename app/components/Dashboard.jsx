@@ -17,7 +17,6 @@ class Dashboard extends Component {
 
 
   onRequestMatches() {
-    console.log('inOnRequestMatches')
     firebase.database().ref(`Users/${this.props.userId}/requestMatches`).update({
       lastMatchRefreshRequested: new Date()
     });

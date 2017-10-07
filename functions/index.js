@@ -11,7 +11,6 @@ const topTrackSimScore = require('./topTracks');
 
 exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
   .onWrite(event=> {
-    console.log('inGetMatches')
     const userId = event.params.uid
     console.log('userId in getMatches', userId)
 
