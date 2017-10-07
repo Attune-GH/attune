@@ -11,7 +11,17 @@ const auth = firebase.auth()
 class Dashboard extends Component {
   constructor(props) {
     super(props)
+
+    this.onRequestMatches = this.onRequestMatches.bind(this)
   }
+
+
+  onRequestMatches() {
+    firebase.database().ref(`Users/${this.props.userId}/requestMatches`).update({
+      lastMatchRefreshRequested: new Date()
+    });
+  }
+
 
   render() {
     return (
@@ -22,6 +32,10 @@ class Dashboard extends Component {
         <h2><Link to='/messages'>Messages</Link></h2>
 
         <h2><Link to='/matches'>Matches</Link></h2>
+
+        <div>
+          <button className='btn btn-primary' onClick={() => this.onRequestMatches()}>Get New Matches</button>
+        </div>
 
       </div>
     )

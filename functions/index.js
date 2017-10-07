@@ -7,67 +7,52 @@ const recentSongsSimScore = require('./recentTracks');
 const topArtistsSimScore = require('./topArtists');
 const topTrackSimScore = require('./topTracks');
 
-exports.findMatches = functions.database.ref('/Users/{uid}/')
-  .onWrite(event => {
-    //we need top tracks, top artists, recent tracks, genres
+
+
+exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
+  .onWrite(event=> {
     const userId = event.params.uid
-    console.log('userId', userId)
+    console.log('userId in getMatches', userId)
 
-    const user1TopArtists = event.data.val().topArtists.artists
-    const user1TopTracks = event.data.val().topTracks.tracks
-    const user1RecentSongs = event.data.val().recentSongs.songs
+    return admin.database().ref('Users').once('value').then(snapshot => {
 
-    // //we also need all of this for all other users
-    // //dict  of key userId; value of matchScore
-    const matchDict = {};
-    let uid;
+      const usersObj = snapshot.val()
+      const userNames = Object.keys(usersObj).filter(name => name !== userId)
 
-    event.data.ref.parent.once('value', function(snapshot){
+      const user1Obj = usersObj[userId]
 
-        const users = Object.keys(snapshot.val())
-        console.log(users)
+      const user1TopArtists = user1Obj.topArtists.artists
+      const user1TopTracks = user1Obj.topTracks.tracks
+      const user1RecentSongs = user1Obj.recentSongs.songs
 
-        users.forEach(user => {
+      userNames.forEach(user => {
+        user2Obj = usersObj[user];
 
-          const userInfo = (snapshot.val()[user])
-          console.log('user in loop', userInfo)
+        let user2TopArtists
+        let user2TopTracks
+        let user2RecentSongs
 
-          const user2TopArtists = userInfo.topArtists.artists
-          const user2TopTracks = userInfo.topTracks.tracks
-          const user2RecentSongs = userInfo.recentSongs.songs
+        user2TopArtists =  (user2Obj.topArtists ? user2Obj.topArtists.artists : [])
+        user2TopTracks =  (user2Obj.topTracks ? user2Obj.topTracks.tracks : [])
+        user2RecentSongs =  (user2Obj.recentSongs ? user2Obj.recentSongs.songs : [])
 
-          const genreScore = genreSimScore(user1TopArtists, user2TopArtists)
-          const recentSongsScore = recentSongsSimScore(user1RecentSongs, user2RecentSongs)
-          const artistsScore = topArtistsSimScore(user1TopArtists, user2TopArtists)
-          const tracksScore = topTrackSimScore(user1TopTracks, user2TopTracks)
+        const genreScore = genreSimScore(user1TopArtists, user2TopArtists)
+        const recentSongsScore = recentSongsSimScore(user1RecentSongs, user2RecentSongs)
+        const artistsScore = topArtistsSimScore(user1TopArtists, user2TopArtists)
+        const tracksScore = topTrackSimScore(user1TopTracks, user2TopTracks)
 
-          const matchScore = (genreScore + recentSongsScore + artistsScore + tracksScore)/4
+        const matchScore = (genreScore + recentSongsScore + artistsScore + tracksScore)/4
 
-          if (!matchDict[user] & matchScore !== 0.5) {
-            console.log(`/Users/${user.toString()}/matches/matchScores/${userId}`)
-            return admin.database().ref(`/Users/${user.toString()}/matches/matchScores/${userId}`).set(matchScore)
-            .then(valy => {
-              console.log(`/Users/${userId}/matches/matchScores/${user.toString()}`)
-              return admin.database().ref(`/Users/${userId}/matches/matchScores/${user.toString()}`).set(matchScore)
-            })
-          }
+        console.log(`${user}'s match score: ${matchScore}`)
+        console.log(`/Users/${userId}/matches/matchScores/${user}`)
+        admin.database().ref(`/Users/${userId}/matches/matchScores/${user}`).set(matchScore)
+        admin.database().ref(`/Users/${user}/matches/matchScores/${userId}`).set(matchScore)
 
-          if (matchScore === 0.5) {
-            uid = user
-          }
+      })
 
-        })
 
-        return matchDict
-    })
-    // .then(u => {
-    //   console.log('where im writing to', `/Users/${uid}/matches`)
-    //   return admin.database().ref(`/Users/${uid}/matches`).update({matchScores: matchDict})
-    // })
-    .then(result => console.log('new matches written'))
+    }).catch(console.error)
 
 
 
-
-
-})
+  })
