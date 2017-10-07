@@ -171,7 +171,6 @@ function signInFirebaseTemplate(token) {
 
 function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshToken) {
 
-
   const optionsRecent = {
       url: 'https://api.spotify.com/v1/me/player/recently-played?limit=50',
       headers: { 'Authorization': 'Bearer ' + accessToken },
@@ -190,7 +189,7 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       json: true
     }
 
-
+    //set Spotify profile information on the db
     admin.database().ref(`/Users/${uid}/`)
           .set({profile: {uid, displayName, photoURL }})
 
