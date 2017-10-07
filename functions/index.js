@@ -57,18 +57,3 @@ exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
 
 
   })
-
-
-    //         .then(valy => {
-    //           console.log(`/Users/${userId}/matches/matchScores/${user.toString()}`)
-    //           return admin.database().ref(`/Users/${userId}/matches/matchScores/${user.toString()}`).set(matchScore)
-    //         })
-    //       }
-    //     })
-
-    // })
-    // // .then(u => {
-    // //   console.log('where im writing to', `/Users/${uid}/matches`)
-    // //   return admin.database().ref(`/Users/${uid}/matches`).update({matchScores: matchDict})
-    // // })
-    // .then(result => console.log(`new matches written to ${userId}`))

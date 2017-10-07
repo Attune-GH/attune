@@ -9,6 +9,7 @@ module.exports = function(user1TopTracks, user2TopTracks) {
     let popularityScore = 101 - track.popularity
     return {id, popularityScore}
   })
+
   let user2Arr = user2TopTracks.map(track => {
     let id = track.id
     let popularityScore = 101 - track.popularity
