@@ -16,7 +16,6 @@ class Dashboard extends Component {
 
   onLogout() {
     auth.signOut()
-    .then(() => this.props.history.push('/'))
   }
 
 

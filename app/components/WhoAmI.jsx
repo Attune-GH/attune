@@ -12,7 +12,6 @@ export const name = user => {
 }
 
 export const WhoAmI = ({user}) => {
-  console.log('user', user)
   return (
     <div className="whoami">
       <span className="whoami-user-name">Hello, {name(user)}</span>
@@ -33,5 +32,6 @@ const mapState = state => {
     user: state.user
   }
 }
+
 
 export default connect(mapState)(WhoAmI)
