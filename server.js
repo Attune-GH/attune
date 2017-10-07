@@ -115,6 +115,7 @@ app.get('/callback', function(req, res) {
             .catch(console.error)
         });
 
+
       } else {
         res.redirect('/#' +
           querystring.stringify({
@@ -169,6 +170,7 @@ function signInFirebaseTemplate(token) {
 }
 
 function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshToken) {
+
   const optionsRecent = {
       url: 'https://api.spotify.com/v1/me/player/recently-played?limit=50',
       headers: { 'Authorization': 'Bearer ' + accessToken },
@@ -186,6 +188,10 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       headers: { 'Authorization': 'Bearer ' + accessToken },
       json: true
     }
+
+    //set Spotify profile information on the db
+    admin.database().ref(`/Users/${uid}/`)
+          .set({profile: {uid, displayName, photoURL }})
 
     request.get(optionsRecent, function(error, response, body){
       const items = body.items
@@ -207,7 +213,10 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       const getTopTracks = admin.database().ref(`Users/${uid}/topTracks`)
           .set({tracks: items})
     })
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 
 
     const databaseTask = admin.database().ref(`/spotifyAccessToken/${uid}`)
@@ -232,6 +241,7 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       return token;
     });
   }
+
 
 console.log('Listening on 1337');
 app.listen(1337);

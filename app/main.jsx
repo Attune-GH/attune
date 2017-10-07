@@ -39,7 +39,9 @@ const auth = firebase.auth()
 render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-      <Routes />
+      <Router>
+        <Routes />
+      </Router>
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('main')

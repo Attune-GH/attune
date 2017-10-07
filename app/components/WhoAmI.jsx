@@ -12,10 +12,8 @@ export const name = user => {
 }
 
 export const WhoAmI = ({user}) => {
-  console.log('user', user)
   return (
     <div className="whoami">
-      <span className="whoami-user-name">Hello, {name(user)}</span>
       { // If nobody is logged in
         (!user.uid)?
         // ...then show signin links...
@@ -33,5 +31,6 @@ const mapState = state => {
     user: state.user
   }
 }
+
 
 export default connect(mapState)(WhoAmI)

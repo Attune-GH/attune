@@ -21,12 +21,11 @@ class Dashboard extends Component {
   }
 
   onRequestMatches() {
-  console.log('inOnRequestMatches')
-  firebase.database().ref(`Users/${this.props.userId}/requestMatches`).update({
-    lastMatchRefreshRequested: new Date()
-  });
-}
-
+    console.log('inOnRequestMatches')
+    firebase.database().ref(`Users/${this.props.userId}/requestMatches`).update({
+      lastMatchRefreshRequested: new Date()
+    });
+  }
 
   render() {
     return (
@@ -46,6 +45,7 @@ class Dashboard extends Component {
         <div>
           <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
+
       </div>
     )
   }
