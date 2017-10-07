@@ -1,15 +1,26 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {Radar} from 'react-chartjs-2'
+import { connect } from 'react-redux'
+import { getMatches } from 'APP/fire/refs'
 
-
-export default class MatchesChart extends Component {
+class MatchesChart extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      matches: {}
+    }
   }
 
-  render() {
-    // options={chartOptions}
-    
+  componentDidMount() {
+    store.dispatch(constantlyUpdateUser())
+    const user = this.props.user
+    console.log(user)
+    const uid = this.props.user.uid
+    console.log('uid', uid)
+    getMatches(uid).then(matches => this.setState({ matches }))
+  }
+
+  render() {  
     const data = {
       labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
       datasets: [
@@ -78,3 +89,11 @@ export default class MatchesChart extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(MatchesChart)
