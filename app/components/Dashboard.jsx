@@ -15,7 +15,7 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div className="container dashboard">
+      <div className="dashboard">
         <button className="btn btn-dashboard"><Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}
         >Profile</Link></button>
         <button className="btn btn-dashboard"><Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}>Messages</Link></button>
