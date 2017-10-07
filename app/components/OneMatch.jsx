@@ -1,31 +1,43 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Button, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import store from '../store'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
+import { getUserProfile } from 'APP/fire/refs'
 
-//assuming we are passing in this match as props
-const OneMatch = props  => {
+class OneMatch extends Component {
+  constructor(props) {
+    super()
+    this.state = {
+      user: {}
+    }
+  }
 
-  return (
-    <div className="container">
-      <Image src={props.match.images[0].url} className="user-img" circle />
-      <div>
-          <h1>{props.match.display_name.split(' ').slice(0, 1).join('') || props.match.uid}</h1>
+  componentDidMount() {
+    const uid = this.props.match[0]
+    getUserProfile(uid).then(user => this.setState({ user }))
+  }
+
+  render() {
+    if (this.state.user.uid) console.log(this.state.user)
+    const { user } = this.state
+    return (
+      <div className="container">
+        <Image src={user.photoURL} className="user-img" circle />
+        <div>
+          <h1>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h1>
+          <h2>{`${Math.ceil(this.props.match[1] * 200)}% match`}</h2>
+        </div>
+        <button className="btn">View Compatibility</button>
+        <div>
+          <Link to={`profile/${user.uid}`}>
+            <button className="btn">View Profile</button>
+          </Link>
+        </div>
       </div>
-      <button className="btn">View Compatibility</button>
-      <div>
-        <Link to={`profile/${props.match.uid}`}>
-          <button className="btn">View Profile</button>
-        </Link>
-      </div>
-    </div>
     )
+  }
 }
 
-const mapStateToProps = (state) => {
-
-}
-
-export default withRouter(connect(mapStateToProps)(OneMatch));
+export default OneMatch
