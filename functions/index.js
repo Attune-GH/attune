@@ -8,9 +8,6 @@ const topArtistsSimScore = require('./topArtists');
 const topTrackSimScore = require('./topTracks');
 
 
-// exports.Matches = functions.https.onRequest((req, res) => {
-//   console.log('inFindMatches')
-//   })
 
 exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
   .onWrite(event=> {
@@ -18,7 +15,7 @@ exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
     const userId = event.params.uid
     console.log('userId in getMatches', userId)
 
-    const Users = admin.database().ref('Users').once('value').then(snapshot => {
+    return admin.database().ref('Users').once('value').then(snapshot => {
 
       const usersObj = snapshot.val()
       const userNames = Object.keys(usersObj).filter(name => name !== userId)
@@ -47,9 +44,10 @@ exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
 
         const matchScore = (genreScore + recentSongsScore + artistsScore + tracksScore)/4
 
-        // console.log(`${user}'s match score: ${matchScore}`)
-        // console.log(`/Users/${userId}/matches/matchScores/${user}`)
-        return admin.database().ref(`/Users/${userId}/matches/matchScores/${user}`).set(matchScore)
+        console.log(`${user}'s match score: ${matchScore}`)
+        console.log(`/Users/${userId}/matches/matchScores/${user}`)
+        admin.database().ref(`/Users/${userId}/matches/matchScores/${user}`).set(matchScore)
+        admin.database().ref(`/Users/${user}/matches/matchScores/${userId}`).set(matchScore)
 
       })
 
