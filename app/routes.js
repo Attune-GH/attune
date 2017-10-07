@@ -24,10 +24,11 @@ class Routes extends Component {
     const {user} = store.getState()
     if(!user.uid && this.props.location.pathname !== '/' ) {
       return (
-        <Redirect to="/" />
+        // <Redirect to="/" />
+        <div>haai</div>
       )
     }
-    
+
     return (
         <div>
           <Navbar/>
@@ -47,7 +48,6 @@ class Routes extends Component {
 }
 
 const mapState = state => {
-  console.log("I'm in mapState")
   return {
     user: state.user
   }
