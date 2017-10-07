@@ -15,12 +15,17 @@ class UserProfile extends Component {
     }
     this.renderAuthUser = this.renderAuthUser.bind(this)
     this.renderUser = this.renderUser.bind(this)
+    this.onLogout = this.onLogout.bind(this)
   }
 
   componentDidMount() {
     const uid = this.props.match.params.userId
     getRecentSongs(uid).then(recentSongs => this.setState({ recentSongs }))
     getUserProfile(uid).then(user => this.setState({ user }))
+  }
+
+  onLogout() {
+    auth.signOut()
   }
 
   render() {
@@ -44,7 +49,7 @@ class UserProfile extends Component {
         </div>
         {/* list matches or some other stat here instead? */}
         <div>
-          <button className='btn btn-primary' onClick={() => auth.signOut()}>Logout</button>
+          <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
         <div>
           <div><h1>Recently Played</h1></div>
@@ -83,6 +88,7 @@ class UserProfile extends Component {
       </div>
     )
   }
+
 }
 
 const mapState = (state, ownProps) => {

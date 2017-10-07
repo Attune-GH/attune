@@ -27,7 +27,7 @@ class Routes extends Component {
         <Redirect to="/" />
       )
     }
-    
+
     return (
         <div>
           <Navbar/>
@@ -47,7 +47,6 @@ class Routes extends Component {
 }
 
 const mapState = state => {
-  console.log("I'm in mapState")
   return {
     user: state.user
   }
