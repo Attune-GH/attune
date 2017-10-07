@@ -213,10 +213,6 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
       const getTopTracks = admin.database().ref(`Users/${uid}/topTracks`)
           .set({tracks: items})
     })
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 
 
     const databaseTask = admin.database().ref(`/spotifyAccessToken/${uid}`)
