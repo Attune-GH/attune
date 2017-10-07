@@ -24,14 +24,34 @@ exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
       const userNames = Object.keys(usersObj).filter(name => name !== userId)
 
       const user1Obj = usersObj[userId]
-      console.log(user1Obj)
-      const user1TopArtists = user1ObjtopArtists.artists
+
+      const user1TopArtists = user1Obj.topArtists.artists
       const user1TopTracks = user1Obj.topTracks.tracks
       const user1RecentSongs = user1Obj.recentSongs.songs
 
-      console.log('user1TopArtists', user1TopArtists)
-      console.log('user1TopTracks', user1TopTracks)
-      console.log('user1RecentSongs', user1RecentSongs)
+      userNames.forEach(user => {
+        user2Obj = usersObj[user];
+
+        let user2TopArtists
+        let user2TopTracks
+        let user2RecentSongs
+
+        user2TopArtists =  (user2Obj.topArtists ? user2Obj.topArtists.artists : [])
+        user2TopTracks =  (user2Obj.topTracks ? user2Obj.topTracks.tracks : [])
+        user2RecentSongs =  (user2Obj.recentSongs ? user2Obj.recentSongs.songs : [])
+
+        const genreScore = genreSimScore(user1TopArtists, user2TopArtists)
+        const recentSongsScore = recentSongsSimScore(user1RecentSongs, user2RecentSongs)
+        const artistsScore = topArtistsSimScore(user1TopArtists, user2TopArtists)
+        const tracksScore = topTrackSimScore(user1TopTracks, user2TopTracks)
+
+        const matchScore = (genreScore + recentSongsScore + artistsScore + tracksScore)/4
+
+        // console.log(`${user}'s match score: ${matchScore}`)
+        // console.log(`/Users/${userId}/matches/matchScores/${user}`)
+        return admin.database().ref(`/Users/${userId}/matches/matchScores/${user}`).set(matchScore)
+
+      })
 
 
     }).catch(console.error)
@@ -41,71 +61,6 @@ exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
   })
 
 
-// exports.findMatches = functions.database.ref('/Users/{uid}/')
-//   .onWrite(event => {
-//     //we need top tracks, top artists, recent tracks, genres
-//     const userId = event.params.uid
-//     console.log('userId', userId)
-
-//     if(event.data.val().topArtists) {const user1TopArtists = event.data.val().topArtists.artists}
-//     if(event.data.val().topTracks) {const user1TopTracks = event.data.val().topTracks.tracks}
-//     if(event.data.val().recentSongs) {constuser1RecentSongs = event.data.val().recentSongs.songs}
-
-//     console.log('if statement test', user1TopTracks, user1TopArtists, user1RecentSongs)
-
-//       // event.data.ref.parent.once('value', function(snapshot){
-
-//         // const users = Object.keys(snapshot.val())
-//         // .then(
-//         //   users.forEach(user => {
-
-//         //     const userInfo = (snapshot.val()[user])
-//         //     console.log('user in loop', userInfo)
-
-//         //     const promise3 = userInfo.topArtists.artists
-//         //     const promise4 = userInfo.topTracks.tracks
-//         //     const promise5 = userInfo.recentSongs.songs
-
-//         //     Promise.all([promise3, promise4, promise5])
-//         //     .then(results => {
-//         //       const user2TopArtists = results[0]
-//         //       const user2TopTracks = results[1]
-//         //       const user2RecentSongs = results[2]
-
-//         //       console.log('in promise.all 2', user2TopArtists, user2TopTracks, user2RecentSongs)
-
-//           })
-
-//  //        }))
-//  //      })
-//  // )})
-//  //  })
-
-
-    // event.data.ref.parent.once('value', function(snapshot){
-
-    //     const users = Object.keys(snapshot.val())
-    //     console.log(users)
-
-    //     users.forEach(user => {
-
-    //       const userInfo = (snapshot.val()[user])
-    //       console.log('user in loop', userInfo)
-
-    //       const user2TopArtists = userInfo.topArtists.artists
-    //       const user2TopTracks = userInfo.topTracks.tracks
-    //       const user2RecentSongs = userInfo.recentSongs.songs
-
-    //       const genreScore = genreSimScore(user1TopArtists, user2TopArtists)
-    //       const recentSongsScore = recentSongsSimScore(user1RecentSongs, user2RecentSongs)
-    //       const artistsScore = topArtistsSimScore(user1TopArtists, user2TopArtists)
-    //       const tracksScore = topTrackSimScore(user1TopTracks, user2TopTracks)
-
-    //       const matchScore = (genreScore + recentSongsScore + artistsScore + tracksScore)/4
-
-    //       if (!matchDict[user] & matchScore !== 0.5) {
-    //         console.log(`/Users/${user.toString()}/matches/matchScores/${userId}`)
-    //         return admin.database().ref(`/Users/${user.toString()}/matches/matchScores/${userId}`).set(matchScore)
     //         .then(valy => {
     //           console.log(`/Users/${userId}/matches/matchScores/${user.toString()}`)
     //           return admin.database().ref(`/Users/${userId}/matches/matchScores/${user.toString()}`).set(matchScore)
@@ -113,7 +68,6 @@ exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
     //       }
     //     })
 
-    //     return matchDict
     // })
     // // .then(u => {
     // //   console.log('where im writing to', `/Users/${uid}/matches`)
