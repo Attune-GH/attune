@@ -20,7 +20,6 @@ class OneMatch extends Component {
   }
 
   render() {
-    if (this.state.user.uid) console.log(this.state.user)
     const { user } = this.state
     return (
       <div className="container">
