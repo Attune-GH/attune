@@ -15,11 +15,11 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div>
-        <button className="btn"><Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}
+      <div className="container dashboard">
+        <button className="btn btn-dashboard"><Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}
         >Profile</Link></button>
-        <button className="btn"><Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}>Messages</Link></button>
-        <button className="btn"><Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}>Matches</Link></button>
+        <button className="btn btn-dashboard"><Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}>Messages</Link></button>
+        <button className="btn btn-dashboard"><Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}>Matches</Link></button>
       </div>
     )
   }

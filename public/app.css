@@ -7,7 +7,7 @@
 body {
   background-color: #212121;
   color: white;
-  font-family: HelveticaNeue
+  font-family: 'Quicksand', sans-serif;
 }
 
 .load{
@@ -105,8 +105,14 @@ body {
     margin: 10px
 }
 
-/* .btn > a {
-    text-decoration: none;
-    color: white;
-    height: 20px
-} */
+.dashboard {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between
+}
+
+.dashboard-btn {
+    margin: auto
+}
