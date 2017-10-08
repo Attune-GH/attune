@@ -10,4 +10,4 @@ export default ({ auth }) =>
   // redirect. If you prefer, you can signInWithRedirect, which always
   // redirects.
   <button className='btn btn-primary'
-          onClick={() => window.open('/login', 'firebaseAuth', 'height=315, width=400')}>Login with Spotify</button>
+          onClick={() => location.replace('/login')}>Login with Spotify</button>
