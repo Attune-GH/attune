@@ -36,18 +36,30 @@ exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
         user2TopTracks =  (user2Obj.topTracks ? user2Obj.topTracks.tracks : [])
         user2RecentSongs =  (user2Obj.recentSongs ? user2Obj.recentSongs.songs : [])
 
-        const genreScore = genreSimScore(user1TopArtists, user2TopArtists)
+        const genresScore = genreSimScore(user1TopArtists, user2TopArtists)
         const recentSongsScore = recentSongsSimScore(user1RecentSongs, user2RecentSongs)
         const artistsScore = topArtistsSimScore(user1TopArtists, user2TopArtists)
         const tracksScore = topTrackSimScore(user1TopTracks, user2TopTracks)
 
-        const matchScore = (genreScore + recentSongsScore + artistsScore + tracksScore)/4
+        const matchScore = (genresScore + recentSongsScore + artistsScore + tracksScore)/4
 
         console.log(`${user}'s match score: ${matchScore}`)
         console.log(`/Users/${userId}/matches/matchScores/${user}`)
+        //masterscore
         admin.database().ref(`/Users/${userId}/matches/matchScores/${user}`).set(matchScore)
         admin.database().ref(`/Users/${user}/matches/matchScores/${userId}`).set(matchScore)
-
+        //genrescore
+        admin.database().ref(`/Users/${userId}/matches/genreScores/${user}`).set(genresScore)
+        admin.database().ref(`/Users/${user}/matches/genreScores/${userId}`).set(genresScore)
+        //recentSongsScore
+        admin.database().ref(`/Users/${userId}/matches/recentSongsScores/${user}`).set(recentSongsScore)
+        admin.database().ref(`/Users/${user}/matches/recentSongsScores/${userId}`).set(recentSongsScore)
+        //artistscore
+        admin.database().ref(`/Users/${userId}/matches/artistsScores/${user}`).set(artistsScore)
+        admin.database().ref(`/Users/${user}/matches/artistsScores/${userId}`).set(artistsScore)
+        //trackScore
+        admin.database().ref(`/Users/${userId}/matches/tracksScores/${user}`).set(tracksScore)
+        admin.database().ref(`/Users/${user}/matches/tracksScores/${userId}`).set(tracksScore)
       })
 
 
