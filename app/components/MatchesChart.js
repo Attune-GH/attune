@@ -84,4 +84,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(MatchesChart)
+export default connect(mapStateToProps)(MatchesChart)  
