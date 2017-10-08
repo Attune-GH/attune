@@ -133,3 +133,14 @@ body {
     justify-content: space-between;
     flex-flow: column wrap
 }
+
+.matches {
+    display: flex;
+    align-items: center;
+    flex-direction: column
+}
+
+.match {
+    display: flex;
+    flex-flow: row
+}
