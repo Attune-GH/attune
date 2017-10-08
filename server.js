@@ -191,7 +191,7 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
 
     //set Spotify profile information on the db
     admin.database().ref(`/Users/${uid}/`)
-          .set({profile: {uid, displayName, photoURL }})
+          .set({userProfile: {uid, displayName, photoURL }})
 
     request.get(optionsRecent, function(error, response, body){
       const items = body.items
