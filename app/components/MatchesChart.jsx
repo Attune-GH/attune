@@ -66,7 +66,7 @@ class MatchesChart extends Component {
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: opaqueColors[ind],
-        data: [person[1]*200, allMatches.artistsScores[person[0]]*200, allMatches.tracksScores[person[0]]*200, allMatches.recentSongsScores[person[0]]*200, allMatches.genreScores[person[0]]*200]
+        data: [person[1]*400, allMatches.artistsScores[person[0]]*400, allMatches.tracksScores[person[0]]*400, allMatches.recentSongsScores[person[0]]*400, allMatches.genreScores[person[0]]*100]
       }
     })
 
