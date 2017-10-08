@@ -1,17 +1,28 @@
 import React from 'react'
+import { withRouter } from "react-router-dom";
 import { Image } from 'react-bootstrap'
 
 //hold for logo and also  a redirect to Dashboard
-const Footer = () => {
+const Footer = (props) => {
   return (
-    <nav>
-      <div className="container footer">
-        <div><Image src={'/img/back.svg'} style={{ height: '125%' }} /></div>
-        {<div><h3>Dashboard</h3></div>}
-        <div><Image src={'/img/forward.svg'} style={{ height: '125%' }} /></div>
+    <div className="container footer navbar-fixed-bottom">
+      <div>
+        <Image src={'/img/back.svg'}
+          style={{ height: '75px' }}
+          onClick={() => props.history.goBack() }
+          />
       </div>
-    </nav>
+      {<div>
+        <h3>Dashboard</h3>
+      </div>}
+      <div>
+        <Image src={'/img/forward.svg'}
+        style={{ height: '75px' }}
+        onClick={() => props.history.goForward() }
+        />
+      </div>
+    </div>
   )
 }
 
-export default Footer
+export default withRouter(Footer)
