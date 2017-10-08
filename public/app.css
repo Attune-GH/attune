@@ -1,9 +1,4 @@
 
-@font-face {
-  font-family: HelveticaNeue;
-  src: url("./font/HelveticaNeue.ttf");
-}
-
 body {
   background-color: #212121;
   color: white;
@@ -100,11 +95,6 @@ body {
 }
 /* end of styling for login button */
 
-
-.user-img {
-    margin: 10px
-}
-
 .dashboard {
     display: flex;
     align-items: center;
@@ -121,4 +111,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center
+}
+
+.footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
 }

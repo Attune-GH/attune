@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Image } from 'react-bootstrap'
+import { Image } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import firebase from 'APP/fire'
@@ -68,7 +68,7 @@ class UserProfile extends Component {
     const { user } = this.state
     return (
       <div className="container">
-        <Image src={user.photoURL} className="user-img" circle />
+        <Image src={user.photoURL} circle />
         <div>
           <h1>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h1>
         </div>
