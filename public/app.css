@@ -90,6 +90,7 @@ body {
     border: none;           /* assuming we don't want any borders */
     cursor: pointer;        /* make the cursor like hovering over an <a> element */
     height: 50px;           /* make this the size of your image */
+    width: 350px;
     padding-left: 80px;     /* make text start to the right of the image */
     vertical-align: middle; /* align the text vertically centered */
 }
@@ -117,4 +118,12 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+    justify-content: space-between;
+    flex-flow: column wrap
 }
