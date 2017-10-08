@@ -75,7 +75,9 @@ class UserProfile extends Component {
         <button className="btn" onClick={() => { window.alert("HAAAY") }}>message</button>
         <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
         <div>
-          <button className="btn btn-primary btn-profile"><a href={`https://open.spotify.com/user/${user.displayName}`}>View Spotify Profile</a></button>
+          {user.uid &&
+          <button className="btn btn-primary btn-profile"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>View Spotify Profile</a></button>
+          }
         </div>
         <div>
           <div><h1>Recently Played</h1></div>

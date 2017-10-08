@@ -24,6 +24,7 @@ class Dashboard extends Component {
 
 
   render() {
+    //text color should change on hover
     return (
       <div className="dashboard">
         <button className="btn btn-dashboard"><Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}
