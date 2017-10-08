@@ -12,11 +12,8 @@ class MatchesChart extends Component {
   }
 
   componentDidMount() {
-    // store.dispatch(constantlyUpdateUser())
     const user = this.props.user
-    console.log(user)
     const uid = this.props.user.uid
-    console.log('uid', uid)
     getMatches(uid).then(matches => this.setState({ matches }))
   }
 
@@ -31,10 +28,7 @@ class MatchesChart extends Component {
           backdropColor: 'rgba(0,0,0,0.9)'
        }
       }
-      
     }
-    
-
     const styles = {
       graphContainer: {
         border: '1px solid white',
@@ -42,10 +36,7 @@ class MatchesChart extends Component {
       }
     }
     const matches = this.state.matches
-    const matchNames = Object.keys(matches)
-    console.log('matches obj', matches)
-    console.log('matches keys', matchNames)
-    var sortable = [];
+    let sortable = [];
     for (var person in matches) {
     sortable.push([person, matches[person]]);
     }
@@ -53,8 +44,6 @@ class MatchesChart extends Component {
   let sortedMatches = sortable.sort(function(a, b) {
         return b[1] - a[1];
     });
-    
-    console.log('sorted', sortedMatches)
     
     if(sortedMatches.length > 5) sortedMatches = sortedMatches.slice(0, 5)
 
@@ -64,14 +53,14 @@ class MatchesChart extends Component {
 
     const dataset$ = sortedMatches.map((person, ind) => {
       return {
-        label: person[0],
+        label: person[0].slice(13),
         backgroundColor: translucentColors[ind],
         borderColor: opaqueColors[ind],
         pointBackgroundColor: opaqueColors[ind],
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: opaqueColors[ind],
-        data: [person[1], person[1], person[1], person[1]]
+        data: [person[1]*200, person[1]*200, person[1]*200, person[1]*200]
       }
     })
 
@@ -96,28 +85,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(MatchesChart)
-
-/*
-datasets: [
-        {
-          label: 'My First dataset',
-          backgroundColor: 'rgba(179,181,198,0.2)',
-          borderColor: 'rgba(179,181,198,1)',
-          pointBackgroundColor: 'rgba(179,181,198,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(179,181,198,1)',
-          data: [65, 59, 90, 81, 56, 55, 40]
-        },
-        {
-          label: 'My Second dataset',
-          backgroundColor: 'rgba(255,99,132,0.2)',
-          borderColor: 'rgba(255,99,132,1)',
-          pointBackgroundColor: 'rgba(255,99,132,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(255,99,132,1)',
-          data: [28, 48, 40, 19, 96, 27, 100]
-        }
-      ]
-      */
