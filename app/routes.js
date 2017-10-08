@@ -1,7 +1,7 @@
 'use strict'
 import React, {Component} from 'react'
-import { Route, Switch } from 'react-router'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router'
+import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import UserProfile from './components/UserProfile'
@@ -13,18 +13,30 @@ import AllMatches from './components/AllMatches'
 import MatchesChart from './components/MatchesChart'
 import Navbar from './components/Navbar'
 import store, {constantlyUpdateUser} from './store'
+<<<<<<< HEAD
 import {Provider} from 'react-redux'
 import firebase from 'APP/fire'
 const auth = firebase.auth()
+=======
+import {Provider, connect} from 'react-redux'
+>>>>>>> master
 
 class Routes extends Component {
   componentDidMount() {
     store.dispatch(constantlyUpdateUser())
   }
 
+
   render() {
+    const {user} = store.getState()
+    if(!user.uid && this.props.location.pathname !== '/' ) {
+      return (
+        // <Redirect to="/" />
+        <div>haai</div>
+      )
+    }
+
     return (
-      <Router>
         <div>
           <Navbar/>
           <Switch>
@@ -38,9 +50,14 @@ class Routes extends Component {
             <Route path='*' component={NotFound}/>
           </Switch>
         </div>
-      </Router>
     )
   }
 }
 
-export default Routes
+const mapState = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default withRouter(connect(mapState)(Routes))

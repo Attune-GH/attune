@@ -39,7 +39,9 @@ import firebase from 'APP/fire'
 render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-      <Routes />
+      <Router>
+        <Routes />
+      </Router>
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('main')

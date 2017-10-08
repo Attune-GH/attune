@@ -41,7 +41,10 @@ class Convo extends Component {
   handleSubmit(event){
     event.preventDefault()
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> master
     //Write to Convos table at that Convo Key
     const messageObject = {from: this.props.user.uid, content: this.state.enteredMessage}
 
