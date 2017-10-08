@@ -58,9 +58,9 @@ class MatchesChart extends Component {
     
     if(sortedMatches.length > 5) sortedMatches = sortedMatches.slice(0, 5)
 
-    const translucentColors = ['rgba(179,181,198,0.2)', 'rgba(255,99,132,0.2)', 'rgb(201,81,232,0.2)', 'rgb(86,170,234,0.2)', 'rgb(92,224,138,0.2)']
+    const translucentColors = ['rgba(179,181,198,0.2)', 'rgba(255,99,132,0.2)', 'rgba(201,81,232,0.2)', 'rgba(86,170,234,0.2)', 'rgba(92,224,138,0.2)']
 
-    const opaqueColors = ['rgba(179,181,198,1)', 'rgba(255,99,132,1)', 'rgb(201,81,232,1)', 'rgb(86,170,234,1)', 'rgb(92,224,138,1)']
+    const opaqueColors = ['rgba(179,181,198,1)', 'rgba(255,99,132,1)', 'rgba(201,81,232,1)', 'rgba(86,170,234,1)', 'rgba(92,224,138,1)']
 
     const dataset$ = sortedMatches.map((person, ind) => {
       return {
