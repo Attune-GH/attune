@@ -11,7 +11,17 @@ const auth = firebase.auth()
 class Dashboard extends Component {
   constructor(props) {
     super(props)
+
+    this.onRequestMatches = this.onRequestMatches.bind(this)
   }
+
+
+  onRequestMatches() {
+    firebase.database().ref(`Users/${this.props.userId}/requestMatches`).update({
+      lastMatchRefreshRequested: new Date()
+    });
+  }
+
 
   render() {
     return (
@@ -20,10 +30,13 @@ class Dashboard extends Component {
         >Profile</Link></button>
         <button className="btn btn-dashboard"><Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}>Messages</Link></button>
         <button className="btn btn-dashboard"><Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}>Matches</Link></button>
+        <button className='btn btn-dashboard' onClick={() => this.onRequestMatches()}>Get New Matches</button>
       </div>
     )
   }
 }
+
+
 
 const mapState = state => {
   return {
