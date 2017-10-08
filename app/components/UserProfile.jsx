@@ -67,17 +67,17 @@ class UserProfile extends Component {
       <div className="container profile">
         <Image src={user.photoURL} style={{ height: '150px' }} circle />
         <div>
-          <h1>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h1>
+          <h2>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         </div>
         {/* <button className="btn" onClick={() => { window.alert("HAAAY") }}>message</button> */}
         {/* <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button> */}
         <div>
           {user.uid &&
-            <button className="btn btn-primary btn-profile"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>View Spotify Profile</a></button>
+            <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>View Spotify Profile</a></button>
           }
         </div>
         <div>
-          <div><h1>Recently Played</h1></div>
+          <div><h2>Recently Played</h2></div>
           <div>
             <div>{
               recentSongs.map((song) => <div key={song.track.id}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)

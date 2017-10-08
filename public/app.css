@@ -94,6 +94,12 @@ body {
     padding-left: 80px;     /* make text start to the right of the image */
     vertical-align: middle; /* align the text vertically centered */
 }
+
+.btn-primary a {
+    text-decoration: none;
+    color: white
+}
+
 /* end of styling for login button */
 
 .dashboard {
