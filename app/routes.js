@@ -12,6 +12,7 @@ import OneConversation from './components/OneConversation'
 import AllMatches from './components/AllMatches'
 import MatchesChart from './components/MatchesChart'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import store, {constantlyUpdateUser} from './store'
 import firebase from 'APP/fire'
 import {Provider, connect} from 'react-redux'
@@ -24,13 +25,13 @@ class Routes extends Component {
 
 
   render() {
-    const {user} = store.getState()
-    if(!user.uid && this.props.location.pathname !== '/' ) {
-      return (
-        // <Redirect to="/" />
-        <div>haai</div>
-      )
-    }
+    // const {user} = store.getState()
+    // if(!user.uid && this.props.location.pathname !== '/' ) {
+    //   return (
+    //     // <Redirect to="/" />
+    //     // <div>haai</div>
+    //   )
+    // }
 
     return (
         <div>
@@ -45,6 +46,7 @@ class Routes extends Component {
             <Route path='/profile/:userId' component={UserProfile} />
             <Route path='*' component={NotFound}/>
           </Switch>
+          <Footer/>
         </div>
     )
   }

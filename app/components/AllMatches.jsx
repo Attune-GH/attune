@@ -51,13 +51,14 @@ class SimpleSlider extends React.Component {
     })
 
     return (
-      <div >
-        <h1>Your Matches, sorted by compatibility!!!!</h1>
-        <Slider {...settings} className="container">
+      <div>
+        <div className="container matches"><h2>Your Matches</h2></div>
+        <Slider {...settings}
+        className="container">
           {sortable && sortable.map(match =>
             <div key={match[0]}><OneMatch match={match} /></div>)}
         </Slider>
-        <div>Swipe Through</div>
+        {/* <div className="container matches"><h3>Swipe Through</h3></div> */}
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Image } from 'react-bootstrap'
+import { Image } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import firebase from 'APP/fire'
@@ -26,13 +26,14 @@ class UserProfile extends Component {
 
   onLogout() {
     auth.signOut()
+    location.replace('/login')
   }
 
   render() {
     let authUser
     if (this.state.user.uid) authUser = this.state.user.uid === this.props.user.uid
     return (
-      <div className="container">
+      <div>
         {authUser && (authUser) ? this.renderAuthUser() : this.renderUser()}
       </div>
     )
@@ -40,19 +41,16 @@ class UserProfile extends Component {
 
   renderAuthUser() {
     const { user } = this.props
-    const recentSongs = this.state.recentSongs.slice(0, 3)
+    const recentSongs = this.state.recentSongs.slice(0, 2)
     return (
-      <div className="container">
-        <Image src={user.photoURL} className="user-img" circle />
-        <div>
-          <h1>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h1>
-        </div>
-        {/* list matches or some other stat here instead? */}
+      <div className="container profile">
+        <Image src={user.photoURL} style={{ height: '150px' }} circle />
+        <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         <div>
           <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
         <div>
-          <div><h1>Recently Played</h1></div>
+          <div><h2>Recently Played</h2></div>
           <div>
             <div>{
               recentSongs.map((song) => <div key={song.track.id}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
@@ -64,21 +62,28 @@ class UserProfile extends Component {
   }
 
   renderUser() {
-    const recentSongs = this.state.recentSongs.slice(0, 3)
+    const recentSongs = this.state.recentSongs.slice(0, 2)
     const { user } = this.state
     return (
-      <div className="container">
-        <Image src={user.photoURL} className="user-img" circle />
+      <div className="container profile">
+        <Image src={user.photoURL} style={{ height: '150px' }} circle />
         <div>
-          <h1>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h1>
+          <h2>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         </div>
+<<<<<<< HEAD
         <button className="btn" onClick={()=>location.assign(`/messages/${user.uid}`)}>message</button>
         <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
+=======
+        {/* <button className="btn" onClick={() => { window.alert("HAAAY") }}>message</button> */}
+        {/* <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button> */}
+>>>>>>> master
         <div>
-          <button className="btn btn-primary btn-profile"><a href={`https://open.spotify.com/user/${user.displayName}`}>View Spotify Profile</a></button>
+          {user.uid &&
+            <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>View Spotify Profile</a></button>
+          }
         </div>
         <div>
-          <div><h1>Recently Played</h1></div>
+          <div><h2>Recently Played</h2></div>
           <div>
             <div>{
               recentSongs.map((song) => <div key={song.track.id}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
