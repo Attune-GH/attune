@@ -27,10 +27,9 @@ class Dashboard extends Component {
     //text color should change on hover
     return (
       <div className="dashboard">
-        <button className="btn btn-dashboard"><Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}
-        >Profile</Link></button>
-        <button className="btn btn-dashboard"><Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}>Messages</Link></button>
-        <button className="btn btn-dashboard"><Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}>Matches</Link></button>
+        <Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}><button className="btn btn-dashboard">Profile</button></Link>
+        <Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}><button className="btn btn-dashboard">Messages</button></Link>
+        <Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}><button className="btn btn-dashboard">Matches</button></Link>
         <button className='btn btn-dashboard' onClick={() => this.onRequestMatches()}>Get New Matches</button>
       </div>
     )
