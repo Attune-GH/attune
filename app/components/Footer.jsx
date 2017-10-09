@@ -12,9 +12,12 @@ const Footer = (props) => {
           onClick={() => props.history.goBack() }
           />
       </div>
-      {<div>
-        <h3>Dashboard</h3>
-      </div>}
+      <div>
+      <Image src={'/img/dashboard.svg'}
+      style={{ height: '75px' }}
+      onClick={() => props.history.push('/dashboard') }
+      />
+    </div>
       <div>
         <Image src={'/img/forward.svg'}
         style={{ height: '75px' }}

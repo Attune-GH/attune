@@ -125,9 +125,6 @@ body {
     align-items: flex-end;
     justify-content: space-between;
     position: fixed;
-    /* height: 100px;
-    bottom: 0;
-    width: 100%; */
 }
 
 .profile {
