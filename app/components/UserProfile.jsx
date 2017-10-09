@@ -31,7 +31,6 @@ class UserProfile extends Component {
   render() {
     let authUser
     if (this.state.user.uid) authUser = this.state.user.uid === this.props.user.uid
-    console.log(authUser)
     return (
       <div>
         {authUser && (authUser) ? this.renderAuthUser() : this.renderUser()}
@@ -41,8 +40,6 @@ class UserProfile extends Component {
 
   renderAuthUser() {
     const { user } = this.props
-    console.log('hey heres user in auth',user)
-    console.log('hey heres user in auth',this.state.user)
     const recentSongs = this.state.recentSongs.slice(0, 2)
     return (
       <div className="container profile">
@@ -66,7 +63,6 @@ class UserProfile extends Component {
   renderUser() {
     const recentSongs = this.state.recentSongs.slice(0, 2)
     const { user } = this.state
-    console.log('hey heres user',user)
     return (
       <div className="container profile">
         <Image src={user.photoURL} style={{ height: '150px' }} circle />
