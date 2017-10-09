@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import Iframe from 'react-iframe'
 import firebase from 'APP/fire'
-import { getRecentSongs, getUserProfile } from 'APP/fire/refs'
+import { getRecentSongs, getUserProfile, setUserBio } from 'APP/fire/refs'
 const auth = firebase.auth()
 
 class UserProfile extends Component {
@@ -12,7 +12,8 @@ class UserProfile extends Component {
     super()
     this.state = {
       recentSongs: [],
-      user: {}
+      user: {},
+      isEditing: false
     }
     this.renderAuthUser = this.renderAuthUser.bind(this)
     this.renderUser = this.renderUser.bind(this)
@@ -42,11 +43,17 @@ class UserProfile extends Component {
 
   renderAuthUser() {
     const { user } = this.props
-    const recentSongs = this.state.recentSongs.slice(0, 2)
+    const recentSongs = this.state.recentSongs.slice(0, 3)
     return (
       <div className="container profile">
         <Image src={user.photoURL} style={{ height: '150px' }} circle />
         <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
+        <h2>Bio</h2>
+        {this.state.isEditing ? <div>heyyyy<button onClick={()=>{this.setState({isEditing: false})}}>finish bio</button></div> :
+        <div>
+          {user.bio ? <p>user.bio</p> : <p>{`Hey ${user.displayName.split(' ').slice(0, 1)}, maybe you should write a bio!`}</p>}
+          <button onClick={()=>{this.setState({isEditing: true})}}>edit bio</button></div>
+          }
         <div>
           <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
