@@ -27,8 +27,7 @@ class Dashboard extends Component {
       <div className="dashboard">
         <Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}><button className="btn btn-dashboard">Profile</button></Link>
         <Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}><button className="btn btn-dashboard">Messages</button></Link>
-        <Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}><button className="btn btn-dashboard">Matches</button></Link>
-        <button className='btn btn-dashboard' onClick={() => this.onRequestMatches()}>Get New Matches</button>
+        <Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}><button className='btn btn-dashboard' onClick={() => this.onRequestMatches()}>See Your Matches</button></Link>
       </div>
     )
   }
@@ -37,9 +36,13 @@ class Dashboard extends Component {
 
 
 const mapState = state => {
-  return {
-    userId: state.user.uid
+  console.log("IM IN A STATE", state)
+  if(state.user){
+    return {
+      userId: state.user.uid
+    }
   }
+  else return {}
 }
 
 export default connect(mapState)(Dashboard)

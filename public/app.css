@@ -30,6 +30,10 @@ body {
     color: white
 }
 
+.formInput {
+  color: black
+}
+
 .App {
   text-align: center;
 }
