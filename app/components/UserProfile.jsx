@@ -26,6 +26,7 @@ class UserProfile extends Component {
 
   onLogout() {
     auth.signOut()
+    location.replace('/login')
   }
 
   render() {
