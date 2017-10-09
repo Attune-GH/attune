@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import store from '../store/index'
 const auth = firebase.auth()
 import { fetchConvoIdThunk } from '../store/convo'
-import { addMessage, getMessagesThunk } from '../store/messages'
+import { getMessagesThunk } from '../store/messages'
 let friendUid = "spotify:user:jpvelez"
 
 class Convo extends Component {
@@ -53,7 +53,6 @@ class Convo extends Component {
     // firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
     const messageKey = firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject).key
     console.log("MESSAGE KEY!", messageKey)
-    // this.props.dispatchAddMessage({messageObject})
 
     firebase.database().ref(`Convos/${this.props.convoId}`).on("child_added", ()=> {
       this.props.dispatchGetMessagesThunk(`${this.props.convoId}`)
@@ -62,25 +61,26 @@ class Convo extends Component {
   }
 
   render(){
-    console.log("THIZS PROPSZ", this.props)
-    if(this.props.messages) {
-      const messageArray = Object.entries(this.props.messages)
-        {messageArray && messageArray.map(message=>{
-          console.log("MESSSSSAGE", message)
-            return 
-              <div>
-             
-                <h3>{message[1].content}</h3>
-                <br/>
-              </div>
-            }
-          )}
-    }
+
+    const messageArray = Object.entries(this.props.messages)
 
     return(
     <div className = "container">
       <h3> Scintillating Conversation Between Two Interesting People Who Love The Same Music </h3>
         <br/>
+
+        {messageArray && messageArray.map(message=>{
+          console.log("MESSSSSAGE", message)
+            return (
+              <div key={message[0]}>
+                <ul>
+                <h5>{message[1].from.slice(13)}: {message[1].content}</h5>
+                </ul>
+              </div>
+            )
+            }
+          )}
+
         <div >
         <form onSubmit = {this.handleSubmit}>
             <label>{this.props.user.displayName}:</label> 
@@ -89,13 +89,16 @@ class Convo extends Component {
               name="messageField"
               type="text"
               value = {this.state.enteredMessage}
-              placeholder="friendly message"
+              placeholder="say something friendly"
               onChange = {this.handleChange}
             />
-            <input
-              type="submit"
-            />
-            
+        <span className="input-group-btn">
+          <button 
+            className="btn btn-default" 
+            type="submit"> 
+            Chat!
+          </button>
+        </span>
         </form>
         </div>
     </div>
@@ -108,9 +111,6 @@ const mapDispatchToProps = (dispatch)=> {
     initializeConvo: function(uid, friendUid){
       dispatch(fetchConvoIdThunk(uid, friendUid))
     }, 
-    dispatchAddMessage: function(message){
-      dispatch(addMessage(message))
-    },
     dispatchGetMessagesThunk: function(convoKey){
       dispatch(getMessagesThunk(convoKey))
     }
