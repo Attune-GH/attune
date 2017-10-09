@@ -103,8 +103,4 @@ const mapStateToProps = state => {
     user: state.user
   }
 }
-<<<<<<< HEAD
 export default Convo = withRouter(connect(mapStateToProps, mapDispatchToProps)(Convo))
-=======
-export default Convo = connect(mapStateToProps, mapDispatchToProps)(Convo)
->>>>>>> master
