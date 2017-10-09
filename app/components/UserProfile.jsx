@@ -14,6 +14,7 @@ class UserProfile extends Component {
     this.state = {
       recentSongs: [],
       user: {},
+      bio: '',
       isEditing: false
     }
     this.renderAuthUser = this.renderAuthUser.bind(this)
@@ -61,21 +62,27 @@ class UserProfile extends Component {
                 rowsMax={4}
                 fullWidth={true}
               />
-              <div style={{display: "block"}}>
+              <div style={{ display: "block" }}>
                 <button
-                className="btn btn-dashboard"
-                onClick={(evt) => {
-                  console.log(evt)
-                  // setUserBio(user.uid, evt.target.val)
-                  this.setState({ isEditing: false })
-                  }}>finish bio</button>
+                  className="btn btn-dashboard"
+                  value={this.state.bio}
+                  onChange={(event, newValue) => {
+                    console.log(this.state.bio)
+                    this.setState({bio: newValue})
+                  }
+                  }
+                  onClick={() => {
+                    console.log(this.state.bio)
+                    this.setState({ isEditing: false })
+                  }
+                  }>finish bio</button>
               </div>
             </div> :
             <div>
               {user.bio ? <p>user.bio</p> : <p>{`Hey ${user.displayName.split(' ').slice(0, 1)}, maybe you should write a bio!`}</p>}
               <button
-              className="btn btn-dashboard"
-              onClick={() => { this.setState({ isEditing: true }) }}>edit bio</button></div>
+                className="btn btn-dashboard"
+                onClick={() => { this.setState({ isEditing: true }) }}>edit bio</button></div>
         }
         <div>
           <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
