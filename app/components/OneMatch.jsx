@@ -24,16 +24,14 @@ class OneMatch extends Component {
     return (
       <div className="container matches">
         <div>
-        <Image src={user.photoURL} style={{ height: '150px' }} circle />
+          <Image src={user.photoURL} style={{ height: '150px' }} circle />
           <h1>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h1>
           <h2>{`${Math.ceil(this.props.match[1] * 200)}% match`}</h2>
         </div>
         {/* <button className="btn">View Compatibility</button> */}
         <div>
-          <Link to={`profile/${user.uid}`}
-          style={{color: 'white'}}
-          >
-            <button className="btn" style={{width: '250px'}}>View Profile</button>
+          <Link to={`profile/${user.uid}`} style={{ color: 'white' }}>
+            <button className="btn" style={{ width: '250px' }}>View Profile</button>
           </Link>
         </div>
       </div>
