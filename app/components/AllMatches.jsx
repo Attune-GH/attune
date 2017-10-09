@@ -28,6 +28,7 @@ class SimpleSlider extends React.Component {
 componentDidMount() {
       store.dispatch(constantlyUpdateUser())
       const uid = this.props.user.uid
+      getMatches(uid).then(matches => this.setState({ matches }))
       firebase.database().ref(`Users/${uid}/matches/matchScores`).on("child_added", ()=> {
           getMatches(uid).then(matches => this.setState({ matches }))
       })
