@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import { connect } from 'react-redux'
 import store from '../store/index'
-const auth = firebase.auth()
 import { fetchConvoIdThunk } from '../store/convo'
 import { getMessagesThunk } from '../store/messages'
 import { withRouter } from 'react-router'
-// let friendUid = "spotify:user:jpvelez"
 
 class Convo extends Component {
   constructor(props){
@@ -64,7 +62,7 @@ class Convo extends Component {
 
         <div >
         <form onSubmit = {this.handleSubmit}>
-            <label>{this.props.user.displayName}:</label> 
+            <label>{this.props.user.displayName}:</label>
             <input
               className = "formInput"
               name="messageField"
@@ -74,9 +72,9 @@ class Convo extends Component {
               onChange = {this.handleChange}
             />
         <span className="input-group-btn">
-          <button 
-            className="btn btn-default" 
-            type="submit"> 
+          <button
+            className="btn btn-default"
+            type="submit">
             Chat!
           </button>
         </span>
@@ -91,7 +89,7 @@ const mapDispatchToProps = (dispatch)=> {
   return {
     initializeConvo: function(uid, friendUid){
       dispatch(fetchConvoIdThunk(uid, friendUid))
-    }, 
+    },
     dispatchGetMessagesThunk: function(convoKey){
       dispatch(getMessagesThunk(convoKey))
     }
@@ -105,4 +103,8 @@ const mapStateToProps = state => {
     user: state.user
   }
 }
+<<<<<<< HEAD
 export default Convo = withRouter(connect(mapStateToProps, mapDispatchToProps)(Convo))
+=======
+export default Convo = connect(mapStateToProps, mapDispatchToProps)(Convo)
+>>>>>>> master
