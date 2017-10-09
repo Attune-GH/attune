@@ -40,8 +40,8 @@
     through2 "^2.0.3"
 
 "@google-cloud/firestore@~0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@google-cloud/firestore/-/firestore-0.8.1.tgz#f741986ec57e64c763090db6da9fea3acb9dfe0e"
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@google-cloud/firestore/-/firestore-0.8.2.tgz#e93a7068b723f0773c1af62f3494c0633ba2d346"
   dependencies:
     "@google-cloud/common" "^0.13.5"
     "@google-cloud/common-grpc" "^0.4.0"
@@ -160,8 +160,8 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.0.tgz#5a7306e367c539b9f6543499de8dd519fac37a8b"
 
 "@types/node@*", "@types/node@^8.0.32":
-  version "8.0.32"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.32.tgz#869a716538b6eec65ab3893f183d557be3cda206"
+  version "8.0.33"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.33.tgz#1126e94374014e54478092830704f6ea89df04cd"
 
 "@types/node@^7.0.29":
   version "7.0.43"
@@ -4916,8 +4916,8 @@ react-event-listener@^0.4.5:
     warning "^3.0.0"
 
 react-overlays@^0.7.0:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.7.1.tgz#0b84708d8007082163c47155a2f60a0858c7a3c7"
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.7.2.tgz#03808f80d99dfadd93d67438c619aa55d07b3f80"
   dependencies:
     classnames "^2.2.5"
     dom-helpers "^3.2.1"

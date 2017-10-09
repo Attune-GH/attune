@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import store from '../store/index'
 const auth = firebase.auth()
 import { fetchConvoIdThunk } from '../store/convo'
-import { addMessage } from '../store/messages'
+import { getMessagesThunk } from '../store/messages'
 let friendUid = "spotify:user:jpvelez"
 
 class Convo extends Component {
@@ -19,14 +19,21 @@ class Convo extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentWillReceiveProps(nextProps){
-    // this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));  
-
-    //FOR NOW, FRIEND UID IS ALWAYS JUAN. WILL PASS IN AS PROPS SOMEHOW L8R
-    if(this.props.user.uid !== nextProps.user.uid){
-      this.props.initializeConvo(nextProps.user.uid, friendUid)
-    }
+  componentDidMount(){
+    this.props.initializeConvo(this.props.user.uid, friendUid)
   }
+
+
+  // componentWillReceiveProps(nextProps){
+  //   console.log("THIS.PROPS.USER.UID", this.props.user.uid)
+  //   console.log("NEXTPROPS.USER.UID", nextProps.user.uid)
+
+  //   // this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));  
+  //   //FOR NOW, FRIEND UID IS ALWAYS JUAN. WILL PASS IN AS PROPS SOMEHOW L8R
+  //   if(this.props.user.uid !== nextProps.user.uid){
+  //     this.props.initializeConvo(nextProps.user.uid, friendUid)
+  //   }
+  // }
 
   componentWillUnmount() {
     this.unsubscribe()
@@ -41,42 +48,39 @@ class Convo extends Component {
   handleSubmit(event){
     event.preventDefault()
 
-    //Write to Convos table at that Convo Key
+    // Write message to the appropriate Convo Key
     const messageObject = {from: this.props.user.uid, content: this.state.enteredMessage}
-
     // firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
     const messageKey = firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject).key
     console.log("MESSAGE KEY!", messageKey)
 
     firebase.database().ref(`Convos/${this.props.convoId}`).on("child_added", ()=> {
-      this.props.dispatchAddMessage({messageObject})
+      this.props.dispatchGetMessagesThunk(`${this.props.convoId}`)
     })
-      
-    
-    // this.setState({enteredMessage: ''})
+    this.setState({enteredMessage: ''})
   }
 
   render(){
-    if(this.props.messages) {
-      const messageArray = Object.entries(this.props.messages)
-        {messageArray && messageArray.map(message=>{
-          
-            return 
-              <div>
-                <h2>{message[1].from}: </h2>
-                <h3>{message[1].content}</h3>
-                <br/>
-              </div>
-            }
-          )}
-    }
+
+    const messageArray = Object.entries(this.props.messages)
 
     return(
     <div className = "container">
       <h3> Scintillating Conversation Between Two Interesting People Who Love The Same Music </h3>
         <br/>
-        
-  
+
+        {messageArray && messageArray.map(message=>{
+          console.log("MESSSSSAGE", message)
+            return (
+              <div key={message[0]}>
+                <ul>
+                <h5>{message[1].from.slice(13)}: {message[1].content}</h5>
+                </ul>
+              </div>
+            )
+            }
+          )}
+
         <div >
         <form onSubmit = {this.handleSubmit}>
             <label>{this.props.user.displayName}:</label> 
@@ -85,14 +89,16 @@ class Convo extends Component {
               name="messageField"
               type="text"
               value = {this.state.enteredMessage}
-              placeholder="friendly message"
+              placeholder="say something friendly"
               onChange = {this.handleChange}
             />
-            <input
-              type="submit"
-              name="submit"
-            />
-            
+        <span className="input-group-btn">
+          <button 
+            className="btn btn-default" 
+            type="submit"> 
+            Chat!
+          </button>
+        </span>
         </form>
         </div>
     </div>
@@ -105,8 +111,8 @@ const mapDispatchToProps = (dispatch)=> {
     initializeConvo: function(uid, friendUid){
       dispatch(fetchConvoIdThunk(uid, friendUid))
     }, 
-    dispatchAddMessage: function(message){
-      dispatch(addMessage(message))
+    dispatchGetMessagesThunk: function(convoKey){
+      dispatch(getMessagesThunk(convoKey))
     }
   }
 }

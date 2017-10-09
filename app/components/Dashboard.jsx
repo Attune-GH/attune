@@ -37,9 +37,13 @@ class Dashboard extends Component {
 
 
 const mapState = state => {
-  return {
-    userId: state.user.uid
+  console.log("IM IN A STATE", state)
+  if(state.user){
+    return {
+      userId: state.user.uid
+    }
   }
+  else return {}
 }
 
 export default connect(mapState)(Dashboard)
