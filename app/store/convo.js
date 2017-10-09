@@ -1,5 +1,5 @@
 import firebase from 'APP/fire'
-import { getMessagesThunk } from './messages'
+import { getMessagesThunk, getMessages } from './messages'
 
 const UsersRef = firebase.database().ref(`/Users`)
 
@@ -11,12 +11,11 @@ const findConvoId = convoId => ({type: FIND_CONVO_ID, convoId})
 
 //THUNK CREATOR
  export const fetchConvoIdThunk = (uid, friendUid) => {
-  console.log("UID UP HERE", uid)
   return dispatch => {
-    console.log("DISPATCHED A THING")
     return UsersRef.child(`${uid}/ConvoIds`).once('value')
       .then(snapshot=> {
         if (snapshot.hasChild(`${friendUid}`)){
+          console.log("snapshot.hasChildthatisfriend", snapshot.hasChild(`${friendUid}`))
           console.log("snapshot.val", snapshot.val())
           const convoKey = snapshot.val()[`${friendUid}`]
           console.log("CONVO KEY", convoKey)
@@ -49,6 +48,9 @@ const findConvoId = convoId => ({type: FIND_CONVO_ID, convoId})
             .then((convoKey)=> {
               console.log("in the dispatch")
               dispatch(findConvoId(convoKey))
+              //BUG IS HERE NOT DISPATCHING!!!!
+              console.log("!!!!!!IM RIGHT BEFORE UR BUG!!!!!!")
+              dispatch(getMessages({}))
             })
         }
       })

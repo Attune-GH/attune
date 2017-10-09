@@ -6,7 +6,7 @@ const auth = firebase.auth()
 import { fetchConvoIdThunk } from '../store/convo'
 import { getMessagesThunk } from '../store/messages'
 import { withRouter } from 'react-router'
-let friendUid = "spotify:user:jpvelez"
+// let friendUid = "spotify:user:jpvelez"
 
 class Convo extends Component {
   constructor(props){
@@ -18,12 +18,11 @@ class Convo extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    
-    let friendUid = this.props.match.params.userId
   }
 
   componentDidMount(){
-    this.props.initializeConvo(this.props.user.uid, friendUid)
+    console.log("IM MOUNTING!!!! RN!!!!!")
+    this.props.initializeConvo(this.props.user.uid, this.props.match.params.userId)
   }
 
   // componentWillReceiveProps(nextProps){

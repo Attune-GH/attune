@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Image } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import Iframe from 'react-iframe'
 import firebase from 'APP/fire'
 import { getRecentSongs, getUserProfile } from 'APP/fire/refs'
 const auth = firebase.auth()
@@ -62,7 +63,7 @@ class UserProfile extends Component {
   }
 
   renderUser() {
-    const recentSongs = this.state.recentSongs.slice(0, 2)
+    const recentSongs = this.state.recentSongs.slice(0, 3)
     const { user } = this.state
     return (
       <div className="container profile">

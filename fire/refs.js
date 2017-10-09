@@ -14,3 +14,6 @@ exports.getUserProfile = id => (
   db.ref(`Users/${id}/userProfile`).once('value').then(snapshot => snapshot.val()).catch(console.error)
 )
 
+exports.getAllMatches = id => (
+  db.ref(`Users/${id}/matches`).once('value').then(snapshot => snapshot.val()).catch(console.error)
+)

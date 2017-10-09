@@ -2,11 +2,9 @@ import firebase from 'APP/fire'
 
 //ACTION TYPES
 const GET_MESSAGES = 'GET_MESSAGES'
-const ADD_MESSAGE = 'ADD_MESSAGE'
 
 //ACTION CREATOR
-const getMessages  = allMessages => ({type: GET_MESSAGES, allMessages})
-export const addMessage = message => ({type: ADD_MESSAGE, message})
+export const getMessages  = allMessages => ({type: GET_MESSAGES, allMessages})
 
 //THUNK CREATOR
 export const getMessagesThunk = (convoKey) => {
@@ -16,19 +14,23 @@ export const getMessagesThunk = (convoKey) => {
       .then(snapshot => snapshot.val())
       .then(allMessages => {
         console.log("ALL MESSAGES", allMessages)
-        dispatch(getMessages(allMessages))
+        if (allMessages){
+          dispatch(getMessages(allMessages))
+        } else {
+          dispatch(getMessages({}))
+        }
       })
   }
 }
 //REDUCER
 
 export default function reducer(messages = {}, action){
+  console.log("IN THE REDUCCER!!!!!!!!!!!!!!", messages)
+
   switch(action.type){
     case GET_MESSAGES:
       return action.allMessages;
 
-    case ADD_MESSAGE: 
-      return Object.assign({}, messages, action.message)
     default: 
       return messages 
   }
