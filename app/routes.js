@@ -22,13 +22,13 @@ class Routes extends Component {
 
 
   render() {
-    const {user} = store.getState()
-    if(!user.uid && this.props.location.pathname !== '/' ) {
-      return (
-        // <Redirect to="/" />
-        <div>haai</div>
-      )
-    }
+    // const {user} = store.getState()
+    // if(!user.uid && this.props.location.pathname !== '/' ) {
+    //   return (
+    //     // <Redirect to="/" />
+    //     // <div>haai</div>
+    //   )
+    // }
 
     return (
         <div>
