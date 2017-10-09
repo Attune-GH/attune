@@ -9,7 +9,7 @@ const FIND_CONVO_ID = 'FIND_CONVO_ID'
 //ACTION CREATOR
 const findConvoId = convoId => ({type: FIND_CONVO_ID, convoId})
 
-//THUNK CREATOR
+//THUNK CREATOR 
  export const fetchConvoIdThunk = (uid, friendUid) => {
   return dispatch => {
     return UsersRef.child(`${uid}/ConvoIds`).once('value')
