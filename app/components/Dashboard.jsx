@@ -27,7 +27,7 @@ class Dashboard extends Component {
       <div className="dashboard">
         <Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}><button className="btn btn-dashboard">Profile</button></Link>
         <Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}><button className="btn btn-dashboard">Messages</button></Link>
-        <Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}><button className='btn btn-dashboard' onClick={() => this.onRequestMatches()}>Get New Matches</button></Link>
+        <Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}><button className='btn btn-dashboard' onClick={() => this.onRequestMatches()}>See Your Matches</button></Link>
       </div>
     )
   }
