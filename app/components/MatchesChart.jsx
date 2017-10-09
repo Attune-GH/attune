@@ -33,7 +33,7 @@ class MatchesChart extends Component {
     }
     const styles = {
       graphContainer: {
-        border: '1px solid white',
+        border: '1px solid black',
         padding: '15px'
       }
     }
@@ -66,12 +66,12 @@ class MatchesChart extends Component {
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: opaqueColors[ind],
-        data: [person[1]*400, allMatches.artistsScores[person[0]]*400, allMatches.tracksScores[person[0]]*400, allMatches.recentSongsScores[person[0]]*400, allMatches.genreScores[person[0]]*100]
+        data: [person[1]*400, allMatches.artistsScores[person[0]]*800, allMatches.tracksScores[person[0]]*1200, allMatches.genreScores[person[0]]*100]
       }
     })
 
     const data = {
-      labels: ['Total Match Score', 'Top Artists', 'Top Tracks', 'Recent Tracks', 'Genres'],
+      labels: ['Total Match Score', 'Top Artists', 'Top Tracks', 'Genres'],
       datasets: dataset$
     }
 
