@@ -1,5 +1,3 @@
-'use strict'
-
 import React, {Component} from 'react'
 import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router-dom'
 import firebase from 'APP/fire'
@@ -24,23 +22,19 @@ class Dashboard extends Component {
 
 
   render() {
+    //text color should change on hover
     return (
-      <div>
-
-        <h2><Link to={`/profile/${this.props.userId}`}>Profile</Link></h2>
-
-        <h2><Link to='/messages'>Messages</Link></h2>
-
-        <h2><Link to='/matches'>Matches</Link></h2>
-
-        <div>
-          <button className='btn btn-primary' onClick={() => this.onRequestMatches()}>Get New Matches</button>
-        </div>
-
+      <div className="dashboard">
+        <Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}><button className="btn btn-dashboard">Profile</button></Link>
+        <Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}><button className="btn btn-dashboard">Messages</button></Link>
+        <Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}><button className="btn btn-dashboard">Matches</button></Link>
+        <button className='btn btn-dashboard' onClick={() => this.onRequestMatches()}>Get New Matches</button>
       </div>
     )
   }
 }
+
+
 
 const mapState = state => {
   return {

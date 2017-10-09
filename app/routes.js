@@ -11,6 +11,7 @@ import OneConversation from './components/OneConversation'
 import AllMatches from './components/AllMatches'
 import MatchesChart from './components/MatchesChart'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import store, {constantlyUpdateUser} from './store'
 import {Provider, connect} from 'react-redux'
 
@@ -42,6 +43,7 @@ class Routes extends Component {
             <Route path='/profile/:userId' component={UserProfile} />
             <Route path='*' component={NotFound}/>
           </Switch>
+          <Footer/>
         </div>
     )
   }
