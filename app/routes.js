@@ -1,5 +1,5 @@
 'use strict'
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router'
 import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 import WhoAmI from './components/WhoAmI'
@@ -12,8 +12,8 @@ import AllMatches from './components/AllMatches'
 import MatchesChart from './components/MatchesChart'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import store, {constantlyUpdateUser} from './store'
-import {Provider, connect} from 'react-redux'
+import store, { constantlyUpdateUser } from './store'
+import { Provider, connect } from 'react-redux'
 
 class Routes extends Component {
   componentDidMount() {
@@ -22,8 +22,8 @@ class Routes extends Component {
 
 
   render() {
-    const {user} = store.getState()
-    if(!user.uid && this.props.location.pathname !== '/' ) {
+    const { user } = store.getState()
+    if (!user.uid && this.props.location.pathname !== '/') {
       return (
         // <Redirect to="/" />
         <div>haai</div>
@@ -31,20 +31,22 @@ class Routes extends Component {
     }
 
     return (
-        <div>
-          <Navbar/>
+      <div>
+        <Navbar />
+        <div className="content">
           <Switch>
             <Route exact path="/" component={WhoAmI} />
             <Route exact path='/matchesChart' component={MatchesChart} />
-            <Route path='/dashboard' component={Dashboard}/>
-            <Route path='/messages' component={AllConversations}/>
-            <Route path='/messages/:userId' component={OneConversation}/>
-            <Route exact path='/matches' component={AllMatches}/>
+            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/messages' component={AllConversations} />
+            <Route path='/messages/:userId' component={OneConversation} />
+            <Route exact path='/matches' component={AllMatches} />
             <Route path='/profile/:userId' component={UserProfile} />
-            <Route path='*' component={NotFound}/>
+            <Route path='*' component={NotFound} />
           </Switch>
-          <Footer/>
-        </div>
+          </div>
+        <Footer />
+      </div>
     )
   }
 }

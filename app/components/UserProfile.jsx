@@ -62,7 +62,8 @@ class UserProfile extends Component {
   }
 
   renderUser() {
-    const recentSongs = this.state.recentSongs.slice(0, 2)
+    const recentSongs = this.state.recentSongs
+    // const recentSongs = this.state.recentSongs.slice(0, 2)
     const { user } = this.state
     return (
       <div className="container profile">
