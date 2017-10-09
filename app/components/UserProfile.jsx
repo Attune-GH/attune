@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Image } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import Iframe from 'react-iframe'
 import firebase from 'APP/fire'
 import { getRecentSongs, getUserProfile } from 'APP/fire/refs'
 const auth = firebase.auth()
@@ -80,7 +81,7 @@ class UserProfile extends Component {
           <div><h2>Recently Played</h2></div>
           <div>
             <div>{
-              recentSongs.map((song) => <div key={song.track.id}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
+              recentSongs.map((song) => <div key={song.track.id}><Iframe url={`https://open.spotify.com/embed?uri=${song.track.uri}`} /></div>)
             }</div>
           </div>
         </div>

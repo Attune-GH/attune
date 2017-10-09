@@ -3,6 +3,7 @@ body {
   background-color: #212121;
   color: white;
   font-family: 'Quicksand', sans-serif;
+  margin-bottom: 60px
 }
 
 .load{
@@ -124,7 +125,6 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    position: fixed;
 }
 
 .profile {
