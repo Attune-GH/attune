@@ -13,7 +13,6 @@ class Convo extends Component {
     super(props)
 
     this.state = {
-      // currentUser: {},
       enteredMessage: ''
     }
     this.handleChange = this.handleChange.bind(this)
@@ -21,24 +20,8 @@ class Convo extends Component {
   }
 
   componentDidMount(){
-    console.log("IM MOUNTING!!!! RN!!!!!")
     this.props.initializeConvo(this.props.user.uid, this.props.match.params.userId)
   }
-
-  // componentWillReceiveProps(nextProps){
-  //   console.log("THIS.PROPS.USER.UID", this.props.user.uid)
-  //   console.log("NEXTPROPS.USER.UID", nextProps.user.uid)
-
-  //   // this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));  
-  //   //FOR NOW, FRIEND UID IS ALWAYS JUAN. WILL PASS IN AS PROPS SOMEHOW L8R
-  //   if(this.props.user.uid !== nextProps.user.uid){
-  //     this.props.initializeConvo(nextProps.user.uid, friendUid)
-  //   }
-  // }
-
-  // componentWillUnmount() {
-  //   this.unsubscribe()
-  // }
 
   handleChange(event){
     this.setState({
@@ -53,6 +36,7 @@ class Convo extends Component {
     const messageObject = {from: this.props.user.uid, content: this.state.enteredMessage}
     firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
 
+    //Listen for updates to Firebase and update the Messages store to trigger re-render
     firebase.database().ref(`Convos/${this.props.convoId}`).on("child_added", ()=> {
       this.props.dispatchGetMessagesThunk(`${this.props.convoId}`)
     })
@@ -60,7 +44,6 @@ class Convo extends Component {
   }
 
   render(){
-    console.log("THEESE PROPSZ", this.props)
     const messageArray = Object.entries(this.props.messages)
 
     return(
@@ -69,7 +52,6 @@ class Convo extends Component {
         <br/>
 
         {messageArray && messageArray.map(message=>{
-          console.log("MESSSSSAGE", message)
             return (
               <div key={message[0]}>
                 <ul>
@@ -77,8 +59,8 @@ class Convo extends Component {
                 </ul>
               </div>
             )
-            }
-          )}
+          }
+        )}
 
         <div >
         <form onSubmit = {this.handleSubmit}>
@@ -88,7 +70,7 @@ class Convo extends Component {
               name="messageField"
               type="text"
               value = {this.state.enteredMessage}
-              placeholder="say something friendly"
+              placeholder="say hey"
               onChange = {this.handleChange}
             />
         <span className="input-group-btn">
