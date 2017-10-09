@@ -13,13 +13,9 @@ import AllMatches from './components/AllMatches'
 import MatchesChart from './components/MatchesChart'
 import Navbar from './components/Navbar'
 import store, {constantlyUpdateUser} from './store'
-<<<<<<< HEAD
-import {Provider} from 'react-redux'
 import firebase from 'APP/fire'
-const auth = firebase.auth()
-=======
 import {Provider, connect} from 'react-redux'
->>>>>>> master
+const auth = firebase.auth()
 
 class Routes extends Component {
   componentDidMount() {
