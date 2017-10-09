@@ -33,7 +33,7 @@ class OneMatch extends Component {
           <Link to={`profile/${user.uid}`}
           style={{color: 'white'}}
           >
-            <button className="btn">View Profile</button>
+            <button className="btn" style={{width: '250px'}}>View Profile</button>
           </Link>
         </div>
       </div>
