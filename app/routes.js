@@ -1,5 +1,5 @@
 'use strict'
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router'
 import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 import WhoAmI from './components/WhoAmI'
@@ -34,8 +34,9 @@ class Routes extends Component {
     // }
 
     return (
-        <div>
-          <Navbar/>
+      <div>
+        <Navbar />
+        <div className="content">
           <Switch>
             <Route exact path="/" component={WhoAmI} />
             <Route exact path='/matchesChart' component={MatchesChart} />
@@ -44,10 +45,11 @@ class Routes extends Component {
             <Route path='/messages' component={AllConversations}/>
             <Route exact path='/matches' component={AllMatches}/>
             <Route path='/profile/:userId' component={UserProfile} />
-            <Route path='*' component={NotFound}/>
+            <Route path='*' component={NotFound} />
           </Switch>
-          <Footer/>
-        </div>
+          </div>
+        <Footer />
+      </div>
     )
   }
 }
