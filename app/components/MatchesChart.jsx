@@ -1,20 +1,23 @@
 import React, { Component } from 'react'
 import {Radar} from 'react-chartjs-2'
 import { connect } from 'react-redux'
-import { getMatches } from 'APP/fire/refs'
+import { getMatches, getAllMatches } from 'APP/fire/refs'
 
 class MatchesChart extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      matches: {}
+      matches: {},
+      allMatches: {}
     }
   }
 
+  //change
   componentDidMount() {
     const user = this.props.user
     const uid = this.props.user.uid
     getMatches(uid).then(matches => this.setState({ matches }))
+    getAllMatches(uid).then(allMatches => this.setState({allMatches}))
   }
 
   render() {  
@@ -31,11 +34,12 @@ class MatchesChart extends Component {
     }
     const styles = {
       graphContainer: {
-        border: '1px solid white',
+        border: '1px solid black',
         padding: '15px'
       }
     }
     const matches = this.state.matches
+    console.log('matches', matches)
     let sortable = [];
     for (var person in matches) {
     sortable.push([person, matches[person]]);
@@ -47,11 +51,14 @@ class MatchesChart extends Component {
     
     if(sortedMatches.length > 5) sortedMatches = sortedMatches.slice(0, 5)
 
+    var allMatches = this.state.allMatches
+    console.log('allMatches', allMatches)
+
     const translucentColors = ['rgba(179,181,198,0.2)', 'rgba(255,99,132,0.2)', 'rgba(201,81,232,0.2)', 'rgba(86,170,234,0.2)', 'rgba(92,224,138,0.2)']
 
     const opaqueColors = ['rgba(179,181,198,1)', 'rgba(255,99,132,1)', 'rgba(201,81,232,1)', 'rgba(86,170,234,1)', 'rgba(92,224,138,1)']
 
-    const dataset$ = sortedMatches.map((person, ind) => {
+    let dataset$ = sortedMatches.map((person, ind) => {
       return {
         label: person[0].slice(13),
         backgroundColor: translucentColors[ind],
@@ -60,12 +67,12 @@ class MatchesChart extends Component {
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: opaqueColors[ind],
-        data: [person[1]*200, person[1]*200, person[1]*200, person[1]*200]
+        data: [person[1]*400, allMatches.artistsScores[person[0]]*800, allMatches.tracksScores[person[0]]*1200, allMatches.genreScores[person[0]]*100]
       }
     })
 
     const data = {
-      labels: ['Top Artists', 'Top Tracks', 'Recent Tracks', 'Genres'],
+      labels: ['Total Match Score', 'Top Artists', 'Top Tracks', 'Genres'],
       datasets: dataset$
     }
 

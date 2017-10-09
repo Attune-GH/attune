@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Image } from 'react-bootstrap'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import Iframe from 'react-iframe'
 import firebase from 'APP/fire'
 import { getRecentSongs, getUserProfile } from 'APP/fire/refs'
 const auth = firebase.auth()
@@ -26,6 +27,7 @@ class UserProfile extends Component {
 
   onLogout() {
     auth.signOut()
+    location.replace('/login')
   }
 
   render() {
@@ -61,7 +63,7 @@ class UserProfile extends Component {
   }
 
   renderUser() {
-    const recentSongs = this.state.recentSongs.slice(0, 2)
+    const recentSongs = this.state.recentSongs.slice(0, 3)
     const { user } = this.state
     return (
       <div className="container profile">
@@ -69,8 +71,8 @@ class UserProfile extends Component {
         <div>
           <h2>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         </div>
-        {/* <button className="btn" onClick={() => { window.alert("HAAAY") }}>message</button> */}
-        {/* <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button> */}
+        <button className="btn" onClick={() => { window.alert("HAAAY") }}>message</button>
+        <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
         <div>
           {user.uid &&
             <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>View Spotify Profile</a></button>
