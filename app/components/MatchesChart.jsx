@@ -12,6 +12,7 @@ class MatchesChart extends Component {
     }
   }
 
+  //change
   componentDidMount() {
     const user = this.props.user
     const uid = this.props.user.uid
