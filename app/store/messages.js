@@ -22,7 +22,7 @@ export const getMessagesThunk = (convoKey) => {
 }
 //REDUCER
 
-export default function reducer(messages = [], action){
+export default function reducer(messages = {}, action){
   switch(action.type){
     case GET_MESSAGES:
       return action.allMessages;

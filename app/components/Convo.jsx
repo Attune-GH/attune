@@ -51,8 +51,7 @@ class Convo extends Component {
     // Write message to the appropriate Convo Key
     const messageObject = {from: this.props.user.uid, content: this.state.enteredMessage}
     // firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
-    const messageKey = firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject).key
-    console.log("MESSAGE KEY!", messageKey)
+    firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
 
     firebase.database().ref(`Convos/${this.props.convoId}`).on("child_added", ()=> {
       this.props.dispatchGetMessagesThunk(`${this.props.convoId}`)
@@ -61,7 +60,7 @@ class Convo extends Component {
   }
 
   render(){
-
+    console.log("THEESE PROPSZ", this.props)
     const messageArray = Object.entries(this.props.messages)
 
     return(

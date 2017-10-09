@@ -72,7 +72,7 @@ class UserProfile extends Component {
         <div>
           <h1>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h1>
         </div>
-        <button className="btn" onClick={() => { window.alert("HAAAY") }}>message</button>
+        <button className="btn" onClick={()=>location.assign(`/messages/${user.uid}`)}>message</button>
         <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
         <div>
           <button className="btn btn-primary btn-profile"><a href={`https://open.spotify.com/user/${user.displayName}`}>View Spotify Profile</a></button>
