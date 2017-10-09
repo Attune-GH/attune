@@ -165,9 +165,7 @@ function signInFirebaseTemplate(token) {
       var token = ${JSON.stringify(token)};
       var config = ${JSON.stringify(require('./fire/config'))};
       var app = firebase.initializeApp(config);
-      app.auth().signInWithCustomToken(token).then(function() {
-        window.close();
-      });
+      app.auth().signInWithCustomToken(token).then(() => location.replace('/dashboard')).catch(console.error);
     </script>`;
 }
 
