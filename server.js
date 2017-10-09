@@ -50,7 +50,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-follow-read user-top-read user-read-recently-played user-read-private user-read-email user-library-read';
+  var scope = 'user-follow-read user-top-read user-read-recently-played user-read-private user-read-email user-library-read user-read-birthdate';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -104,11 +104,13 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
+          console.log("BODY!", body)
+          if (body.birthdate === null || undefined) body.birthdate = '0'
           if (body.display_name === null || undefined)  body.display_name = body.id
           if(!body.images.length) body.images.push({url: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAAAAJGY5YjFhN2Q2LTUyNjMtNDQ4OS04Mzk5LTcyMGQyM2E0MTgwOA.jpg'})
-          const {uri, id, display_name, images: [{url: profilePic}]} = body
+          const {uri, id, display_name, images: [{url: profilePic}], birthdate} = body
 
-          createFirebaseAccount(uri, display_name, profilePic, access_token, refresh_token)
+          createFirebaseAccount(uri, display_name, profilePic, birthdate, access_token, refresh_token)
             .then(firebaseToken => {
               res.send(signInFirebaseTemplate(firebaseToken));
             })
@@ -169,7 +171,7 @@ function signInFirebaseTemplate(token) {
     </script>`;
 }
 
-function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshToken) {
+function createFirebaseAccount(uid, displayName, photoURL, birthdate, accessToken, refreshToken) {
 
   const optionsRecent = {
       url: 'https://api.spotify.com/v1/me/player/recently-played?limit=50',
@@ -191,7 +193,7 @@ function createFirebaseAccount(uid, displayName, photoURL, accessToken, refreshT
 
     //set Spotify profile information on the db
     admin.database().ref(`/Users/${uid}/`)
-          .set({userProfile: {uid, displayName, photoURL }})
+          .set({userProfile: {uid, displayName, photoURL, birthdate}})
 
     request.get(optionsRecent, function(error, response, body){
       const items = body.items
