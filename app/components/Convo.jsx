@@ -5,7 +5,7 @@ import store from '../store/index'
 const auth = firebase.auth()
 import { fetchConvoIdThunk } from '../store/convo'
 import { getMessagesThunk } from '../store/messages'
-let friendUid = "spotify:user:jpvelez"
+let friendUid = "spotify:user:kiimberlyton"
 
 class Convo extends Component {
   constructor(props){
@@ -28,7 +28,7 @@ class Convo extends Component {
   //   console.log("THIS.PROPS.USER.UID", this.props.user.uid)
   //   console.log("NEXTPROPS.USER.UID", nextProps.user.uid)
 
-  //   // this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));  
+  //   // this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));
   //   //FOR NOW, FRIEND UID IS ALWAYS JUAN. WILL PASS IN AS PROPS SOMEHOW L8R
   //   if(this.props.user.uid !== nextProps.user.uid){
   //     this.props.initializeConvo(nextProps.user.uid, friendUid)
@@ -83,7 +83,7 @@ class Convo extends Component {
 
         <div >
         <form onSubmit = {this.handleSubmit}>
-            <label>{this.props.user.displayName}:</label> 
+            <label>{this.props.user.displayName}:</label>
             <input
               className = "formInput"
               name="messageField"
@@ -93,9 +93,9 @@ class Convo extends Component {
               onChange = {this.handleChange}
             />
         <span className="input-group-btn">
-          <button 
-            className="btn btn-default" 
-            type="submit"> 
+          <button
+            className="btn btn-default"
+            type="submit">
             Chat!
           </button>
         </span>
@@ -110,7 +110,7 @@ const mapDispatchToProps = (dispatch)=> {
   return {
     initializeConvo: function(uid, friendUid){
       dispatch(fetchConvoIdThunk(uid, friendUid))
-    }, 
+    },
     dispatchGetMessagesThunk: function(convoKey){
       dispatch(getMessagesThunk(convoKey))
     }
