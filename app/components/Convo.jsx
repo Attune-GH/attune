@@ -5,6 +5,7 @@ import store from '../store/index'
 const auth = firebase.auth()
 import { fetchConvoIdThunk } from '../store/convo'
 import { getMessagesThunk } from '../store/messages'
+import { withRouter } from 'react-router'
 let friendUid = "spotify:user:jpvelez"
 
 class Convo extends Component {
@@ -17,12 +18,13 @@ class Convo extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    
+    let friendUid = this.props.match.params.userId
   }
 
   componentDidMount(){
     this.props.initializeConvo(this.props.user.uid, friendUid)
   }
-
 
   // componentWillReceiveProps(nextProps){
   //   console.log("THIS.PROPS.USER.UID", this.props.user.uid)
@@ -35,9 +37,9 @@ class Convo extends Component {
   //   }
   // }
 
-  componentWillUnmount() {
-    this.unsubscribe()
-  }
+  // componentWillUnmount() {
+  //   this.unsubscribe()
+  // }
 
   handleChange(event){
     this.setState({
@@ -50,7 +52,6 @@ class Convo extends Component {
 
     // Write message to the appropriate Convo Key
     const messageObject = {from: this.props.user.uid, content: this.state.enteredMessage}
-    // firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
     firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
 
     firebase.database().ref(`Convos/${this.props.convoId}`).on("child_added", ()=> {
@@ -123,4 +124,4 @@ const mapStateToProps = state => {
     user: state.user
   }
 }
-export default Convo = connect(mapStateToProps, mapDispatchToProps)(Convo)
+export default Convo = withRouter(connect(mapStateToProps, mapDispatchToProps)(Convo))
