@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Iframe from 'react-iframe'
 import firebase from 'APP/fire'
 import { getRecentSongs, getUserProfile, setUserBio } from 'APP/fire/refs'
+import TextField from 'material-ui/TextField'
 const auth = firebase.auth()
 
 class UserProfile extends Component {
@@ -49,11 +50,33 @@ class UserProfile extends Component {
         <Image src={user.photoURL} style={{ height: '150px' }} circle />
         <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         <h2>Bio</h2>
-        {this.state.isEditing ? <div>heyyyy<button onClick={()=>{this.setState({isEditing: false})}}>finish bio</button></div> :
-        <div>
-          {user.bio ? <p>user.bio</p> : <p>{`Hey ${user.displayName.split(' ').slice(0, 1)}, maybe you should write a bio!`}</p>}
-          <button onClick={()=>{this.setState({isEditing: true})}}>edit bio</button></div>
-          }
+        {
+          this.state.isEditing ?
+            <div>
+              <TextField
+                hintText="...like who is your favorite artist?"
+                floatingLabelText="Tell us about yourself..."
+                multiLine={true}
+                rows={2}
+                rowsMax={4}
+                fullWidth={true}
+              />
+              <div style={{display: "block"}}>
+                <button
+                className="btn btn-dashboard"
+                onClick={(evt) => {
+                  console.log(evt)
+                  // setUserBio(user.uid, evt.target.val)
+                  this.setState({ isEditing: false })
+                  }}>finish bio</button>
+              </div>
+            </div> :
+            <div>
+              {user.bio ? <p>user.bio</p> : <p>{`Hey ${user.displayName.split(' ').slice(0, 1)}, maybe you should write a bio!`}</p>}
+              <button
+              className="btn btn-dashboard"
+              onClick={() => { this.setState({ isEditing: true }) }}>edit bio</button></div>
+        }
         <div>
           <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
