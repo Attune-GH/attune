@@ -3,16 +3,27 @@ body {
   background-color: #212121;
   color: white;
   font-family: 'Quicksand', sans-serif;
+  margin-bottom: 60px
 }
 
 .load{
-  height: 200px
+  height: 300px
 }
 
+.content {
+    margin-top: 100px;
+}
+
+
 .logo {
-  display: flex;
-  align-items: center;
-  justify-content: center
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    background-color: #212121;
+    width: 100%;
+    top: 0
+
 }
 
 .chat {
@@ -125,6 +136,7 @@ body {
     align-items: flex-end;
     justify-content: space-between;
     position: fixed;
+    background-color: #212121;
 }
 
 .profile {
