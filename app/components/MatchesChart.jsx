@@ -12,15 +12,6 @@ class MatchesChart extends Component {
     }
   }
 
-  // //change
-  // componentDidMount() {
-  //   const user = this.props.user
-  //   const uid = this.props.user.uid
-  //   getMatches(uid).then(matches => {
-  //     this.setState({ matches })
-  //   }).then(() => console.log(this.state.matches))
-  //   getAllMatches(uid).then(allMatches => this.setState({allMatches}))
-  // }
   componentWillReceiveProps(nextProps) {
     if(this.props.user.uid !== nextProps.user.uid) {
       getMatches(nextProps.user.uid).then(matches => this.setState({matches}))
