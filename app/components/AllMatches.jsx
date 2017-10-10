@@ -38,16 +38,7 @@ componentDidMount() {
     }
 
   render() {
-    var settings = {
-      dots: false,
-      infinite: false,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: true
-    }
-
-
+    
       let matches
       matches = (this.state.matches ? this.state.matches : [])
       console.log('matches 53', matches)
@@ -62,8 +53,18 @@ componentDidMount() {
         return b[1] - a[1];
       })
 
-              console.log('betterArr', betterArr)
+      console.log('betterArr[0]', betterArr[0])
 
+      var settings = {
+      initialSlide: 0,
+      slickGoTo: 0,
+      dots: false,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true
+    }
 
       return (
         <div>
@@ -71,7 +72,7 @@ componentDidMount() {
             {/* <h2>Your Matches</h2> */}
           </div>
           <Slider {...settings} className="container">
-            {betterArr && betterArr.map(match =>{
+            {betterArr.length === sortable.length && betterArr.map(match =>{
               console.log(match, new Date())
               return <div key={match[0]}><OneMatch match={match} /></div>
           })
