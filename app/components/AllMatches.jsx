@@ -47,7 +47,9 @@ componentDidMount() {
         sortable.push([person, matches[person]]);
       }
 
-      const betterArr = sortable.sort(function (a, b) {
+      const goodMatches = sortable.filter(element => element[1] >= 0.02)
+
+      const betterArr = goodMatches.sort(function (a, b) {
         return b[1] - a[1];
       })
 
@@ -68,15 +70,15 @@ componentDidMount() {
       <div>
         {betterArr.length ?
         <div>
-        <div className="container matches"><h2>Your Matches</h2></div>
+        <div className="container matches"><h2 style={{textAlign: 'center'}}>Your Matches</h2></div>
           <Slider {...settings} className="container">
-            {betterArr.length === sortable.length && betterArr.map(match =>{
+            {betterArr.length === goodMatches.length && betterArr.map(match =>{
               return <div key={match[0]}><OneMatch match={match} /></div>})}
           </Slider>
         </div>:
           <div className="container matches">
           <h1 style={{maxWidth: '350px', textAlign: 'center'}}>Calculating Good Friends 4 U</h1>
-           <img src="/img/Radio.svg" class="load" />
+           <img src="/img/Radio.svg" className="load" />
         </div>
         }
       </div>
