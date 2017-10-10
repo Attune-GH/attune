@@ -67,16 +67,22 @@ componentDidMount() {
       arrows: true
     }
 
+
       return (
         <div>
           <div className="container matches"><h2>Your Matches</h2></div>
+
+          {betterArr.length ?
+
           <Slider {...settings} className="container">
             {betterArr.length === sortable.length && betterArr.map(match =>{
               console.log(match, new Date())
               return <div key={match[0]}><OneMatch match={match} /></div>
           })
             }
-          </Slider>
+          </Slider> :
+          <h1>'We are calculating your match scores in the cloud, right now'</h1>
+        }
 
         {/* <div className="container matches"><h3>Swipe Through</h3></div> */}
         </div>
