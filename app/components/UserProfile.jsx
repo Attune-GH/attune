@@ -75,7 +75,7 @@ class UserProfile extends Component {
     const recentSongs = this.state.recentSongs.slice(0, 3)
     return (
       <div className="container profile">
-        <Image src={user.photoURL} style={{ height: '150px' }} circle />
+        <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }} />
         <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         <div><h2>Bio</h2></div>
         {
@@ -125,7 +125,7 @@ class UserProfile extends Component {
     const age = this.getAge(user.birthdate)
     return (
       <div className="container profile">
-        <Image src={user.photoURL} style={{ height: '150px' }} circle />
+        <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }}  />
         <div>
           <h2>{user.displayName && (age ? (`${user.displayName.split(' ').slice(0, 1)}, ${age}` || `${user.displayName}, ${age}`) :
             (user.displayName.split(' ').slice(0, 1) || user.displayName))

@@ -4,21 +4,27 @@ import { connect } from 'react-redux'
 import store from '../store/index'
 import { fetchConvoIdThunk } from '../store/convo'
 import { getMessagesThunk } from '../store/messages'
+import { getUserProfile} from 'APP/fire/refs'
 import { withRouter } from 'react-router'
+import ChatBubble from 'react-chat-bubble'
+
 
 class Convo extends Component {
   constructor(props){
     super(props)
 
     this.state = {
-      enteredMessage: ''
+      enteredMessage: '', 
+      friendUser: {}
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount(){
-    this.props.initializeConvo(this.props.user.uid, this.props.match.params.userId)
+    const friendUid = this.props.match.params.userId
+    this.props.initializeConvo(this.props.user.uid, friendUid)
+    getUserProfile(friendUid).then(friendUser => this.setState({friendUser}))
   }
 
   handleChange(event){
@@ -42,27 +48,28 @@ class Convo extends Component {
   }
 
   render(){
+    const { friendUser } = this.state
     const messageArray = Object.entries(this.props.messages)
+    const chatty = messageArray && messageArray.map(message =>{
+      let messageObj = {}
+      if(message[1].from === this.props.user.uid) {
+        messageObj["type"] = 0; //sender
+        messageObj["image"] = this.props.user.photoURL
+      } else {
+        messageObj["type"] = 1; //receiver
+        messageObj["image"] = friendUser.photoURL
+      }
+      messageObj["text"] = message[1].content
+      return messageObj
+    })
 
     return(
     <div className = "container">
-      <h3> Scintillating Conversation Between Two Interesting People Who Love The Same Music </h3>
-        <br/>
-
-        {messageArray && messageArray.map(message=>{
-            return (
-              <div key={message[0]}>
-                <ul>
-                <h5>{message[1].from.slice(13)}: {message[1].content}</h5>
-                </ul>
-              </div>
-            )
-          }
-        )}
-
-        <div >
+      <h3> Chat with {friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}</h3>
+      <br/>
+        <ChatBubble messages = {chatty}/>
+      <div >
         <form onSubmit = {this.handleSubmit}>
-            <label>{this.props.user.displayName}:</label>
             <input
               className = "formInput"
               name="messageField"
@@ -71,15 +78,15 @@ class Convo extends Component {
               placeholder="say hey"
               onChange = {this.handleChange}
             />
-        <span className="input-group-btn">
-          <button
-            className="btn btn-default"
-            type="submit">
-            Chat!
-          </button>
-        </span>
+          <span>
+            <button
+              className="btn btn-default"
+              type="submit">
+              Chat!
+            </button>
+          </span>
         </form>
-        </div>
+      </div>
     </div>
     )
   }
