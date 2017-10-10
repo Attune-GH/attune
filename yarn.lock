@@ -4902,7 +4902,14 @@ react-chartjs@^0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/react-chartjs/-/react-chartjs-0.8.0.tgz#d41386b3d3cbfef9003f5a655e7ea48a49fbfa19"
 
-react-dom@^15.3.2:
+react-chat-bubble@^0.8.6:
+  version "0.8.6"
+  resolved "https://registry.yarnpkg.com/react-chat-bubble/-/react-chat-bubble-0.8.6.tgz#6750130b64b81f7c6f7bb2be5a7f3ff720154bc0"
+  dependencies:
+    react "^15.4.2"
+    react-dom "^15.4.2"
+
+react-dom@^15.3.2, react-dom@^15.4.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.2.tgz#41cfadf693b757faf2708443a1d1fd5a02bef730"
   dependencies:
@@ -5019,7 +5026,7 @@ react-transition-group@^1.1.2:
     prop-types "^15.5.6"
     warning "^3.0.0"
 
-react@^15.6.2:
+react@^15.4.2, react@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.6.2.tgz#dba0434ab439cfe82f108f0f511663908179aa72"
   dependencies:

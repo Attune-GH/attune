@@ -19,6 +19,7 @@ class Convo extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+
   componentDidMount(){
     const friendUid = this.props.match.params.userId
     this.props.initializeConvo(this.props.user.uid, friendUid)
@@ -47,6 +48,7 @@ class Convo extends Component {
 
   render(){
     const messageArray = Object.entries(this.props.messages)
+    console.log("THIS.STATE.FRIENDUSER", this.state.friendUser)
     return(
     <div className = "container">
       <h3> Scintillating Conversation Between You and {this.state.friendUser.displayName.slice(0,1)}</h3>
