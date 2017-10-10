@@ -31,7 +31,7 @@ class OneMatch extends Component {
     let matchGrade
     if (this.props.match[1] >= 0.06) matchGrade = 'High Compatibility';
     if (this.props.match[1] >= 0.04 && this.props.match[1] < 0.06) matchGrade = 'Medium Compatibility';
-    if (this.props.match[1] >= 0.02 && this.props.match[1] < 0.04) matchGrade = 'OK Compatability'
+    if (this.props.match[1] >= 0.02 && this.props.match[1] < 0.04) matchGrade = 'OK Compatibility'
 
     return (
       <div className="container matches">
