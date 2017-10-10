@@ -9,14 +9,14 @@ body {
 
 #logo {
     margin-top: 57px;
-
-.load{
-  height: 200px
-
-.content {
-        /* margin-top: 100px; */
 }
-}}
+
+.load {
+  height: 200px
+}
+.content {
+    margin-bottom: 100px;
+}
 
 .logo {
     display: flex;
@@ -78,7 +78,6 @@ body {
 .btn {
     height: 50px;
     width: 350px;
-    /* display: inline-block; */
     margin-bottom: 0;
     font-weight: 600;
     text-align: center;

@@ -47,9 +47,7 @@ componentDidMount() {
         sortable.push([person, matches[person]]);
       }
 
-      console.log('sortable', sortable)
       const goodMatches = sortable.filter(element => element[1] >= 0.02)
-      console.log('goodMatches', goodMatches)
 
       const betterArr = goodMatches.sort(function (a, b) {
         return b[1] - a[1];
