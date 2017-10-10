@@ -21,6 +21,7 @@ class UserProfile extends Component {
     this.renderUser = this.renderUser.bind(this)
     this.onLogout = this.onLogout.bind(this)
     this.writeBio = this.writeBio.bind(this)
+    this.submitBio = this.submitBio.bind(this)
   }
 
   componentDidMount() {
@@ -36,8 +37,11 @@ class UserProfile extends Component {
 
   writeBio = (event) => {
     setUserBio(this.state.user.uid, event.target.value)
-    console.log(event.target.value)
-    // this.setState({ isEditing: false })
+  }
+
+  submitBio = () => {
+    getUserProfile(this.state.user.uid).then(user => this.setState({ user }))
+    this.setState({ isEditing: false })
   }
 
   render() {
@@ -51,7 +55,9 @@ class UserProfile extends Component {
   }
 
   renderAuthUser() {
+    console.log('this dot state dot user', this.state.user)
     const { user } = this.props
+    console.log('this dot state dot user dot bio', user.bio)
     const recentSongs = this.state.recentSongs.slice(0, 3)
     return (
       <div className="container profile">
@@ -73,11 +79,11 @@ class UserProfile extends Component {
               <div style={{ display: "block" }}>
                 <button
                   className="btn btn-dashboard"
-                  >finish bio</button>
+                  onClick={this.submitBio}>finish bio</button>
               </div>
             </div> :
             <div>
-              {user.bio ? <p>user.bio</p> : <p>{`Hey ${user.displayName.split(' ').slice(0, 1)}, maybe you should write a bio!`}</p>}
+              {this.state.user.bio ? <h3>{this.state.user.bio}</h3> : <h3>{`Hey ${user.displayName.split(' ').slice(0, 1)}, maybe you should write a bio!`}</h3>}
               <button
                 className="btn btn-dashboard"
                 onClick={() => { this.setState({ isEditing: true }) }}>edit bio</button></div>
@@ -106,8 +112,8 @@ class UserProfile extends Component {
         <div>
           <h2>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         </div>
-        <button className="btn" onClick={()=>this.props.history.push(`/messages/${user.uid}`)}>message</button>
-        <button className="btn" onClick={()=> { window.alert("TX  4 UR DATA") }}>block</button>
+        <button className="btn" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
+        <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
         <div>
           {user.uid &&
             <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>Spotify Profile</a></button>
