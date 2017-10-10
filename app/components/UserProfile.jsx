@@ -6,6 +6,7 @@ import Iframe from 'react-iframe'
 import firebase from 'APP/fire'
 import { getRecentSongs, getUserProfile, getUserBio, setUserBio } from 'APP/fire/refs'
 import TextField from 'material-ui/TextField'
+import store, { constantlyUpdateUser } from '../store'
 const auth = firebase.auth()
 
 class UserProfile extends Component {
@@ -26,6 +27,7 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
+    store.dispatch(constantlyUpdateUser())
     const uid = this.props.match.params.userId
     getRecentSongs(uid).then(recentSongs => this.setState({ recentSongs }))
     getUserProfile(uid).then(user => this.setState({ user }))
@@ -70,7 +72,6 @@ class UserProfile extends Component {
   }
 
   renderAuthUser() {
-    console.log(this.state.bio)
     const { user } = this.props
     const recentSongs = this.state.recentSongs.slice(0, 3)
     return (
@@ -122,7 +123,13 @@ class UserProfile extends Component {
   renderUser() {
     const recentSongs = this.state.recentSongs.slice(0, 3)
     const { user } = this.state
+
+    let currentAuthUser
+    auth.currentUser && (currentAuthUser = firebase.auth().currentUser.uid)
+    console.log(currentAuthUser)
+
     const age = this.getAge(user.birthdate)
+
     return (
       <div className="container profile">
         <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }}  />
@@ -131,6 +138,14 @@ class UserProfile extends Component {
             (user.displayName.split(' ').slice(0, 1) || user.displayName))
           }</h2>
         </div>
+        <button className="btn" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
+        <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
+        <button className="btn" onClick={() => {
+          let updateObj = {}
+          updateObj[user.uid] = new Date()
+          firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
+        }}
+          >Follow</button>
         <div><h2>Bio</h2></div>
         {
           this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
