@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import store from '../store/index'
 import { fetchConvoIdThunk } from '../store/convo'
 import { getMessagesThunk } from '../store/messages'
+import { getUserProfile} from 'APP/fire/refs'
 import { withRouter } from 'react-router'
 
 class Convo extends Component {
@@ -11,14 +12,17 @@ class Convo extends Component {
     super(props)
 
     this.state = {
-      enteredMessage: ''
+      enteredMessage: '', 
+      friendUser: {}
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount(){
-    this.props.initializeConvo(this.props.user.uid, this.props.match.params.userId)
+    const friendUid = this.props.match.params.userId
+    this.props.initializeConvo(this.props.user.uid, friendUid)
+    getUserProfile(friendUid).then(friendUser => this.setState({friendUser}))
   }
 
   handleChange(event){
@@ -43,10 +47,9 @@ class Convo extends Component {
 
   render(){
     const messageArray = Object.entries(this.props.messages)
-
     return(
     <div className = "container">
-      <h3> Scintillating Conversation Between Two Interesting People Who Love The Same Music </h3>
+      <h3> Scintillating Conversation Between You and {this.state.friendUser.displayName.slice(0,1)}</h3>
         <br/>
 
         {messageArray && messageArray.map(message=>{
