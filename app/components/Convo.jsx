@@ -2,17 +2,15 @@ import React, { Component } from 'react'
 import firebase from 'APP/fire'
 import { connect } from 'react-redux'
 import store from '../store/index'
-const auth = firebase.auth()
 import { fetchConvoIdThunk } from '../store/convo'
 import { getMessagesThunk } from '../store/messages'
-let friendUid = "spotify:user:kiimberlyton"
+import { withRouter } from 'react-router'
 
 class Convo extends Component {
   constructor(props){
     super(props)
 
     this.state = {
-      // currentUser: {},
       enteredMessage: ''
     }
     this.handleChange = this.handleChange.bind(this)
@@ -20,23 +18,7 @@ class Convo extends Component {
   }
 
   componentDidMount(){
-    this.props.initializeConvo(this.props.user.uid, friendUid)
-  }
-
-
-  // componentWillReceiveProps(nextProps){
-  //   console.log("THIS.PROPS.USER.UID", this.props.user.uid)
-  //   console.log("NEXTPROPS.USER.UID", nextProps.user.uid)
-
-  //   // this.unsubscribe = auth.onAuthStateChanged(currentUser => this.setState({currentUser}));
-  //   //FOR NOW, FRIEND UID IS ALWAYS JUAN. WILL PASS IN AS PROPS SOMEHOW L8R
-  //   if(this.props.user.uid !== nextProps.user.uid){
-  //     this.props.initializeConvo(nextProps.user.uid, friendUid)
-  //   }
-  // }
-
-  componentWillUnmount() {
-    this.unsubscribe()
+    this.props.initializeConvo(this.props.user.uid, this.props.match.params.userId)
   }
 
   handleChange(event){
@@ -50,10 +32,9 @@ class Convo extends Component {
 
     // Write message to the appropriate Convo Key
     const messageObject = {from: this.props.user.uid, content: this.state.enteredMessage}
-    // firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
-    const messageKey = firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject).key
-    console.log("MESSAGE KEY!", messageKey)
+    firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
 
+    //Listen for updates to Firebase and update the Messages store to trigger re-render
     firebase.database().ref(`Convos/${this.props.convoId}`).on("child_added", ()=> {
       this.props.dispatchGetMessagesThunk(`${this.props.convoId}`)
     })
@@ -61,7 +42,6 @@ class Convo extends Component {
   }
 
   render(){
-
     const messageArray = Object.entries(this.props.messages)
 
     return(
@@ -70,7 +50,6 @@ class Convo extends Component {
         <br/>
 
         {messageArray && messageArray.map(message=>{
-          console.log("MESSSSSAGE", message)
             return (
               <div key={message[0]}>
                 <ul>
@@ -78,8 +57,8 @@ class Convo extends Component {
                 </ul>
               </div>
             )
-            }
-          )}
+          }
+        )}
 
         <div >
         <form onSubmit = {this.handleSubmit}>
@@ -89,7 +68,7 @@ class Convo extends Component {
               name="messageField"
               type="text"
               value = {this.state.enteredMessage}
-              placeholder="say something friendly"
+              placeholder="say hey"
               onChange = {this.handleChange}
             />
         <span className="input-group-btn">
@@ -124,4 +103,4 @@ const mapStateToProps = state => {
     user: state.user
   }
 }
-export default Convo = connect(mapStateToProps, mapDispatchToProps)(Convo)
+export default Convo = withRouter(connect(mapStateToProps, mapDispatchToProps)(Convo))

@@ -36,7 +36,6 @@ class Dashboard extends Component {
 
 
 const mapState = state => {
-  console.log("IM IN A STATE", state)
   if(state.user){
     return {
       userId: state.user.uid

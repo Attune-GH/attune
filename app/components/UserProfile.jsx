@@ -4,7 +4,8 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import Iframe from 'react-iframe'
 import firebase from 'APP/fire'
-import { getRecentSongs, getUserProfile } from 'APP/fire/refs'
+import { getRecentSongs, getUserProfile, setUserBio } from 'APP/fire/refs'
+import TextField from 'material-ui/TextField'
 const auth = firebase.auth()
 
 class UserProfile extends Component {
@@ -12,11 +13,15 @@ class UserProfile extends Component {
     super()
     this.state = {
       recentSongs: [],
-      user: {}
+      user: {},
+      bio: '',
+      isEditing: false
     }
     this.renderAuthUser = this.renderAuthUser.bind(this)
     this.renderUser = this.renderUser.bind(this)
     this.onLogout = this.onLogout.bind(this)
+    this.writeBio = this.writeBio.bind(this)
+    this.submitBio = this.submitBio.bind(this)
   }
 
   componentDidMount() {
@@ -30,6 +35,15 @@ class UserProfile extends Component {
     location.replace('/login')
   }
 
+  writeBio = (event) => {
+    setUserBio(this.state.user.uid, event.target.value)
+  }
+
+  submitBio = () => {
+    getUserProfile(this.state.user.uid).then(user => this.setState({ user }))
+    this.setState({ isEditing: false })
+  }
+
   render() {
     let authUser
     if (this.state.user.uid) authUser = this.state.user.uid === this.props.user.uid
@@ -41,12 +55,39 @@ class UserProfile extends Component {
   }
 
   renderAuthUser() {
+    console.log('this dot state dot user', this.state.user)
     const { user } = this.props
-    const recentSongs = this.state.recentSongs.slice(0, 2)
+    console.log('this dot state dot user dot bio', user.bio)
+    const recentSongs = this.state.recentSongs.slice(0, 3)
     return (
       <div className="container profile">
         <Image src={user.photoURL} style={{ height: '150px' }} circle />
         <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
+        <h2>Bio</h2>
+        {
+          this.state.isEditing ?
+            <div>
+              <TextField
+                hintText="...like who is your favorite artist?"
+                floatingLabelText="Tell us about yourself..."
+                multiLine={true}
+                rows={2}
+                rowsMax={2}
+                fullWidth={true}
+                onChange={this.writeBio}
+              />
+              <div style={{ display: "block" }}>
+                <button
+                  className="btn btn-dashboard"
+                  onClick={this.submitBio}>finish bio</button>
+              </div>
+            </div> :
+            <div>
+              {this.state.user.bio ? <h3>{this.state.user.bio}</h3> : <h3>{`Hey ${user.displayName.split(' ').slice(0, 1)}, maybe you should write a bio!`}</h3>}
+              <button
+                className="btn btn-dashboard"
+                onClick={() => { this.setState({ isEditing: true }) }}>edit bio</button></div>
+        }
         <div>
           <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
@@ -71,11 +112,11 @@ class UserProfile extends Component {
         <div>
           <h2>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         </div>
-        <button className="btn" onClick={() => { window.alert("HAAAY") }}>message</button>
+        <button className="btn" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
         <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
         <div>
           {user.uid &&
-            <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>View Spotify Profile</a></button>
+            <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>Spotify Profile</a></button>
           }
         </div>
         <div>
