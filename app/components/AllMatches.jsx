@@ -38,8 +38,7 @@ componentDidMount() {
     }
 
   render() {
-
-
+    
       let matches
       matches = (this.state.matches ? this.state.matches : [])
       console.log('matches 53', matches)
@@ -69,7 +68,9 @@ componentDidMount() {
 
       return (
         <div>
-          <div className="container matches"><h2>Your Matches</h2></div>
+          <div className="container matches">
+            {/* <h2>Your Matches</h2> */}
+          </div>
           <Slider {...settings} className="container">
             {betterArr.length === sortable.length && betterArr.map(match =>{
               console.log(match, new Date())
