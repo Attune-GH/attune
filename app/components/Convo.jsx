@@ -21,7 +21,6 @@ class Convo extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-
   componentDidMount(){
     const friendUid = this.props.match.params.userId
     this.props.initializeConvo(this.props.user.uid, friendUid)
@@ -49,6 +48,7 @@ class Convo extends Component {
   }
 
   render(){
+    const { friendUser } = this.state
     const messageArray = Object.entries(this.props.messages)
     const chatty = messageArray && messageArray.map(message =>{
       let messageObj = {}
@@ -56,39 +56,20 @@ class Convo extends Component {
         messageObj["type"] = 0; //sender
         messageObj["image"] = this.props.user.photoURL
       } else {
-        messageObj["type"] = 1;
-        messageObj["image"] = this.state.friendUser.photoURL
+        messageObj["type"] = 1; //receiver
+        messageObj["image"] = friendUser.photoURL
       }
       messageObj["text"] = message[1].content
-      console.log("MESSAGE OBJ", messageObj)
       return messageObj
     })
 
-
-
-    console.log("THIS.STATE.FRIENDUSER", this.state.friendUser)
     return(
     <div className = "container">
-      <h3> Scintillating Conversation Between You and {this.state.friendUser.displayName && this.state.friendUser.displayName.slice(0,1)}</h3>
-        <br/>
+      <h3> Chat with {friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}</h3>
+      <br/>
         <ChatBubble messages = {chatty}/>
-
-        {/* {messageArray && messageArray.map(message=>{
-            return (
-              <div key={message[0]}>
-                <ul>
-                <h5>{message[1].from.slice(13)}: {message[1].content}</h5>
-                </ul>
-              </div>
-            )
-          }
-        )} */}
-
-        
-
-        <div >
+      <div >
         <form onSubmit = {this.handleSubmit}>
-            <label>{this.props.user.displayName}:</label>
             <input
               className = "formInput"
               name="messageField"
@@ -97,15 +78,15 @@ class Convo extends Component {
               placeholder="say hey"
               onChange = {this.handleChange}
             />
-        <span className="input-group-btn">
-          <button
-            className="btn btn-default"
-            type="submit">
-            Chat!
-          </button>
-        </span>
+          <span>
+            <button
+              className="btn btn-default"
+              type="submit">
+              Chat!
+            </button>
+          </span>
         </form>
-        </div>
+      </div>
     </div>
     )
   }
