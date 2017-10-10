@@ -23,25 +23,25 @@ exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
 
       const user1TopArtists = user1Obj.topArtists.artists
       const user1TopTracks = user1Obj.topTracks.tracks
-      const user1RecentSongs = user1Obj.recentSongs.songs
+      // const user1RecentSongs = user1Obj.recentSongs.songs
 
       userNames.forEach(user => {
         user2Obj = usersObj[user];
 
         let user2TopArtists
         let user2TopTracks
-        let user2RecentSongs
+        // let user2RecentSongs
 
         user2TopArtists =  (user2Obj.topArtists ? user2Obj.topArtists.artists : [])
         user2TopTracks =  (user2Obj.topTracks ? user2Obj.topTracks.tracks : [])
-        user2RecentSongs =  (user2Obj.recentSongs ? user2Obj.recentSongs.songs : [])
+        // user2RecentSongs =  (user2Obj.recentSongs ? user2Obj.recentSongs.songs : [])
 
         const genresScore = genreSimScore(user1TopArtists, user2TopArtists)
-        const recentSongsScore = recentSongsSimScore(user1RecentSongs, user2RecentSongs)
+        // const recentSongsScore = recentSongsSimScore(user1RecentSongs, user2RecentSongs)
         const artistsScore = topArtistsSimScore(user1TopArtists, user2TopArtists)
         const tracksScore = topTrackSimScore(user1TopTracks, user2TopTracks)
 
-        const matchScore = (genresScore + recentSongsScore + artistsScore + tracksScore)/4
+        const matchScore = (genresScore + artistsScore + tracksScore)/(3/2)
 
         console.log(`${user}'s match score: ${matchScore}`)
         console.log(`/Users/${userId}/matches/matchScores/${user}`)
@@ -52,8 +52,8 @@ exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
         admin.database().ref(`/Users/${userId}/matches/genreScores/${user}`).set(genresScore)
         admin.database().ref(`/Users/${user}/matches/genreScores/${userId}`).set(genresScore)
         //recentSongsScore
-        admin.database().ref(`/Users/${userId}/matches/recentSongsScores/${user}`).set(recentSongsScore)
-        admin.database().ref(`/Users/${user}/matches/recentSongsScores/${userId}`).set(recentSongsScore)
+        // admin.database().ref(`/Users/${userId}/matches/recentSongsScores/${user}`).set(recentSongsScore)
+        // admin.database().ref(`/Users/${user}/matches/recentSongsScores/${userId}`).set(recentSongsScore)
         //artistscore
         admin.database().ref(`/Users/${userId}/matches/artistsScores/${user}`).set(artistsScore)
         admin.database().ref(`/Users/${user}/matches/artistsScores/${userId}`).set(artistsScore)
