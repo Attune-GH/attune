@@ -3,51 +3,56 @@ import Avatar from 'material-ui/Avatar';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
-import { getMatches } from 'APP/fire/refs'
+import { getFollowing } from 'APP/fire/refs'
 import firebase from 'APP/fire'
+import { withRouter } from 'react-router'
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
+import { connect } from 'react-redux'
+import store, { constantlyUpdateUser } from '../store'
 
 const img = 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAAAAJGY5YjFhN2Q2LTUyNjMtNDQ4OS04Mzk5LTcyMGQyM2E0MTgwOA.jpg'
 
-mport store, { constantlyUpdateUser } from '../store'
 
-  class SimpleSlider extends React.Component {
+
+  class Following extends React.Component {
 
     constructor(props) {
       super()
       this.state = {
-        matches: []
+        following: []
       }
     }
 
 
     componentWillReceiveProps(nextProps) {
       if (this.props.user.uid !== nextProps.user.uid) {
-      getFollowing(nextProps.user.uid).then(matches =>
-      this.setState({matches}))
+      getFollowing(nextProps.user.uid).then(following =>
+      this.setState(following))
     }
     }
 
 
-  componentDidMount() {
+    componentDidMount() {
       store.dispatch(constantlyUpdateUser())
       const uid = this.props.user.uid
-      firebase.database().ref(`Users/${uid}/matches/matchScores`).on("child_added", ()=> {
-          getMatches(uid).then(matches => this.setState({ matches }))
-      })
     }
 
-  render() {
+    render() {
 
-    <div>
-      <List>
-        <Subheader>Following</Subheader>
-        <ListItem
-          primaryText="Brendan Lim"
-          leftAvatar={<Avatar src={img} />}
-          rightIcon={<CommunicationChatBubble />}
-        />
-      </List>
-    </div>
+      let followedPersons = Object.keys(this.state.following)
+      console.log(followedPersons)
 
+      return (
+          this.state.following.length && this.state.following.m
+      )
+
+    }
   }
+
+  const mapStateToProps = (state) => {
+    return {
+      user: state.user
+    }
+  }
+
+  export default withRouter(connect(mapStateToProps)(Following))

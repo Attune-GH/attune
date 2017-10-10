@@ -11,6 +11,7 @@ import Convo from './components/Convo'
 import OneConversation from './components/OneConversation'
 import AllMatches from './components/AllMatches'
 import MatchesChart from './components/MatchesChart'
+import Following from './components/Following'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import store, {constantlyUpdateUser} from './store'
@@ -44,6 +45,7 @@ class Routes extends Component {
             <Route exact path='/messages/:userId' component={(props)=> <Convo auth={auth}/>}/>
             <Route path='/messages' component={AllConversations}/>
             <Route exact path='/matches' component={AllMatches}/>
+            <Route exact path='/following' component={Following}/>
             <Route path='/profile/:userId' component={UserProfile} />
             <Route path='*' component={NotFound} />
           </Switch>
