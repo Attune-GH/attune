@@ -40,12 +40,6 @@ class MatchesChart extends Component {
         ticks: {
           backdropColor: 'rgba(0,0,0,0.9)'
        },
-       layout: {
-         width: '100%'
-       },
-       canvas: {
-         width: '1000px'
-       },
        responsive: 'true',
        maintainAspectRatio: true
       }
@@ -74,7 +68,7 @@ class MatchesChart extends Component {
 
     const translucentColors = ['rgba(179,181,198,0.2)', 'rgba(255,99,132,0.2)', 'rgba(201,81,232,0.2)', 'rgba(86,170,234,0.2)', 'rgba(92,224,138,0.2)']
 
-    const opaqueColors = ['rgba(179,181,198,1)', 'rgba(255,99,132,1)', 'rgba(201,81,232,1)', 'rgba(86,170,234,1)', 'rgba(92,224,138,1)']
+    const opaqueColors = ['rgba(179,181,198,1)', 'rgba(211,82,138,1)', 'rgba(201,81,232,1)', 'rgba(86,170,234,1)', 'rgba(92,224,138,1)']
 
     let dataset$ = sortedMatches.map((person, ind) => {
       return {
@@ -85,7 +79,7 @@ class MatchesChart extends Component {
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: opaqueColors[ind],
-        data: [person[1]*400, allMatches.artistsScores[person[0]]*800, allMatches.tracksScores[person[0]]*1200, allMatches.genreScores[person[0]]*100]
+        data: [person[1]*100, allMatches.artistsScores[person[0]]*800, allMatches.tracksScores[person[0]]*1200, allMatches.genreScores[person[0]]*100]
       }
     })
 
