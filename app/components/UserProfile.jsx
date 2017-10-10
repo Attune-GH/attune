@@ -6,6 +6,7 @@ import Iframe from 'react-iframe'
 import firebase from 'APP/fire'
 import { getRecentSongs, getUserProfile, setUserBio } from 'APP/fire/refs'
 import TextField from 'material-ui/TextField'
+import store, { constantlyUpdateUser } from '../store'
 const auth = firebase.auth()
 
 class UserProfile extends Component {
@@ -25,6 +26,7 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
+    store.dispatch(constantlyUpdateUser())
     const uid = this.props.match.params.userId
     getRecentSongs(uid).then(recentSongs => this.setState({ recentSongs }))
     getUserProfile(uid).then(user => this.setState({ user }))
@@ -55,9 +57,7 @@ class UserProfile extends Component {
   }
 
   renderAuthUser() {
-    console.log('this dot state dot user', this.state.user)
     const { user } = this.props
-    console.log('this dot state dot user dot bio', user.bio)
     const recentSongs = this.state.recentSongs.slice(0, 3)
     return (
       <div className="container profile">
@@ -106,6 +106,11 @@ class UserProfile extends Component {
   renderUser() {
     const recentSongs = this.state.recentSongs.slice(0, 3)
     const { user } = this.state
+    let currentAuthUser
+    auth.currentUser && (currentAuthUser = firebase.auth().currentUser.uid)
+    console.log(currentAuthUser)
+
+
     return (
       <div className="container profile">
         <Image src={user.photoURL} style={{ height: '150px' }} circle />
@@ -114,6 +119,12 @@ class UserProfile extends Component {
         </div>
         <button className="btn" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
         <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
+        <button className="btn" onClick={() => {
+          let updateObj = {}
+          updateObj[user.uid] = new Date()
+          firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
+        }}
+          >Follow</button>
         <div>
           {user.uid &&
             <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>Spotify Profile</a></button>
