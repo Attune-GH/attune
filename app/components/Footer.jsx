@@ -54,7 +54,7 @@ class Footer extends Component {
             style={{ height: '75px' }}
             onMouseOver={() => this.handleMouseOver('back')}
             onMouseOut={() => this.handleMouseOut('back')}
-            onClick={() => props.history.goBack()}
+            onClick={() => this.props.history.goBack()}
           />
         </div>
         <div>
@@ -62,7 +62,7 @@ class Footer extends Component {
             style={{ height: '75px' }}
             onMouseOver={() => this.handleMouseOver('dashboard')}
             onMouseOut={() => this.handleMouseOut('dashboard')}
-            onClick={() => props.history.push('/dashboard')}
+            onClick={() => this.props.history.push('/dashboard')}
           />
         </div>
         <div>
@@ -70,7 +70,7 @@ class Footer extends Component {
             style={{ height: '75px' }}
             onMouseOver={() => this.handleMouseOver('forward')}
             onMouseOut={() => this.handleMouseOut('forward')}
-            onClick={() => props.history.goForward()}
+            onClick={() => this.props.history.goForward()}
           />
         </div>
       </div>
