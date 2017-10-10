@@ -24,7 +24,6 @@ class SimpleSlider extends React.Component {
     if (this.props.user.uid !== nextProps.user.uid) {
       getMatches(nextProps.user.uid).then(matches =>
       this.setState({matches}))
-      .then(results => console.log(this.state.matches))
     }
   }
 
@@ -38,13 +37,12 @@ componentDidMount() {
     }
 
   render() {
-    
+
+
       let matches
       matches = (this.state.matches ? this.state.matches : [])
-      console.log('matches 53', matches)
       let matchNames = Object.keys(matches)
       var sortable = [];
-      console.log('sortable', sortable)
       for (var person in matches) {
         sortable.push([person, matches[person]]);
       }
@@ -52,8 +50,6 @@ componentDidMount() {
       const betterArr = sortable.sort(function (a, b) {
         return b[1] - a[1];
       })
-
-      console.log('betterArr[0]', betterArr[0])
 
       var settings = {
       initialSlide: 0,
@@ -66,21 +62,24 @@ componentDidMount() {
       arrows: true
     }
 
+
       return (
+
+      <div>
+        {betterArr.length ?
         <div>
-          <div className="container matches">
-            {/* <h2>Your Matches</h2> */}
-          </div>
+        <div className="container matches"><h2>Your Matches</h2></div>
           <Slider {...settings} className="container">
             {betterArr.length === sortable.length && betterArr.map(match =>{
-              console.log(match, new Date())
-              return <div key={match[0]}><OneMatch match={match} /></div>
-          })
-            }
+              return <div key={match[0]}><OneMatch match={match} /></div>})}
           </Slider>
-
-        {/* <div className="container matches"><h3>Swipe Through</h3></div> */}
+        </div>:
+          <div className="container matches">
+          <h1 style={{maxWidth: '350px', textAlign: 'center'}}>Calculating Good Friends 4 U</h1>
+           <img src="/img/Radio.svg" class="load" />
         </div>
+        }
+      </div>
     )
   }
 }

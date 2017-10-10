@@ -6,14 +6,17 @@ body {
   margin-bottom: 60px
 }
 
+
+#logo {
+    margin-top: 57px;
+
 .load{
   height: 200px
-}
 
 .content {
-    /* margin-top: 100px; */
+        /* margin-top: 100px; */
 }
-
+}}
 
 .logo {
     display: flex;
