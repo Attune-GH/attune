@@ -106,8 +106,8 @@ class UserProfile extends Component {
         <div>
           <h2>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         </div>
-        <button className="btn" onClick={() => { window.alert("HAAAY") }}>message</button>
-        <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
+        <button className="btn" onClick={()=>this.props.history.push(`/messages/${user.uid}`)}>message</button>
+        <button className="btn" onClick={()=> { window.alert("TX  4 UR DATA") }}>block</button>
         <div>
           {user.uid &&
             <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>Spotify Profile</a></button>
