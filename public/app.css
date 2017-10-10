@@ -6,12 +6,18 @@ body {
   margin-bottom: 60px
 }
 
+
 #logo {
     margin-top: 57px;
+
+.load{
+  height: 200px
+
+    }
 }
 
 .content {
-    margin-top: 100px;
+    /* margin-top: 100px; */
 }
 
 
@@ -19,11 +25,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
+    position: sticky;
     background-color: #212121;
     width: 100%;
     top: 0
-
 }
 
 .chat {
@@ -126,7 +131,12 @@ body {
 }
 
 .btn-dashboard {
-    margin: 40px
+    margin: 30px 0 30px 0
+}
+
+.btn-match {
+    margin-top: 20px;
+    width: 250px
 }
 
 .whoami {
@@ -141,6 +151,7 @@ body {
     justify-content: space-between;
     position: fixed;
     background-color: #212121;
+    padding-bottom: 10px
 }
 
 .profile {
