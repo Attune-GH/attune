@@ -6,8 +6,8 @@ body {
   margin-bottom: 60px
 }
 
-.load{
-  height: 300px
+#logo {
+    margin-top: 57px;
 }
 
 .content {
