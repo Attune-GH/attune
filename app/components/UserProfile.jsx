@@ -55,9 +55,7 @@ class UserProfile extends Component {
   }
 
   renderAuthUser() {
-    console.log('this dot state dot user', this.state.user)
     const { user } = this.props
-    console.log('this dot state dot user dot bio', user.bio)
     const recentSongs = this.state.recentSongs.slice(0, 3)
     return (
       <div className="container profile">
