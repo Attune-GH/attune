@@ -10,6 +10,10 @@ exports.getMatches = id => (
   db.ref(`Users/${id}/matches/matchScores`).once('value').then(snapshot => snapshot.val()).catch(console.error)
 )
 
+exports.getFollowing = id => (
+  db.ref(`Users/${id}/following/`).once('value').then(snapshot => snapshot.val()).catch(console.error)
+)
+
 exports.getUserProfile = id => (
   db.ref(`Users/${id}/userProfile`).once('value').then(snapshot => snapshot.val()).catch(console.error)
 )
