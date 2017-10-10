@@ -36,7 +36,7 @@ class OneMatch extends Component {
     return (
       <div className="container matches">
         <div>
-          {user && <Image src={user.photoURL} style={{ height: '150px', margin: "0 auto"}} circle /> }
+          {user && <Image src={user.photoURL} style={{ height: '150px', width: '150 px', borderRadius: '150px', margin: "0 auto"}} /> }
           {user && <h1 style={{textAlign: 'center', margin: '3px'}}>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h1>}
           <div style={{display: 'flex', justifyContent: 'center', margin: '0px'}}>
           <h3 style={{textAlign: 'center', borderStyle: 'solid', padding: '10px'}}>{matchGrade}</h3>
