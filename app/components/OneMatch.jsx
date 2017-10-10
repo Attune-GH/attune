@@ -24,7 +24,7 @@ class OneMatch extends Component {
     return (
       <div className="container matches">
         <div>
-          <Image src={user.photoURL} style={{ height: '150px' }} circle />
+          <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }} circle />
           <h1>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h1>
           <h2>{`${Math.ceil(this.props.match[1] * 200)}% match`}</h2>
         </div>

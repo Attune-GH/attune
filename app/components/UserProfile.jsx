@@ -45,7 +45,7 @@ class UserProfile extends Component {
     const recentSongs = this.state.recentSongs.slice(0, 2)
     return (
       <div className="container profile">
-        <Image src={user.photoURL} style={{ height: '150px' }} circle />
+        <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }} circle />
         <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         <div>
           <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
@@ -67,7 +67,7 @@ class UserProfile extends Component {
     const { user } = this.state
     return (
       <div className="container profile">
-        <Image src={user.photoURL} style={{ height: '150px' }} circle />
+        <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }}  />
         <div>
           <h2>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         </div>

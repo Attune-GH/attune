@@ -6,6 +6,8 @@ import { fetchConvoIdThunk } from '../store/convo'
 import { getMessagesThunk } from '../store/messages'
 import { getUserProfile} from 'APP/fire/refs'
 import { withRouter } from 'react-router'
+import ChatBubble from 'react-chat-bubble'
+
 
 class Convo extends Component {
   constructor(props){
@@ -48,13 +50,30 @@ class Convo extends Component {
 
   render(){
     const messageArray = Object.entries(this.props.messages)
+    const chatty = messageArray && messageArray.map(message =>{
+      let messageObj = {}
+      if(message[1].from === this.props.user.uid) {
+        messageObj["type"] = 0; //sender
+        messageObj["image"] = this.props.user.photoURL
+      } else {
+        messageObj["type"] = 1;
+        messageObj["image"] = this.state.friendUser.photoURL
+      }
+      messageObj["text"] = message[1].content
+      console.log("MESSAGE OBJ", messageObj)
+      return messageObj
+    })
+
+
+
     console.log("THIS.STATE.FRIENDUSER", this.state.friendUser)
     return(
     <div className = "container">
-      <h3> Scintillating Conversation Between You and {this.state.friendUser.displayName.slice(0,1)}</h3>
+      <h3> Scintillating Conversation Between You and {this.state.friendUser.displayName && this.state.friendUser.displayName.slice(0,1)}</h3>
         <br/>
+        <ChatBubble messages = {chatty}/>
 
-        {messageArray && messageArray.map(message=>{
+        {/* {messageArray && messageArray.map(message=>{
             return (
               <div key={message[0]}>
                 <ul>
@@ -63,7 +82,9 @@ class Convo extends Component {
               </div>
             )
           }
-        )}
+        )} */}
+
+        
 
         <div >
         <form onSubmit = {this.handleSubmit}>
