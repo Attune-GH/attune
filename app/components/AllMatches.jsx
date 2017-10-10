@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { getMatches } from 'APP/fire/refs'
 import firebase from 'APP/fire'
+
 import store, { constantlyUpdateUser } from '../store'
 
 class SimpleSlider extends React.Component {
@@ -21,6 +22,9 @@ class SimpleSlider extends React.Component {
   //not sure i understand this function --eks
   componentWillReceiveProps(nextProps) {
     if (this.props.user.uid !== nextProps.user.uid) {
+      getMatches(nextProps.user.uid).then(matches =>
+      this.setState({matches}))
+      .then(results => console.log(this.state.matches))
     }
   }
 
@@ -28,7 +32,6 @@ class SimpleSlider extends React.Component {
 componentDidMount() {
       store.dispatch(constantlyUpdateUser())
       const uid = this.props.user.uid
-      getMatches(uid).then(matches => this.setState({ matches }))
       firebase.database().ref(`Users/${uid}/matches/matchScores`).on("child_added", ()=> {
           getMatches(uid).then(matches => this.setState({ matches }))
       })
@@ -47,23 +50,30 @@ componentDidMount() {
 
       let matches
       matches = (this.state.matches ? this.state.matches : [])
+      console.log('matches 53', matches)
       let matchNames = Object.keys(matches)
       var sortable = [];
+      console.log('sortable', sortable)
       for (var person in matches) {
         sortable.push([person, matches[person]]);
       }
 
-      sortable.sort(function (a, b) {
+      const betterArr = sortable.sort(function (a, b) {
         return b[1] - a[1];
-        console.log(sortable)
       })
+
+              console.log('betterArr', betterArr)
+
 
       return (
         <div>
           <div className="container matches"><h2>Your Matches</h2></div>
           <Slider {...settings} className="container">
-            {sortable && sortable.map(match =>
-              <div key={match[0]}><OneMatch match={match} /></div>)}
+            {betterArr && betterArr.map(match =>{
+              console.log(match, new Date())
+              return <div key={match[0]}><OneMatch match={match} /></div>
+          })
+            }
           </Slider>
 
         {/* <div className="container matches"><h3>Swipe Through</h3></div> */}
