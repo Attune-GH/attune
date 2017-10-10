@@ -6,14 +6,16 @@ body {
   margin-bottom: 60px
 }
 
+
+#logo {
+    margin-top: 57px;
+
 .load{
   height: 200px
-}
 
 .content {
     margin-bottom: 100px;
 }
-
 
 .logo {
     display: flex;
