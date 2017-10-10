@@ -47,6 +47,7 @@ componentDidMount() {
 
       let matches
       matches = (this.state.matches ? this.state.matches : [])
+      console.log('matches',matches)
       let matchNames = Object.keys(matches)
       var sortable = [];
       for (var person in matches) {

@@ -16,9 +16,18 @@ class MatchesChart extends Component {
   componentDidMount() {
     const user = this.props.user
     const uid = this.props.user.uid
-    getMatches(uid).then(matches => this.setState({ matches }))
+    getMatches(uid).then(matches => {
+      this.setState({ matches })
+    }).then(() => console.log(this.state.matches))
     getAllMatches(uid).then(allMatches => this.setState({allMatches}))
   }
+  componentWillReceiveProps(nextProps) {
+    nextProps.user.uid && getMatches(nextProps.user.uid).then(matches =>
+     this.setState({matches}))
+     .then(results => console.log(this.state.matches))
+    nextProps.user.uid && getAllMatches(nextProps.user.uid)
+    .then(allMatches => this.setState({allMatches}))
+ }
 
   render() {  
     const options = {
@@ -29,7 +38,15 @@ class MatchesChart extends Component {
         },
         ticks: {
           backdropColor: 'rgba(0,0,0,0.9)'
-       }
+       },
+       layout: {
+         width: '100%'
+       },
+       canvas: {
+         width: '1000px'
+       },
+       responsive: 'true',
+       maintainAspectRatio: true
       }
     }
     const styles = {
@@ -78,8 +95,8 @@ class MatchesChart extends Component {
 
     return (
       
-      <div style={styles.graphContainer}>
-        <Radar data={data} options={options} />
+      <div>
+        <Radar data={data} options={options} style={styles.graphContainer} width={99} height={99} />
       </div>
     )
   }
