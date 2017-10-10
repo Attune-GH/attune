@@ -190,31 +190,31 @@ function createFirebaseAccount(uid, displayName, photoURL, birthdate, accessToke
     }
 
     //set Spotify profile information on the db
-    admin.database().ref(`/Users/${uid}/`)
-          .set({userProfile: {uid, displayName, photoURL, birthdate}})
+    // admin.database().ref(`/Users/${uid}/`)
+    //       .update({userProfile: {uid, displayName, photoURL, birthdate}})
+
+    admin.database().ref(`/Users/${uid}/userProfile`)
+        .set({uid, displayName, photoURL, birthdate})
 
     request.get(optionsRecent, function(error, response, body){
       const items = body.items
       const getRecentSongs = admin.database().ref(`/Users/${uid}/recentSongs`)
-          .set({songs: items})
+        .set({songs: items})
     })
-
 
     request.get(optionsTopArtists, function(error, response, body){
       const items = body.items
       const getTopArists = admin.database().ref(`/Users/${uid}/topArtists`)
-          .set({artists: items})
+        .set({artists: items})
     })
-
-
 
     request.get(optionsTopTracks, function(error, response, body){
       const items = body.items
       const getTopTracks = admin.database().ref(`/Users/${uid}/topTracks`)
-          .set({tracks: items})
+        .set({tracks: items})
     })
 
-
+    
     const databaseTask = admin.database().ref(`/spotifyAccessToken/${uid}`)
         .set({accessToken, refreshToken});
     const userCreationTask = admin.auth().updateUser(uid, {
