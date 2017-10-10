@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { getMatches } from 'APP/fire/refs'
 import firebase from 'APP/fire'
+
 import store, { constantlyUpdateUser } from '../store'
 
 class SimpleSlider extends React.Component {
@@ -21,6 +22,8 @@ class SimpleSlider extends React.Component {
   //not sure i understand this function --eks
   componentWillReceiveProps(nextProps) {
     if (this.props.user.uid !== nextProps.user.uid) {
+      getMatches(nextProps.user.uid).then(matches =>
+      this.setState({matches}))
     }
   }
 
@@ -28,21 +31,12 @@ class SimpleSlider extends React.Component {
 componentDidMount() {
       store.dispatch(constantlyUpdateUser())
       const uid = this.props.user.uid
-      getMatches(uid).then(matches => this.setState({ matches }))
       firebase.database().ref(`Users/${uid}/matches/matchScores`).on("child_added", ()=> {
           getMatches(uid).then(matches => this.setState({ matches }))
       })
     }
 
   render() {
-    var settings = {
-      dots: false,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: true
-    }
 
 
       let matches
@@ -53,21 +47,41 @@ componentDidMount() {
         sortable.push([person, matches[person]]);
       }
 
-      sortable.sort(function (a, b) {
+      const goodMatches = sortable.filter(element => element[1] >= 0.02)
+
+      const betterArr = goodMatches.sort(function (a, b) {
         return b[1] - a[1];
-        console.log(sortable)
       })
 
-      return (
-        <div>
-          <div className="container matches"><h2>Your Matches</h2></div>
-          <Slider {...settings} className="container">
-            {sortable && sortable.map(match =>
-              <div key={match[0]}><OneMatch match={match} /></div>)}
-          </Slider>
+      var settings = {
+      initialSlide: 0,
+      slickGoTo: 0,
+      dots: false,
+      infinite: false,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true
+    }
 
-        {/* <div className="container matches"><h3>Swipe Through</h3></div> */}
+
+      return (
+
+      <div>
+        {betterArr.length ?
+        <div>
+        <div className="container matches"><h2 style={{textAlign: 'center'}}>Your Matches</h2></div>
+          <Slider {...settings} className="container">
+            {betterArr.length === goodMatches.length && betterArr.map(match =>{
+              return <div key={match[0]}><OneMatch match={match} /></div>})}
+          </Slider>
+        </div>:
+          <div className="container matches">
+          <h1 style={{maxWidth: '350px', textAlign: 'center'}}>Calculating Good Friends 4 U</h1>
+           <img src="/img/Radio.svg" className="load" />
         </div>
+        }
+      </div>
     )
   }
 }

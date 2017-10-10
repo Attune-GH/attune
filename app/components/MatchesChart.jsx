@@ -12,13 +12,14 @@ class MatchesChart extends Component {
     }
   }
 
-  //change
-  componentDidMount() {
-    const user = this.props.user
-    const uid = this.props.user.uid
-    getMatches(uid).then(matches => this.setState({ matches }))
-    getAllMatches(uid).then(allMatches => this.setState({allMatches}))
-  }
+  componentWillReceiveProps(nextProps) {
+    if(this.props.user.uid !== nextProps.user.uid) {
+      getMatches(nextProps.user.uid).then(matches => this.setState({matches}))
+      getAllMatches(nextProps.user.uid).then(allMatches => this.setState({allMatches}))
+    }
+    
+     
+ }
 
   render() {  
     const options = {
@@ -29,7 +30,9 @@ class MatchesChart extends Component {
         },
         ticks: {
           backdropColor: 'rgba(0,0,0,0.9)'
-       }
+       },
+       responsive: 'true',
+       maintainAspectRatio: true
       }
     }
     const styles = {
@@ -56,7 +59,7 @@ class MatchesChart extends Component {
 
     const translucentColors = ['rgba(179,181,198,0.2)', 'rgba(255,99,132,0.2)', 'rgba(201,81,232,0.2)', 'rgba(86,170,234,0.2)', 'rgba(92,224,138,0.2)']
 
-    const opaqueColors = ['rgba(179,181,198,1)', 'rgba(255,99,132,1)', 'rgba(201,81,232,1)', 'rgba(86,170,234,1)', 'rgba(92,224,138,1)']
+    const opaqueColors = ['rgba(179,181,198,1)', 'rgba(211,82,138,1)', 'rgba(201,81,232,1)', 'rgba(86,170,234,1)', 'rgba(92,224,138,1)']
 
     let dataset$ = sortedMatches.map((person, ind) => {
       return {
@@ -67,7 +70,7 @@ class MatchesChart extends Component {
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: opaqueColors[ind],
-        data: [person[1]*400, allMatches.artistsScores[person[0]]*800, allMatches.tracksScores[person[0]]*1200, allMatches.genreScores[person[0]]*100]
+        data: [person[1]*100, allMatches.artistsScores[person[0]]*800, allMatches.tracksScores[person[0]]*1200, allMatches.genreScores[person[0]]*100]
       }
     })
 
@@ -78,8 +81,8 @@ class MatchesChart extends Component {
 
     return (
       
-      <div style={styles.graphContainer}>
-        <Radar data={data} options={options} />
+      <div>
+        <Radar data={data} options={options} style={styles.graphContainer} width={99} height={99} />
       </div>
     )
   }

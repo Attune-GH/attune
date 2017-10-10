@@ -17,3 +17,12 @@ exports.getUserProfile = id => (
 exports.getAllMatches = id => (
   db.ref(`Users/${id}/matches`).once('value').then(snapshot => snapshot.val()).catch(console.error)
 )
+
+exports.getUserBio = (id) => (
+  db.ref(`Users/${id}/bio`).once('value').then(snapshot => snapshot.val()).catch(console.error)
+)
+
+exports.setUserBio = (id, bio) => (
+  db.ref(`Users/${id}/`).update({ bio: bio })
+)
+
