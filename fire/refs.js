@@ -19,6 +19,6 @@ exports.getAllMatches = id => (
 )
 
 exports.setUserBio = (id, bio) => (
-  db.ref(`Users/${id}/userProfile/`).set({ bio })
+  db.ref(`Users/${id}/userProfile/`).set({ bio: bio })
 )
 

@@ -20,6 +20,7 @@ class UserProfile extends Component {
     this.renderAuthUser = this.renderAuthUser.bind(this)
     this.renderUser = this.renderUser.bind(this)
     this.onLogout = this.onLogout.bind(this)
+    this.writeBio = this.writeBio.bind(this)
   }
 
   componentDidMount() {
@@ -31,6 +32,12 @@ class UserProfile extends Component {
   onLogout() {
     auth.signOut()
     location.replace('/login')
+  }
+
+  writeBio = (event) => {
+    setUserBio(this.state.user.uid, event.target.value)
+    console.log(event.target.value)
+    // this.setState({ isEditing: false })
   }
 
   render() {
@@ -59,23 +66,14 @@ class UserProfile extends Component {
                 floatingLabelText="Tell us about yourself..."
                 multiLine={true}
                 rows={2}
-                rowsMax={4}
+                rowsMax={2}
                 fullWidth={true}
+                onChange={this.writeBio}
               />
               <div style={{ display: "block" }}>
                 <button
                   className="btn btn-dashboard"
-                  value={this.state.bio}
-                  onChange={(event, newValue) => {
-                    console.log(this.state.bio)
-                    this.setState({bio: newValue})
-                  }
-                  }
-                  onClick={() => {
-                    console.log(this.state.bio)
-                    this.setState({ isEditing: false })
-                  }
-                  }>finish bio</button>
+                  >finish bio</button>
               </div>
             </div> :
             <div>
@@ -112,7 +110,7 @@ class UserProfile extends Component {
         <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
         <div>
           {user.uid &&
-            <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>View Spotify Profile</a></button>
+            <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>Spotify Profile</a></button>
           }
         </div>
         <div>

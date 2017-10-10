@@ -37,7 +37,7 @@ componentDidMount() {
   render() {
     var settings = {
       dots: false,
-      infinite: true,
+      infinite: false,
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
@@ -60,7 +60,9 @@ componentDidMount() {
 
       return (
         <div>
-          <div className="container matches"><h2>Your Matches</h2></div>
+          <div className="container matches">
+            {/* <h2>Your Matches</h2> */}
+          </div>
           <Slider {...settings} className="container">
             {sortable && sortable.map(match =>
               <div key={match[0]}><OneMatch match={match} /></div>)}
