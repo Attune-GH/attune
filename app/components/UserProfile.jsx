@@ -96,14 +96,14 @@ class UserProfile extends Component {
                   onClick={this.submitBio}>finish bio</button>
               </div>
             </div> :
-            <div style={{width: '350px'}}>
+            <div style={{ width: '350px' }}>
               {
-                this.state.bio.length && this.state.bio ? <p style={{width: '300px'}}>{this.state.bio}</p> : <p style={{width: '300px'}}>{`Hey ${user.displayName.split(' ').slice(0, 1)}, maybe you should write a bio!`}</p>}
+                this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1)  || user.displayName}, maybe you should write a bio!`}</p>}
               <button
                 className="btn btn-dashboard"
                 onClick={() => { this.setState({ isEditing: true }) }}>edit bio
                   </button></div>
-              }
+        }
         <div>
           <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
@@ -131,6 +131,10 @@ class UserProfile extends Component {
             (user.displayName.split(' ').slice(0, 1) || user.displayName))
           }</h2>
         </div>
+        <div><h2>Bio</h2></div>
+        {
+          this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
+        }
         <button className="btn btn-dashboard" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
         <div>
           {user.uid &&
