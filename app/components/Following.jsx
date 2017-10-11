@@ -47,9 +47,9 @@ const img = 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAA
       let followedPersons = Object.keys(this.state.following)
 
       return (
-        <div style={{textAlign: 'center'}}>
-          <h1>Users You're Following</h1>
-          <List style={{maxWidth: '600px'}}>
+        <div style={{textAlign: 'center', margin: '0 auto'}}>
+          <h3>Users You're Following</h3>
+          <List style ={{}} >
           {followedPersons.length && followedPersons.map(person => {
             return <div key={person}><FollowedPerson person={person}/></div>
           })}

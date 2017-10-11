@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import Iframe from 'react-iframe'
 import firebase from 'APP/fire'
-import { getRecentSongs, getUserProfile, getUserBio, setUserBio } from 'APP/fire/refs'
+import { getRecentSongs, getUserProfile, getUserBio, setUserBio, getFollowing } from 'APP/fire/refs'
 import TextField from 'material-ui/TextField'
 import store, { constantlyUpdateUser } from '../store'
 const auth = firebase.auth()
@@ -16,7 +16,8 @@ class UserProfile extends Component {
       recentSongs: [],
       user: {},
       bio: '',
-      isEditing: false
+      isEditing: false,
+      following: ''
     }
     this.renderAuthUser = this.renderAuthUser.bind(this)
     this.renderUser = this.renderUser.bind(this)
@@ -28,11 +29,29 @@ class UserProfile extends Component {
 
   componentDidMount() {
     store.dispatch(constantlyUpdateUser())
+    let currentAuthUser
+    auth.currentUser && (currentAuthUser = firebase.auth().currentUser.uid)
+    console.log('auth user in comp', currentAuthUser)
     const uid = this.props.match.params.userId
     getRecentSongs(uid).then(recentSongs => this.setState({ recentSongs }))
     getUserProfile(uid).then(user => this.setState({ user }))
-    getUserBio(uid).then(bio => this.setState({ bio }))
+    // getUserBio(uid).then(bio => this.setState({ bio }))
+    getFollowing(currentAuthUser).then(following =>
+      this.setState({following}))
+    firebase.database().ref(`Users/${currentAuthUser}/following/`).on("child_added", ()=> {
+          getFollowing(currentAuthUser).then(following => this.setState({ following }))
+      })
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.user.uid !== nextProps.user.uid) {
+      getFollowing(nextProps.user.uid).then(following =>{
+        console.log("IN COMPN WILL RECEIVE");
+      this.setState({following})})
+    }
+  }
+
+
 
   onLogout() {
     auth.signOut()
@@ -124,9 +143,35 @@ class UserProfile extends Component {
     const recentSongs = this.state.recentSongs.slice(0, 3)
     const { user } = this.state
 
-    let currentAuthUser
-    auth.currentUser && (currentAuthUser = firebase.auth().currentUser.uid)
-    console.log(currentAuthUser)
+
+
+    console.log('this.state.folowing', this.state.following)
+
+    let followed = false;
+    this.state.following && ((this.props.match.params.userId in this.state.following) ? followed = true : followed = false)
+    console.log('user.uid', this.props.match.params.userId)
+    console.log('followed bool', followed)
+
+    console.log('type of folowoing', typeof this.state.following)
+
+    let followButton = null
+    if (followed) {
+      console.log('NOTHING SHOULD BE RENDERING')
+      followButton = (        <button className="btn" onClick={() => {
+          let updateObj = {}
+          updateObj[user.uid] = new Date()
+          firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
+        }}
+          >Unfollow</button>)
+    } else {
+      console.log('SOETHING SHOULDRENDER ')
+      followButton = (        <button className="btn" onClick={() => {
+          let updateObj = {}
+          updateObj[user.uid] = new Date()
+          firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
+        }}
+          >Follow</button>)
+    }
 
     const age = this.getAge(user.birthdate)
 
@@ -140,15 +185,11 @@ class UserProfile extends Component {
         </div>
         <button className="btn" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
         <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
-        <button className="btn" onClick={() => {
-          let updateObj = {}
-          updateObj[user.uid] = new Date()
-          firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
-        }}
-          >Follow</button>
+
+        {followButton}
         <div><h2>Bio</h2></div>
         {
-          this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
+          this.state.bio && this.state.bio.length ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
         }
         <button className="btn btn-dashboard" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
         <div>
