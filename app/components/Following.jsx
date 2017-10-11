@@ -11,11 +11,6 @@ import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bu
 import { connect } from 'react-redux'
 import store, { constantlyUpdateUser } from '../store'
 
-
-const img = 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAAAAJGY5YjFhN2Q2LTUyNjMtNDQ4OS04Mzk5LTcyMGQyM2E0MTgwOA.jpg'
-
-
-
   class Following extends React.Component {
 
     constructor(props) {
