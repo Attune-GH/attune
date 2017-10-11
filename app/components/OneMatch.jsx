@@ -21,6 +21,7 @@ class OneMatch extends Component {
 
   render() {
     const { user } = this.state
+    console.log('user')
     return (
       <div className="container matches">
         <div>
@@ -28,7 +29,8 @@ class OneMatch extends Component {
           {user && <h1>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h1>}
           <h2>{`${Math.ceil(this.props.match[1] * 200)}% match`}</h2>
         </div>
-        {<button className="btn btn-match">Compatibility</button>}
+        { user && <Link to={`/chart/${user.uid}`}> <button className="btn btn-match">Compatibility</button>
+        </Link>}
         <div>
           {user && <Link to={`profile/${user.uid}`} style={{ color: 'white' }}>
             <button className="btn btn-match" style={{ width: '250px' }}>View Profile</button>

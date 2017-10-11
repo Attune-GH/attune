@@ -13,6 +13,7 @@ import AllMatches from './components/AllMatches'
 import MatchesChart from './components/MatchesChart'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import SingleMatchChart from './components/SingleMatchChart'
 import store, {constantlyUpdateUser} from './store'
 import firebase from 'APP/fire'
 import {Provider, connect} from 'react-redux'
@@ -39,6 +40,7 @@ class Routes extends Component {
         <div className="content">
           <Switch>
             <Route exact path="/" component={WhoAmI} />
+            <Route exact path='/chart/:userId' component={SingleMatchChart} />
             <Route exact path='/matchesChart' component={MatchesChart} />
             <Route path='/dashboard' component={Dashboard}/>
             <Route exact path='/messages/:userId' component={(props)=> <Convo auth={auth}/>}/>

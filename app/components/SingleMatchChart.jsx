@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getMatches, getAllMatches } from 'APP/fire/refs'
 
-class MatchesChart extends Component {
+class SingleMatchChart extends Component {
   constructor(props) {
     super(props)
+    console.log("I'm in the constructor")
     this.state = {
       matches: {},
       allMatches: {}
@@ -28,7 +29,12 @@ class MatchesChart extends Component {
     }  
   }
 
-  render() {  
+  render() {
+    console.log('now in render')
+    console.log('this.props', this.props)
+    console.log('this.state', this.state)
+    
+  
     const options = {
       scale: {
         display: true,
@@ -49,18 +55,8 @@ class MatchesChart extends Component {
         padding: '15px'
       }
     }
-    const matches = this.state.matches
-    let sortable = [];
-    for (var person in matches) {
-    sortable.push([person, matches[person]]);
-    }
 
-  let sortedMatches = sortable.sort(function(a, b) {
-        return b[1] - a[1];
-    });
-    console.log('sortedMatches', sortedMatches)
-    
-    if(sortedMatches.length > 5) sortedMatches = sortedMatches.slice(0, 5)
+    const person = [this.props.match.params.userId ,this.state.matches[this.props.match.params.userId]]
 
     var allMatches = this.state.allMatches
 
@@ -68,24 +64,18 @@ class MatchesChart extends Component {
 
     const opaqueColors = ['rgba(179,181,198,1)', 'rgba(211,82,138,1)', 'rgba(201,81,232,1)', 'rgba(86,170,234,1)', 'rgba(92,224,138,1)']
 
- 
-    let dataset$ = allMatches.artistsScores
-      ? sortedMatches.map((person, ind) => {
-      console.log('person', person)
-      return {
+
+    let dataset$ = allMatches.artistsScores ? [{
         label: person[0].slice(13),
-        backgroundColor: translucentColors[ind],
-        borderColor: opaqueColors[ind],
-        pointBackgroundColor: opaqueColors[ind],
+        backgroundColor: translucentColors[4],
+        borderColor: opaqueColors[4],
+        pointBackgroundColor: opaqueColors[4],
         pointBorderColor: '#fff',
         pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: opaqueColors[ind],
+        pointHoverBorderColor: opaqueColors[4],
         data: [person[1]*200, allMatches.artistsScores[person[0]]*1000, allMatches.tracksScores[person[0]]*1400, allMatches.genreScores[person[0]]*200]
-      }
-    }) : []
+      }] : []
 
-    console.log('dataset$', dataset$)
-    // Do not change totalMatch score
 
     const data = {
       labels: ['Total Match Score', 'Top Artists', 'Top Tracks', 'Genres'],
@@ -96,24 +86,21 @@ class MatchesChart extends Component {
       
       <div>
         <Radar data={data} options={options} style={styles.graphContainer} width={99} height={99} />
-        {sortedMatches.map(user => {
-          return (
-            <div>
-              {<Link to={`/profile/${user[0]}`} style={{ color: 'white' }}>
-                <button className="btn btn-match" style={{ width: '250px' }}>{user[0].slice(13)}</button>
-              </Link>}
-            </div>
-          )
-        })}
+        <div>
+          <Link to={`/profile/${person[0]}`} style={{ color: 'white' }}>
+            <button className="btn btn-match" style={{ width: '250px' }}>{person[0].slice(13)}</button>
+          </Link>
+        </div>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log("I'm in mapState")
   return {
     user: state.user
   }
 }
 
-export default connect(mapStateToProps)(MatchesChart)  
+export default connect(mapStateToProps)(SingleMatchChart)  
