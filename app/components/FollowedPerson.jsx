@@ -12,7 +12,7 @@ import Avatar from 'material-ui/Avatar'
 
 const style = {
   margin: 15,
-
+}
 
 
 class FollowedPerson extends Component {

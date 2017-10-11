@@ -194,15 +194,9 @@ class UserProfile extends Component {
             (user.displayName.split(' ').slice(0, 1) || user.displayName))
           }</h2>
         </div>
-        <button className="btn" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
-        <button className="btn" onClick={() => { window.alert("TX  4 UR DATA") }}>block</button>
-
-        {followButton}
-        <div><h2>Bio</h2></div>
         {
           this.state.bio && this.state.bio.length ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
         }
-        <button className="btn btn-dashboard" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
         <div className="container buttons">
           <RaisedButton label="Message" primary={true} style={style}
             onClick={() => this.props.history.push(`/messages/${user.uid}`)}
