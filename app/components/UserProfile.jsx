@@ -16,6 +16,11 @@ const style = {
   width: 130,
 }
 
+const editStyle = {
+  margin: 12,
+  width: 325,
+}
+
 class UserProfile extends Component {
   constructor(props) {
     super()
@@ -41,34 +46,34 @@ class UserProfile extends Component {
     const uid = this.props.match.params.userId
     getRecentSongs(uid).then(recentSongs => this.setState({ recentSongs }))
     getUserProfile(uid).then(user => this.setState({ user }))
-    // getUserBio(uid).then(bio => this.setState({ bio }))
+    getUserBio(uid).then(bio => this.setState({ bio }))
     getFollowing(currentAuthUser).then(following =>
-      this.setState({following}))
-    firebase.database().ref(`Users/${currentAuthUser}/following/`).on("child_added", ()=> {
-          getFollowing(currentAuthUser).then(following => this.setState({ following }))
-      })
-    firebase.database().ref(`Users/${currentAuthUser}/following/`).on("child_removed", ()=> {
-          getFollowing(currentAuthUser).then(following => this.setState({ following }))
-      })
+      this.setState({ following }))
+    firebase.database().ref(`Users/${currentAuthUser}/following/`).on("child_added", () => {
+      getFollowing(currentAuthUser).then(following => this.setState({ following }))
+    })
+    firebase.database().ref(`Users/${currentAuthUser}/following/`).on("child_removed", () => {
+      getFollowing(currentAuthUser).then(following => this.setState({ following }))
+    })
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.user.uid !== nextProps.user.uid) {
-      getFollowing(nextProps.user.uid).then(following => this.setState({following}));
-      firebase.database().ref(`Users/${nextProps.user.uid}/following/`).on("child_added", ()=> {
-          getFollowing(nextProps.user.uid).then(following => this.setState({ following }))
+      getFollowing(nextProps.user.uid).then(following => this.setState({ following }));
+      firebase.database().ref(`Users/${nextProps.user.uid}/following/`).on("child_added", () => {
+        getFollowing(nextProps.user.uid).then(following => this.setState({ following }))
       })
-      firebase.database().ref(`Users/${nextProps.user.uid}/following/`).on("child_removed", ()=> {
-          getFollowing(nextProps.user.uid).then(following => this.setState({ following }))
+      firebase.database().ref(`Users/${nextProps.user.uid}/following/`).on("child_removed", () => {
+        getFollowing(nextProps.user.uid).then(following => this.setState({ following }))
       })
     }
-}
+  }
 
 
 
   onLogout() {
     auth.signOut()
-    location.replace('/login')
+    location.replace('/')
   }
 
   getAge(birthday) {
@@ -123,18 +128,18 @@ class UserProfile extends Component {
                 onChange={this.writeBio}
               />
               <div style={{ display: "block" }}>
-                <button
-                  className="btn btn-dashboard"
-                  onClick={this.submitBio}>finish bio</button>
+                <RaisedButton label="finish bio" primary={true} style={editStyle}
+                  onClick={this.submitBio}
+                />
               </div>
             </div> :
             <div style={{ width: '350px' }}>
               {
-                this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1) || user.displayName}, maybe you should write a bio!`}</p>}
-              <button
-                className="btn btn-dashboard"
-                onClick={() => { this.setState({ isEditing: true }) }}>edit bio
-                  </button></div>
+                this.state.bio.length && this.state.bio ? <p style={{ width: '350px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1) || user.displayName}, maybe you should write a bio!`}</p>}
+              <RaisedButton label="edit bio" primary={true} style={editStyle}
+                onClick={() => { this.setState({ isEditing: true }) }}
+              />
+            </div>
         }
         <div>
           <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
@@ -165,20 +170,20 @@ class UserProfile extends Component {
     let followButton = null
     if (followed) {
       followButton = (<RaisedButton label="Unfollow" primary={true} style={style}
-            onClick={() => {
-              firebase.database().ref(`Users/${currentAuthUser}/following`).child(`${user.uid}`).remove()
+        onClick={() => {
+          firebase.database().ref(`Users/${currentAuthUser}/following`).child(`${user.uid}`).remove()
 
-            }}
-          />)
+        }}
+      />)
     } else {
-      followButton =  (<RaisedButton label="Follow" primary={true} style={style}
-            onClick={() => {
+      followButton = (<RaisedButton label="Follow" primary={true} style={style}
+        onClick={() => {
 
-              let updateObj = {}
-              updateObj[user.uid] = new Date()
-              firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
-            }}
-          />)
+          let updateObj = {}
+          updateObj[user.uid] = new Date()
+          firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
+        }}
+      />)
     }
 
     const age = this.getAge(user.birthdate)
