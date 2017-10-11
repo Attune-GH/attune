@@ -7,7 +7,14 @@ import firebase from 'APP/fire'
 import { getRecentSongs, getUserProfile, getUserBio, setUserBio, getFollowing } from 'APP/fire/refs'
 import TextField from 'material-ui/TextField'
 import store, { constantlyUpdateUser } from '../store'
+import RaisedButton from 'material-ui/RaisedButton'
+
 const auth = firebase.auth()
+
+const style = {
+  margin: 12,
+  width: 130,
+}
 
 class UserProfile extends Component {
   constructor(props) {
@@ -97,7 +104,7 @@ class UserProfile extends Component {
       <div className="container profile">
         <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }} />
         <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
-        <div><h2>Bio</h2></div>
+        {/* <div><h2>Bio< /h2></div> */}
         {
           this.state.isEditing ?
             <div>
@@ -118,7 +125,7 @@ class UserProfile extends Component {
             </div> :
             <div style={{ width: '350px' }}>
               {
-                this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1)  || user.displayName}, maybe you should write a bio!`}</p>}
+                this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1) || user.displayName}, maybe you should write a bio!`}</p>}
               <button
                 className="btn btn-dashboard"
                 onClick={() => { this.setState({ isEditing: true }) }}>edit bio
@@ -157,27 +164,31 @@ class UserProfile extends Component {
     let followButton = null
     if (followed) {
       console.log('NOTHING SHOULD BE RENDERING')
-      followButton = (        <button className="btn" onClick={() => {
-          let updateObj = {}
-          updateObj[user.uid] = new Date()
-          firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
-        }}
-          >Unfollow</button>)
+      followButton = (<RaisedButton label="Unfollow" primary={true} style={style}
+            onClick={() => {
+              let updateObj = {}
+              updateObj[user.uid] = new Date()
+              firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
+              this.props.history.push('/following')
+            }}
+          />)
     } else {
       console.log('SOETHING SHOULDRENDER ')
-      followButton = (        <button className="btn" onClick={() => {
-          let updateObj = {}
-          updateObj[user.uid] = new Date()
-          firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
-        }}
-          >Follow</button>)
+      followButton =  (<RaisedButton label="Follow" primary={true} style={style}
+            onClick={() => {
+              let updateObj = {}
+              updateObj[user.uid] = new Date()
+              firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
+              this.props.history.push('/following')
+            }}
+          />)
     }
 
     const age = this.getAge(user.birthdate)
 
     return (
       <div className="container profile">
-        <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }}  />
+        <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }} />
         <div>
           <h2>{user.displayName && (age ? (`${user.displayName.split(' ').slice(0, 1)}, ${age}` || `${user.displayName}, ${age}`) :
             (user.displayName.split(' ').slice(0, 1) || user.displayName))
@@ -192,6 +203,12 @@ class UserProfile extends Component {
           this.state.bio && this.state.bio.length ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
         }
         <button className="btn btn-dashboard" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
+        <div className="container buttons">
+          <RaisedButton label="Message" primary={true} style={style}
+            onClick={() => this.props.history.push(`/messages/${user.uid}`)}
+          />
+          {followButton}
+        </div>
         <div>
           {user.uid &&
             <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>Spotify Profile</a></button>

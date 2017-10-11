@@ -67,10 +67,9 @@ componentDidMount() {
 
       return (
 
-      <div>
+      <div style={{overflow: 'hidden'}}>
         {betterArr.length ?
         <div>
-        <div className="container matches"><h2 style={{textAlign: 'center'}}>Your Matches</h2></div>
           <Slider {...settings} className="container">
             {betterArr.length === goodMatches.length && betterArr.map(match =>{
               return <div key={match[0]}><OneMatch match={match} /></div>})}

@@ -8,9 +8,12 @@ import { getUserProfile } from 'APP/fire/refs'
 import { List, ListItem } from 'material-ui/List'
 import RaisedButton from 'material-ui/RaisedButton'
 import Avatar from 'material-ui/Avatar'
+
+
 const style = {
   margin: 15,
-}
+
+
 
 class FollowedPerson extends Component {
   constructor(props) {
@@ -23,11 +26,8 @@ class FollowedPerson extends Component {
   componentDidMount() {
     const uid = this.props.person
     console.log('uid', uid)
-    getUserProfile(uid).then(user => this.setState({user}))
+    getUserProfile(uid).then(user => this.setState({ user }))
   }
-
-
-
 
   render() {
 
@@ -36,7 +36,6 @@ class FollowedPerson extends Component {
 
 
     return (
-
       <div style={{maxWidth: 500, margin: '0 auto'}}>
         <ListItem
           primaryText={user && `${user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}`}
@@ -51,6 +50,7 @@ class FollowedPerson extends Component {
 
 
 
-export default FollowedPerson
+export default withRouter(FollowedPerson)
+
 
 

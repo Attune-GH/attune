@@ -65,7 +65,6 @@ class Convo extends Component {
 
     return(
     <div className = "container">
-      <h3> Chat with {friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}</h3>
       <br/>
         <ChatBubble messages = {chatty}/>
       <div >
@@ -78,11 +77,12 @@ class Convo extends Component {
               placeholder="say hey"
               onChange = {this.handleChange}
             />
+          <br/>
           <span>
             <button
               className="btn btn-default"
               type="submit">
-              Chat!
+              Chat with {friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}!
             </button>
           </span>
         </form>
