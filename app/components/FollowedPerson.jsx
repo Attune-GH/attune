@@ -9,6 +9,7 @@ import { List, ListItem } from 'material-ui/List'
 import RaisedButton from 'material-ui/RaisedButton'
 import Avatar from 'material-ui/Avatar'
 
+
 const style = {
   margin: 15,
 }
@@ -33,12 +34,14 @@ class FollowedPerson extends Component {
     const { user } = this.state
     console.log('user in render', this.state.user)
 
+
     return (
-      <div>
+      <div style={{maxWidth: 500, margin: '0 auto'}}>
         <ListItem
           primaryText={user && `${user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}`}
           leftAvatar={user && <Avatar src={user.photoURL} />}
-          rightIcon={<RaisedButton label="Profile" primary={true} style={style} />}
+          rightIcon={user && <RaisedButton label="Profile" primary={true} style={style}   containerElement={<Link to={`profile/${user.uid}`}/>}
+            linkButton={true}/>}
           />
       </div>
     )
@@ -47,7 +50,7 @@ class FollowedPerson extends Component {
 
 
 
-
 export default withRouter(FollowedPerson)
+
 
 
