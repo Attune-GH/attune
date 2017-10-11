@@ -72,7 +72,7 @@ componentDidMount() {
       arrows: true
     }
 
-    const shrugMen = '¯\_(ツ)_/¯'
+    const shrugMen = "¯\\_(ツ)_/¯"
 
     const loading = ( <div className="container matches">
           <h1 style={{maxWidth: '350px', textAlign: 'center'}}>Calculating Good Friends 4 U</h1>
