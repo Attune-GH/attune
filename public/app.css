@@ -133,12 +133,26 @@ body {
 }
 
 .btn-dashboard {
-    margin: 30px 0 30px 0
+    margin: 20px 0 20px 0;
+    background-color: #7E57C2
+}
+
+.btn-dashboard:focus,
+.btn-dashboard:hover{
+    color: #fff;
+    background-color: #9575CD
 }
 
 .btn-match {
     margin-top: 10px;
     width: 250px;
+    background-color: #7E57C2
+}
+
+.btn-match:focus,
+.btn-match:hover{
+    color: #fff;
+    background-color: #9575CD
 }
 
 .whoami {

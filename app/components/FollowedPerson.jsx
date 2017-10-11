@@ -39,7 +39,7 @@ class FollowedPerson extends Component {
           primaryText={user && `${user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}`}
           leftAvatar={user && <Avatar src={user.photoURL} />}
           rightIcon={user && <RaisedButton label="Profile" primary={true} style={style}   containerElement={<Link to={`profile/${user.uid}`}/>}
-            linkButton={true}/>}
+          />}
           />
       </div>
     )
