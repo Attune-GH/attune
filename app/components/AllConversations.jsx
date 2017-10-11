@@ -16,7 +16,7 @@ class Inbox extends React.Component {
     super(props)
     this.state = {
       convoIds: {},
-      convoUsers: []
+      convoUsers: {}
     }
   }
 
@@ -28,11 +28,12 @@ class Inbox extends React.Component {
           this.setState({convoIds})
           //for each convoid, get the user object
           let convoIdKeys = Object.keys(convoIds)
-          let convoUsers = []
+          let convoUsers = {}
           convoIdKeys.forEach((convoIdKey)=> {
             getUserProfile(convoIdKey)
             .then(userProfile => {
-              convoUsers.push(userProfile)
+              convoUsers[convoIdKey] = userProfile
+              // convoUsers.push(userProfile)
             })
           })
           this.setState({convoUsers})
@@ -47,11 +48,12 @@ class Inbox extends React.Component {
       .then(convoIds => {
         this.setState({convoIds})
         let convoIdKeys = Object.keys(convoIds)
-        let convoUsers = []
+        let convoUsers = {}
         convoIdKeys.forEach((convoIdKey)=> {
           getUserProfile(convoIdKey)
           .then(userProfile => {
-            convoUsers.push(userProfile)
+            convoUsers[convoIdKey] = userProfile
+            // convoUsers.push(userProfile)
           })
         })
         this.setState({convoUsers})
@@ -61,18 +63,23 @@ class Inbox extends React.Component {
 
   render(){
     const convoArray = Object.entries(this.state.convoIds)
+    const { convoUsers } = this.state;
+
     console.log("convoArray", convoArray)
-    console.log("THISSTATECONVOUSERS", this.state.convoUsers)
-    
+    console.log("CONVO USERS", convoUsers)
+    console.log("convoUsers an an array for funsies", Object.entries(convoUsers))
+    console.log("convoUsers as an array of keys for funsies", Object.keys(convoUsers))
+    console.log("Convo Users object for juan", convoUsers['spotify:user:jpvelez'])
     return (
     <div>
       <List>
-      <Subheader>Recent chats</Subheader>
+      {/* <Subheader>Recent chats</Subheader> */}
         {convoArray.length && convoArray.map(convo => {
           if (convo[0]!== "undefined") {
             return (
             <ListItem key = {convo[1]}
-            primaryText={convo[0]}
+            /* primaryText = {convo[0]} */
+            /* primaryText={convoUsers[convo[0]].displayName} */
             leftAvatar={<Avatar src={img} />}
             rightIcon={<CommunicationChatBubble />}
             />
