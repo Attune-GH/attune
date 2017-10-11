@@ -4,55 +4,55 @@ import { connect } from 'react-redux'
 import store from '../store/index'
 import { fetchConvoIdThunk } from '../store/convo'
 import { getMessagesThunk } from '../store/messages'
-import { getUserProfile} from 'APP/fire/refs'
+import { getUserProfile } from 'APP/fire/refs'
 import { withRouter } from 'react-router'
 import ChatBubble from 'react-chat-bubble'
-
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
 
 class Convo extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
 
     this.state = {
-      enteredMessage: '', 
+      enteredMessage: '',
       friendUser: {}
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const friendUid = this.props.match.params.userId
     this.props.initializeConvo(this.props.user.uid, friendUid)
-    getUserProfile(friendUid).then(friendUser => this.setState({friendUser}))
+    getUserProfile(friendUid).then(friendUser => this.setState({ friendUser }))
   }
 
-  handleChange(event){
+  handleChange(event) {
     this.setState({
       enteredMessage: event.target.value
     })
   }
 
-  handleSubmit(event){
+  handleSubmit(event) {
     event.preventDefault()
-
     // Write message to the appropriate Convo Key
-    const messageObject = {from: this.props.user.uid, content: this.state.enteredMessage}
-    firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
+    const messageObject = { from: this.props.user.uid, content: this.state.enteredMessage }
+    if (messageObject.content.length) firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
 
     //Listen for updates to Firebase and update the Messages store to trigger re-render
-    firebase.database().ref(`Convos/${this.props.convoId}`).on("child_added", ()=> {
+    firebase.database().ref(`Convos/${this.props.convoId}`).on("child_added", () => {
       this.props.dispatchGetMessagesThunk(`${this.props.convoId}`)
     })
-    this.setState({enteredMessage: ''})
+    this.setState({ enteredMessage: '' })
   }
 
-  render(){
+  render() {
     const { friendUser } = this.state
     const messageArray = Object.entries(this.props.messages)
-    const chatty = messageArray && messageArray.map(message =>{
+    const chatty = messageArray && messageArray.map(message => {
       let messageObj = {}
-      if(message[1].from === this.props.user.uid) {
+      if (message[1].from === this.props.user.uid) {
         messageObj["type"] = 0; //sender
         messageObj["image"] = this.props.user.photoURL
       } else {
@@ -63,44 +63,35 @@ class Convo extends Component {
       return messageObj
     })
 
-    return(
-    <div className = "container">
-      <h4>Your Chat with {friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}</h4>
-      <br/>
-      <div className = "messages">
-        <ChatBubble messages = {chatty}/>
-      </div>
-      <div className = "chat">
-        <form onSubmit = {this.handleSubmit}>
-            <input
-              className = "formInput"
-              name="messageField"
-              type="text"
-              value = {this.state.enteredMessage}
-              placeholder="say hey"
-              onChange = {this.handleChange}
+    return (
+      <div className="container">
+        <br />
+        <ChatBubble messages={chatty} />
+        <div className="chatty" >
+          <form onSubmit={this.handleSubmit}>
+            <TextField
+              hintText="say hey"
+              fullWidth={true}
+              onChange={this.handleChange}
+              value={this.state.enteredMessage}
             />
-          <br/>
-          <span>
-            <button
-              className="btn btn-default"
-              type="submit">
-              Chat!
-            </button>
-          </span>
-        </form>
+            <br />
+            <span>
+              <RaisedButton label={`Chat with ${friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}!`} fullWidth={true} />
+            </span>
+          </form>
+        </div>
       </div>
-    </div>
     )
   }
 }
 
-const mapDispatchToProps = (dispatch)=> {
+const mapDispatchToProps = (dispatch) => {
   return {
-    initializeConvo: function(uid, friendUid){
+    initializeConvo: function (uid, friendUid) {
       dispatch(fetchConvoIdThunk(uid, friendUid))
     },
-    dispatchGetMessagesThunk: function(convoKey){
+    dispatchGetMessagesThunk: function (convoKey) {
       dispatch(getMessagesThunk(convoKey))
     }
   }

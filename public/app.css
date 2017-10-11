@@ -176,10 +176,9 @@ body {
     flex-flow: row
 }
 
-/* .messages {
-    height: 60vh
+.chatty {
+    position: fixed;
+    bottom: 100px;
+    width: 90%;
 }
-.chat {
-    display: flex;
-    flex-direction: column;
-} */
+

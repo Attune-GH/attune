@@ -38,7 +38,6 @@ class UserProfile extends Component {
     store.dispatch(constantlyUpdateUser())
     let currentAuthUser
     auth.currentUser && (currentAuthUser = firebase.auth().currentUser.uid)
-    console.log('auth user in comp', currentAuthUser)
     const uid = this.props.match.params.userId
     getRecentSongs(uid).then(recentSongs => this.setState({ recentSongs }))
     getUserProfile(uid).then(user => this.setState({ user }))
@@ -48,15 +47,22 @@ class UserProfile extends Component {
     firebase.database().ref(`Users/${currentAuthUser}/following/`).on("child_added", ()=> {
           getFollowing(currentAuthUser).then(following => this.setState({ following }))
       })
+    firebase.database().ref(`Users/${currentAuthUser}/following/`).on("child_removed", ()=> {
+          getFollowing(currentAuthUser).then(following => this.setState({ following }))
+      })
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.user.uid !== nextProps.user.uid) {
-      getFollowing(nextProps.user.uid).then(following =>{
-        console.log("IN COMPN WILL RECEIVE");
-      this.setState({following})})
+      getFollowing(nextProps.user.uid).then(following => this.setState({following}));
+      firebase.database().ref(`Users/${nextProps.user.uid}/following/`).on("child_added", ()=> {
+          getFollowing(nextProps.user.uid).then(following => this.setState({ following }))
+      })
+      firebase.database().ref(`Users/${nextProps.user.uid}/following/`).on("child_removed", ()=> {
+          getFollowing(nextProps.user.uid).then(following => this.setState({ following }))
+      })
     }
-  }
+}
 
 
 
@@ -104,7 +110,6 @@ class UserProfile extends Component {
       <div className="container profile">
         <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }} />
         <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
-        {/* <div><h2>Bio< /h2></div> */}
         {
           this.state.isEditing ?
             <div>
@@ -150,36 +155,28 @@ class UserProfile extends Component {
     const recentSongs = this.state.recentSongs.slice(0, 3)
     const { user } = this.state
 
-
-
-    console.log('this.state.folowing', this.state.following)
+    let currentAuthUser
+    auth.currentUser && (currentAuthUser = firebase.auth().currentUser.uid)
 
     let followed = false;
     this.state.following && ((this.props.match.params.userId in this.state.following) ? followed = true : followed = false)
-    console.log('user.uid', this.props.match.params.userId)
-    console.log('followed bool', followed)
 
-    console.log('type of folowoing', typeof this.state.following)
 
     let followButton = null
     if (followed) {
-      console.log('NOTHING SHOULD BE RENDERING')
       followButton = (<RaisedButton label="Unfollow" primary={true} style={style}
             onClick={() => {
-              let updateObj = {}
-              updateObj[user.uid] = new Date()
-              firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
-              this.props.history.push('/following')
+              firebase.database().ref(`Users/${currentAuthUser}/following`).child(`${user.uid}`).remove()
+
             }}
           />)
     } else {
-      console.log('SOETHING SHOULDRENDER ')
       followButton =  (<RaisedButton label="Follow" primary={true} style={style}
             onClick={() => {
+
               let updateObj = {}
               updateObj[user.uid] = new Date()
               firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
-              this.props.history.push('/following')
             }}
           />)
     }
