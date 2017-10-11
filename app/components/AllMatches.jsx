@@ -22,8 +22,9 @@ class SimpleSlider extends React.Component {
   //not sure i understand this function --eks
   componentWillReceiveProps(nextProps) {
     if (this.props.user.uid !== nextProps.user.uid) {
-      getMatches(nextProps.user.uid).then(matches =>
-      this.setState({matches}))
+      getMatches(nextProps.user.uid).then(matches => {
+      this.setState({matches})
+    })
     }
   }
 
@@ -47,11 +48,13 @@ componentDidMount() {
         sortable.push([person, matches[person]]);
       }
 
+
       const goodMatches = sortable.filter(element => element[1] >= 0.02)
 
       const betterArr = goodMatches.sort(function (a, b) {
         return b[1] - a[1];
       })
+
 
       var settings = {
       initialSlide: 0,
@@ -64,22 +67,31 @@ componentDidMount() {
       arrows: true
     }
 
+    const shrugMen = "¯\\_(ツ)_/¯"
 
-      return (
-
-      <div style={{overflow: 'hidden'}}>
-        {betterArr.length ?
-        <div>
-          <Slider {...settings} className="container">
-            {betterArr.length === goodMatches.length && betterArr.map(match =>{
-              return <div key={match[0]}><OneMatch match={match} /></div>})}
-          </Slider>
-        </div>:
-          <div className="container matches">
+    const loading = ( <div className="container matches">
           <h1 style={{maxWidth: '350px', textAlign: 'center'}}>Calculating Good Friends 4 U</h1>
            <img src="/img/Radio.svg" className="load" />
-        </div>
-        }
+          </div>)
+
+    const loaded = (
+        <div>
+            {betterArr.length ?
+            (<Slider {...settings} className="container">
+            {betterArr.map(match =>{
+              return <div key={match[0]}><OneMatch match={match} /></div>})}
+           </Slider>)
+            :
+            <div className="container profile">
+              <h3> Looks like u don't listen to any music</h3>
+              <h2>{shrugMen}</h2>
+            </div>
+            }
+        </div>)
+
+      return (
+      <div style={{overflow: 'hidden'}}>
+      {(typeof this.state.matches === 'object') ? loaded : loading}
       </div>
     )
   }
