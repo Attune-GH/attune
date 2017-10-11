@@ -23,7 +23,6 @@ class SimpleSlider extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.user.uid !== nextProps.user.uid) {
       getMatches(nextProps.user.uid).then(matches => {
-      console.log(matches)
       this.setState({matches})
     })
     }
@@ -48,18 +47,14 @@ componentDidMount() {
       for (var person in matches) {
         sortable.push([person, matches[person]]);
       }
-      console.log('sortable', sortable)
+
 
       const goodMatches = sortable.filter(element => element[1] >= 0.02)
-      console.log('goodMatches', goodMatches)
 
       const betterArr = goodMatches.sort(function (a, b) {
         return b[1] - a[1];
       })
-      console.log('betterArr', betterArr)
 
-      console.log('bool', betterArr.length === goodMatches.length)
-      console.log('bool2', betterArr)
 
       var settings = {
       initialSlide: 0,
@@ -84,7 +79,6 @@ componentDidMount() {
             {betterArr.length ?
             (<Slider {...settings} className="container">
             {betterArr.map(match =>{
-              console.log('betterArr', betterArr)
               return <div key={match[0]}><OneMatch match={match} /></div>})}
            </Slider>)
             :
