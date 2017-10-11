@@ -21,8 +21,11 @@ exports.getMatches = functions.database.ref('/Users/{uid}/requestMatches')
 
       const user1Obj = usersObj[userId]
 
-      const user1TopArtists = user1Obj.topArtists.artists
-      const user1TopTracks = user1Obj.topTracks.tracks
+      let user1TopArtists
+      let user1TopTracks
+
+      user1TopArtists =  (user1Obj.topArtists ? user1Obj.topArtists.artists : [])
+      user1TopTracks =  (user1Obj.topTracks ? user1Obj.topTracks.tracks : [])
       // const user1RecentSongs = user1Obj.recentSongs.songs
 
       userNames.forEach(user => {
