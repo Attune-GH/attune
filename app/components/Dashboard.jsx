@@ -26,10 +26,10 @@ class Dashboard extends Component {
     return (
       <div className="dashboard">
         <Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}><button className="btn btn-dashboard">Profile</button></Link>
-        <Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}><button className="btn btn-dashboard">Messages Inbox</button></Link>
-        <Link to='/following' style={{ textDecoration: 'none', color: 'white'  }}><button className='btn btn-dashboard' >Following</button></Link>
         <Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}><button className='btn btn-dashboard' onClick={() => this.onRequestMatches()}>See Your Matches</button></Link>
+        <Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}><button className="btn btn-dashboard">Messages Inbox</button></Link>
         <Link to='/matchesChart' style={{ textDecoration: 'none', color: 'white'  }}><button className='btn btn-dashboard' >Matches Chart</button></Link>
+        <Link to='/following' style={{ textDecoration: 'none', color: 'white'  }}><button className='btn btn-dashboard' >Following</button></Link>
       </div>
     )
   }
