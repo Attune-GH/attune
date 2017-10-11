@@ -18,6 +18,12 @@ body {
     margin-bottom: 100px;
 }
 
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .logo {
     display: flex;
     align-items: center;

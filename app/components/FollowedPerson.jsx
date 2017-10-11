@@ -34,9 +34,9 @@ class FollowedPerson extends Component {
     console.log('user in render', this.state.user)
 
     return (
-      <div className="container">
+      <div>
         <ListItem
-          primaryText={user && <h3 style={{ textAlign: 'center', margin: '3px' }}>{user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h3>}
+          primaryText={user && `${user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}`}
           leftAvatar={user && <Avatar src={user.photoURL} />}
           rightIcon={<RaisedButton label="Profile" primary={true} style={style} />}
           />
