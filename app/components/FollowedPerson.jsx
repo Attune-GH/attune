@@ -40,7 +40,7 @@ class FollowedPerson extends Component {
           leftAvatar={user && <Avatar src={user.photoURL} />}
           rightIcon={user && <RaisedButton label="Profile" primary={true} style={style}   containerElement={<Link to={`profile/${user.uid}`}/>}
           />}
-          />
+        />
       </div>
     )
   }
