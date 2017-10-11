@@ -44,19 +44,30 @@ class Inbox extends React.Component {
   componentDidMount(){
     store.dispatch(constantlyUpdateUser())
     const uid = this.props.user.uid 
-    getConvoIds(uid)
+
+      getConvoIds(uid)
       .then(convoIds => {
         this.setState({convoIds})
         let convoIdKeys = Object.keys(convoIds)
         let convoUsers = {}
-        convoIdKeys.forEach((convoIdKey)=> {
-          getUserProfile(convoIdKey)
-          .then(userProfile => {
-            convoUsers[convoIdKey] = userProfile
-            // convoUsers.push(userProfile)
-          })
+        let promiseArr = []
+
+        convoIdKeys.forEach(convoIdKey => {
+          promiseArr.push(getUserProfile(convoIdKey))
         })
-        this.setState({convoUsers})
+
+        Promise.all(promiseArr)
+        .then(profiles => {
+          profiles.forEach((userProfile, i) => {
+            let profileId = convoIdKeys[i]
+            convoUsers[profileId] = userProfile
+          })
+          console.log('new convo users?', convoUsers)
+          return convoUsers
+        })
+        .then(convoUsers => this.setState({convoUsers}))
+        .catch(console.error)
+
       })
   }
 
@@ -65,23 +76,21 @@ class Inbox extends React.Component {
     const convoArray = Object.entries(this.state.convoIds)
     const { convoUsers } = this.state;
 
-    console.log("convoArray", convoArray)
-    console.log("CONVO USERS", convoUsers)
-    console.log("convoUsers an an array for funsies", Object.entries(convoUsers))
-    console.log("convoUsers as an array of keys for funsies", Object.keys(convoUsers))
-    console.log("Convo Users object for juan", convoUsers['spotify:user:jpvelez'])
+    console.log("CONVO USERS????", convoUsers)
+
     return (
-    <div>
+    <div className = "container">
       <List>
       {/* <Subheader>Recent chats</Subheader> */}
-        {convoArray.length && convoArray.map(convo => {
+        {(convoUsers && convoArray.length) && convoArray.map(convo => {
           if (convo[0]!== "undefined") {
             return (
             <ListItem key = {convo[1]}
             /* primaryText = {convo[0]} */
-            /* primaryText={convoUsers[convo[0]].displayName} */
+            primaryText={convoUsers[convo[0]].displayName}
             leftAvatar={<Avatar src={img} />}
             rightIcon={<CommunicationChatBubble />}
+            onClick={()=> this.props.history.push(`/messages/${convo[0]}`)}
             />
             ) 
           }
