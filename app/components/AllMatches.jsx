@@ -67,7 +67,7 @@ componentDidMount() {
 
       return (
 
-      <div>
+      <div style={{overflow: 'hidden'}}>
         {betterArr.length ?
         <div>
         {/* <div className="container matches"><h2 style={{textAlign: 'center'}}>Your Matches</h2></div> */}

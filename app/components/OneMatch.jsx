@@ -42,7 +42,7 @@ class OneMatch extends Component {
           <div style={{display: 'flex', justifyContent: 'center', margin: '0px'}}>
           <h3 style={{textAlign: 'center', borderStyle: 'solid', padding: '10px'}}>{matchGrade}</h3>
           </div>
-          <h3 style={{textAlign: 'center'}}>{`${Math.ceil(this.props.match[1] * 200)}% overlap in your listening history`}</h3>
+          <p style={{textAlign: 'center'}}>{`${Math.ceil(this.props.match[1] * 200)}% overlap in your listening history`}</p>
         </div>
         {<button className="btn btn-match">Compatibility</button>}
         <div>
