@@ -190,6 +190,30 @@ body {
     flex-flow: row
 }
 
+
+@media (max-width: 600px) {
+    .lgRadar {
+        display: none ;
+    }
+    .smRadar {
+        display: block ;
+    }
+}
+
+@media (min-width: 601px) {
+    .lgRadar {
+        display: block ;
+    }
+    .smRadar {
+        display: none ;
+    }
+    .lgRadar > canvas {
+        width: 100% ;
+        height: auto ;
+        margin: 0 auto ;
+        max-width: 1300px ;
+    }
+}
 .chatty {
     position: fixed;
     bottom: 100px;
