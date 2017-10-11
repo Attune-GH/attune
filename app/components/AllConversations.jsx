@@ -14,7 +14,6 @@ class Inbox extends React.Component {
     super(props)
     this.state = {
       convoIds: {},
-      convoUsers: {}
     }
   }
 
@@ -30,7 +29,6 @@ class Inbox extends React.Component {
   componentDidMount(){
     store.dispatch(constantlyUpdateUser())
     const uid = this.props.user.uid 
-
       getConvoIds(uid)
       .then(convoIds => {
         this.setState({convoIds})
@@ -39,8 +37,11 @@ class Inbox extends React.Component {
 
 
   render(){
-    const convoArray = Object.entries(this.state.convoIds)
-    const { convoUsers } = this.state;
+
+    let convoArray
+
+    this.state.convoIds ? convoArray = Object.entries(this.state.convoIds) : convoArray = null
+    // const convoArray = Object.entries(this.state.convoIds)
 
     return (
       <div style={{overflow: 'hidden'}}>
