@@ -175,3 +175,10 @@ body {
     display: flex;
     flex-flow: row
 }
+
+.chatty {
+    position: fixed;
+    bottom: 100px;
+    width: 90%;
+}
+

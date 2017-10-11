@@ -110,7 +110,6 @@ class UserProfile extends Component {
       <div className="container profile">
         <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }} />
         <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
-        {/* <div><h2>Bio< /h2></div> */}
         {
           this.state.isEditing ?
             <div>
