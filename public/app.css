@@ -2,7 +2,7 @@
 body {
   background-color: #212121;
   color: white;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin-bottom: 60px
 }
 
@@ -35,7 +35,7 @@ body {
 .formInput {
   color: black
 }
- 
+
 .App {
   text-align: center;
 }
