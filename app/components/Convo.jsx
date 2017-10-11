@@ -38,7 +38,7 @@ class Convo extends Component {
     event.preventDefault()
     // Write message to the appropriate Convo Key
     const messageObject = { from: this.props.user.uid, content: this.state.enteredMessage }
-    if(messageObject.content.length) firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
+    if (messageObject.content.length) firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
 
     //Listen for updates to Firebase and update the Messages store to trigger re-render
     firebase.database().ref(`Convos/${this.props.convoId}`).on("child_added", () => {
@@ -67,7 +67,7 @@ class Convo extends Component {
       <div className="container">
         <br />
         <ChatBubble messages={chatty} />
-        <div >
+        <div className="chatty" >
           <form onSubmit={this.handleSubmit}>
             <TextField
               hintText="say hey"
