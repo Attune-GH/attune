@@ -2,7 +2,7 @@
 body {
   background-color: #212121;
   color: white;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin-bottom: 60px
 }
 
@@ -16,6 +16,12 @@ body {
 }
 .content {
     margin-bottom: 100px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo {
@@ -35,7 +41,7 @@ body {
 .formInput {
   color: black
 }
- 
+
 .App {
   text-align: center;
 }
@@ -131,8 +137,8 @@ body {
 }
 
 .btn-match {
-    margin-top: 20px;
-    width: 250px
+    margin-top: 10px;
+    width: 250px;
 }
 
 .whoami {
@@ -161,7 +167,8 @@ body {
 .matches {
     display: flex;
     align-items: center;
-    flex-direction: column
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .match {
