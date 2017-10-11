@@ -136,13 +136,9 @@ class UserProfile extends Component {
             <div style={{ width: '350px' }}>
               {
                 this.state.bio.length && this.state.bio ? <p style={{ width: '350px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1) || user.displayName}, maybe you should write a bio!`}</p>}
-              {/* <button
-                className="btn btn-dashboard"
-                onClick={() => { this.setState({ isEditing: true }) }}>edit bio
-                  </button> */}
-                  <RaisedButton label="edit bio" primary={true} style={editStyle}
-                  onClick={() => { this.setState({ isEditing: true }) }}
-                />
+              <RaisedButton label="edit bio" primary={true} style={editStyle}
+                onClick={() => { this.setState({ isEditing: true }) }}
+              />
             </div>
         }
         <div>
