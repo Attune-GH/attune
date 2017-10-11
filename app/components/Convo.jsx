@@ -7,14 +7,15 @@ import { getMessagesThunk } from '../store/messages'
 import { getUserProfile} from 'APP/fire/refs'
 import { withRouter } from 'react-router'
 import ChatBubble from 'react-chat-bubble'
-
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
 
 class Convo extends Component {
   constructor(props){
     super(props)
 
     this.state = {
-      enteredMessage: '', 
+      enteredMessage: '',
       friendUser: {}
     }
     this.handleChange = this.handleChange.bind(this)
@@ -35,7 +36,6 @@ class Convo extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-
     // Write message to the appropriate Convo Key
     const messageObject = {from: this.props.user.uid, content: this.state.enteredMessage}
     firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
@@ -69,21 +69,28 @@ class Convo extends Component {
         <ChatBubble messages = {chatty}/>
       <div >
         <form onSubmit = {this.handleSubmit}>
-            <input
+            {/* <input
               className = "formInput"
               name="messageField"
               type="text"
               value = {this.state.enteredMessage}
               placeholder="say hey"
               onChange = {this.handleChange}
-            />
+            /> */}
+                <TextField
+      hintText="say hey"
+      fullWidth={true}
+      onChange = {this.handleChange}
+      value = {this.state.enteredMessage}
+    />
           <br/>
           <span>
-            <button
+            {/* <button
               className="btn btn-default"
               type="submit">
               Chat with {friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}!
-            </button>
+            </button> */}
+            <RaisedButton label={`Chat with ${friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}!`} fullWidth={true} />
           </span>
         </form>
       </div>
