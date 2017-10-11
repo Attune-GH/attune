@@ -14,7 +14,6 @@ const auth = firebase.auth()
 const style = {
   margin: 12,
   width: 130,
-  borderRadius: 500
 }
 
 class UserProfile extends Component {
@@ -107,7 +106,7 @@ class UserProfile extends Component {
             </div> :
             <div style={{ width: '350px' }}>
               {
-                this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1)  || user.displayName}, maybe you should write a bio!`}</p>}
+                this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1) || user.displayName}, maybe you should write a bio!`}</p>}
               <button
                 className="btn btn-dashboard"
                 onClick={() => { this.setState({ isEditing: true }) }}>edit bio
@@ -140,17 +139,17 @@ class UserProfile extends Component {
 
     return (
       <div className="container profile">
-        <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }}  />
+        <Image src={user.photoURL} style={{ height: '150px', width: '150px', borderRadius: '150px' }} />
         <div>
           <h2>{user.displayName && (age ? (`${user.displayName.split(' ').slice(0, 1)}, ${age}` || `${user.displayName}, ${age}`) :
             (user.displayName.split(' ').slice(0, 1) || user.displayName))
           }</h2>
         </div>
-        {/* <div><h2>Bio</h2></div> */}
-        {
-          this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px'}}>{`${user.displayName} hasn't written a bio yet!`}</p>
-        }
-
+        <div>
+          {
+            this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
+          }
+        </div>
 
 
         {/* <button className="btn btn-dashboard" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
@@ -161,10 +160,19 @@ class UserProfile extends Component {
           this.props.history.push('/following')
         }}
           >Follow</button> */}
-          <div className="container buttons">
-          <RaisedButton label="Message" primary={true} style={style} />
-          <RaisedButton label="Follow" primary={true} style={style} />
-          </div>
+        <div className="container buttons">
+          <RaisedButton label="Message" primary={true} style={style}
+            onClick={() => this.props.history.push(`/messages/${user.uid}`)}
+          />
+          <RaisedButton label="Follow" primary={true} style={style}
+            onClick={() => {
+              let updateObj = {}
+              updateObj[user.uid] = new Date()
+              firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
+              this.props.history.push('/following')
+            }}
+          />
+        </div>
 
 
 

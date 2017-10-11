@@ -5,9 +5,12 @@ import store from '../store'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { getUserProfile } from 'APP/fire/refs'
+import RaisedButton from 'material-ui/RaisedButton'
 
-
-
+const style = {
+  margin: 12,
+  width: 130,
+}
 
 class OneMatch extends Component {
   constructor(props) {
@@ -43,11 +46,15 @@ class OneMatch extends Component {
           </div>
           <h3 style={{textAlign: 'center'}}>{`${Math.ceil(this.props.match[1] * 200)}% overlap in your listening history`}</h3>
         </div>
-        {<button className="btn btn-match">Compatibility</button>}
+        {/* {<button className="btn btn-match">Compatibility</button>} */}
         <div>
-          {user && <Link to={`profile/${user.uid}`} style={{ color: 'white' }}>
+          {/* {user && <Link to={`profile/${user.uid}`} style={{ color: 'white' }}>
             <button className="btn btn-match" style={{ width: '250px' }}>View Profile</button>
-          </Link>}
+          </Link>} */}
+                    <div className="container buttons">
+          <RaisedButton label="Compatibility" primary={true} style={style} />
+          <RaisedButton label="Profile" primary={true} style={style} />
+          </div>
         </div>
       </div>
     )
