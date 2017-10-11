@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import Iframe from 'react-iframe'
 import firebase from 'APP/fire'
-import { getRecentSongs, getUserProfile, getUserBio, setUserBio } from 'APP/fire/refs'
+import { getRecentSongs, getUserProfile, getUserBio, setUserBio, getFollowing } from 'APP/fire/refs'
 import TextField from 'material-ui/TextField'
 import store, { constantlyUpdateUser } from '../store'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -23,7 +23,8 @@ class UserProfile extends Component {
       recentSongs: [],
       user: {},
       bio: '',
-      isEditing: false
+      isEditing: false,
+      following: ''
     }
     this.renderAuthUser = this.renderAuthUser.bind(this)
     this.renderUser = this.renderUser.bind(this)
@@ -35,11 +36,35 @@ class UserProfile extends Component {
 
   componentDidMount() {
     store.dispatch(constantlyUpdateUser())
+    let currentAuthUser
+    auth.currentUser && (currentAuthUser = firebase.auth().currentUser.uid)
     const uid = this.props.match.params.userId
     getRecentSongs(uid).then(recentSongs => this.setState({ recentSongs }))
     getUserProfile(uid).then(user => this.setState({ user }))
-    getUserBio(uid).then(bio => this.setState({ bio }))
+    // getUserBio(uid).then(bio => this.setState({ bio }))
+    getFollowing(currentAuthUser).then(following =>
+      this.setState({following}))
+    firebase.database().ref(`Users/${currentAuthUser}/following/`).on("child_added", ()=> {
+          getFollowing(currentAuthUser).then(following => this.setState({ following }))
+      })
+    firebase.database().ref(`Users/${currentAuthUser}/following/`).on("child_removed", ()=> {
+          getFollowing(currentAuthUser).then(following => this.setState({ following }))
+      })
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.user.uid !== nextProps.user.uid) {
+      getFollowing(nextProps.user.uid).then(following => this.setState({following}));
+      firebase.database().ref(`Users/${nextProps.user.uid}/following/`).on("child_added", ()=> {
+          getFollowing(nextProps.user.uid).then(following => this.setState({ following }))
+      })
+      firebase.database().ref(`Users/${nextProps.user.uid}/following/`).on("child_removed", ()=> {
+          getFollowing(nextProps.user.uid).then(following => this.setState({ following }))
+      })
+    }
+}
+
+
 
   onLogout() {
     auth.signOut()
@@ -132,7 +157,29 @@ class UserProfile extends Component {
 
     let currentAuthUser
     auth.currentUser && (currentAuthUser = firebase.auth().currentUser.uid)
-    console.log(currentAuthUser)
+
+    let followed = false;
+    this.state.following && ((this.props.match.params.userId in this.state.following) ? followed = true : followed = false)
+
+
+    let followButton = null
+    if (followed) {
+      followButton = (<RaisedButton label="Unfollow" primary={true} style={style}
+            onClick={() => {
+              firebase.database().ref(`Users/${currentAuthUser}/following`).child(`${user.uid}`).remove()
+
+            }}
+          />)
+    } else {
+      followButton =  (<RaisedButton label="Follow" primary={true} style={style}
+            onClick={() => {
+
+              let updateObj = {}
+              updateObj[user.uid] = new Date()
+              firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
+            }}
+          />)
+    }
 
     const age = this.getAge(user.birthdate)
 
@@ -144,27 +191,15 @@ class UserProfile extends Component {
             (user.displayName.split(' ').slice(0, 1) || user.displayName))
           }</h2>
         </div>
-        <div>
-          {
-            this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
-          }
-        </div>
+        {
+          this.state.bio && this.state.bio.length ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
+        }
         <div className="container buttons">
           <RaisedButton label="Message" primary={true} style={style}
             onClick={() => this.props.history.push(`/messages/${user.uid}`)}
           />
-          <RaisedButton label="Follow" primary={true} style={style}
-            onClick={() => {
-              let updateObj = {}
-              updateObj[user.uid] = new Date()
-              firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
-              this.props.history.push('/following')
-            }}
-          />
+          {followButton}
         </div>
-
-
-
         <div>
           {user.uid &&
             <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>Spotify Profile</a></button>
