@@ -13,7 +13,7 @@ export const name = user => {
 
 export const WhoAmI = ({user}) => {
   return (
-    <div className="whoami container">
+    <div className="whoami container" style={{overflow: 'hidden'}}>
       { // If nobody is logged in
         (!user.uid)?
         // ...then show signin links...
