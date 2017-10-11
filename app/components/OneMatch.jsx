@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { Button, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import store from '../store'
-import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
 import { getUserProfile } from 'APP/fire/refs'
+import RaisedButton from 'material-ui/RaisedButton'
 
-
-
+const style = {
+  margin: 12,
+  width: 130,
+}
 
 class OneMatch extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class OneMatch extends Component {
           <div style={{display: 'flex', justifyContent: 'center', margin: '0px'}}>
           <h3 style={{textAlign: 'center', borderStyle: 'solid', padding: '10px'}}>{matchGrade}</h3>
           </div>
-          <h3 style={{textAlign: 'center'}}>{`${Math.ceil(this.props.match[1] * 200)}% overlap in your listening history`}</h3>
+          <p style={{textAlign: 'center'}}>{`${Math.ceil(this.props.match[1] * 200)}% overlap in your listening history`}</p>
         </div>
         { user && <Link to={`/chart/${user.uid}`}> <button className="btn btn-match">Compatibility</button>
         </Link>}
@@ -57,3 +58,4 @@ class OneMatch extends Component {
 }
 
 export default OneMatch
+

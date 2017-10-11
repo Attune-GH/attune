@@ -11,11 +11,6 @@ import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bu
 import { connect } from 'react-redux'
 import store, { constantlyUpdateUser } from '../store'
 
-
-const img = 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAAAAJGY5YjFhN2Q2LTUyNjMtNDQ4OS04Mzk5LTcyMGQyM2E0MTgwOA.jpg'
-
-
-
   class Following extends React.Component {
 
     constructor(props) {
@@ -44,13 +39,15 @@ const img = 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAA
 
     render() {
 
-      let followedPersons = Object.keys(this.state.following)
+      let followedPersons
+
+      this.state.following ? followedPersons = Object.keys(this.state.following) : followedPersons = null
 
       return (
-        <div style={{textAlign: 'center'}}>
-          <h1>Users You're Following</h1>
-          <List style={{maxWidth: '600px'}}>
-          {followedPersons.length && followedPersons.map(person => {
+        <div style={{overflow: 'hidden'}}>
+          <h1  style={{textAlign: 'center'}}>Following</h1>
+          <List>
+          {followedPersons && followedPersons.map(person => {
             return <div key={person}><FollowedPerson person={person}/></div>
           })}
           </List>
