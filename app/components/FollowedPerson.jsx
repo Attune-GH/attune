@@ -25,18 +25,16 @@ class FollowedPerson extends Component {
 
   componentDidMount() {
     const uid = this.props.person
-    console.log('uid', uid)
     getUserProfile(uid).then(user => this.setState({ user }))
   }
 
   render() {
 
     const { user } = this.state
-    console.log('user in render', this.state.user)
 
 
     return (
-      <div style={{maxWidth: 500, margin: '0 auto'}}>
+      <div style={{maxWidth: 500, margin: '0 auto', overflow: 'hidden'}}>
         <ListItem
           primaryText={user && `${user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}`}
           leftAvatar={user && <Avatar src={user.photoURL} />}

@@ -42,8 +42,8 @@ import store, { constantlyUpdateUser } from '../store'
       let followedPersons = Object.keys(this.state.following)
 
       return (
-        <div>
-          <h1  style={{textAlign: 'center'}}>Users You're Following</h1>
+        <div style={{overflow: 'hidden'}}>
+          <h1  style={{textAlign: 'center'}}>Following</h1>
           <List>
           {followedPersons.length && followedPersons.map(person => {
             return <div key={person}><FollowedPerson person={person}/></div>
