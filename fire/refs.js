@@ -10,6 +10,10 @@ exports.getMatches = id => (
   db.ref(`Users/${id}/matches/matchScores`).once('value').then(snapshot => snapshot.val()).catch(console.error)
 )
 
+exports.getFollowing = id => (
+  db.ref(`Users/${id}/following/`).once('value').then(snapshot => snapshot.val()).catch(console.error)
+)
+
 exports.getUserProfile = id => (
   db.ref(`Users/${id}/userProfile`).once('value').then(snapshot => snapshot.val()).catch(console.error)
 )
@@ -18,11 +22,11 @@ exports.getAllMatches = id => (
   db.ref(`Users/${id}/matches`).once('value').then(snapshot => snapshot.val()).catch(console.error)
 )
 
-exports.getUserBio = (id, bio) => (
-  db.ref(`Users/${id}/`).once('value').then(snapshot => snapshot.val()).catch(console.error)
+exports.getUserBio = (id) => (
+  db.ref(`Users/${id}/bio`).once('value').then(snapshot => snapshot.val()).catch(console.error)
 )
 
 exports.setUserBio = (id, bio) => (
-  db.ref(`Users/${id}/userProfile`).update({ bio: bio })
+  db.ref(`Users/${id}/`).update({ bio: bio })
 )
 
