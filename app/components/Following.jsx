@@ -11,6 +11,7 @@ import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bu
 import { connect } from 'react-redux'
 import store, { constantlyUpdateUser } from '../store'
 
+
   class Following extends React.Component {
 
     constructor(props) {

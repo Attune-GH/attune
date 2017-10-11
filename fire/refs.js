@@ -30,3 +30,6 @@ exports.setUserBio = (id, bio) => (
   db.ref(`Users/${id}/`).update({ bio: bio })
 )
 
+exports.getConvoIds = id => (
+  db.ref(`Users/${id}/ConvoIds`).once('value').then(snapshot => snapshot.val()).catch(console.error)
+)
