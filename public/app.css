@@ -168,3 +168,35 @@ body {
     display: flex;
     flex-flow: row
 }
+
+/* canvas{
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 0 0 0;
+    max-width: 1000px;
+    min-width: 600px;
+} */
+
+@media (max-width: 600px) {
+    .lgRadar {
+        display: none ;
+    }
+    .smRadar {
+        display: block ;
+    }
+}
+
+@media (min-width: 601px) {
+    .lgRadar {
+        display: block ;
+    }
+    .smRadar {
+        display: none ;
+    }
+    .lgRadar > canvas {
+        width: 100% ;
+        height: auto ;
+        margin: 0 auto ;
+        max-width: 1300px ;
+    }
+}

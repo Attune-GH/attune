@@ -53,7 +53,9 @@ class SingleMatchChart extends Component {
       graphContainer: {
         border: '1px solid black',
         padding: '15px'
-      }
+      },
+      width: '120%',
+      height: '120%'
     }
 
     const person = [this.props.match.params.userId ,this.state.matches[this.props.match.params.userId]]
@@ -82,14 +84,23 @@ class SingleMatchChart extends Component {
       datasets: dataset$
     }
 
+    const divStyle = {
+      width: '100%',
+      height: '100%'
+    }
     return (
       
       <div>
-        <Radar data={data} options={options} style={styles.graphContainer} width={99} height={99} />
+        <div className="lgRadar">
+          <Radar data={data} options={options} style={styles}/>
+        </div>
+        <div className="smRadar">
+          <Radar data={data} options={options} style={styles} width={99} height={99}/>
+        </div>
         <div>
-          <Link to={`/profile/${person[0]}`} style={{ color: 'white' }}>
+          {/*<Link to={`/profile/${person[0]}`} style={{ color: 'white' }}>
             <button className="btn btn-match" style={{ width: '250px' }}>{person[0].slice(13)}</button>
-          </Link>
+    </Link>*/}
         </div>
       </div>
     )
