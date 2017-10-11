@@ -150,16 +150,6 @@ class UserProfile extends Component {
             this.state.bio.length && this.state.bio ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
           }
         </div>
-
-
-        {/* <button className="btn btn-dashboard" onClick={() => this.props.history.push(`/messages/${user.uid}`)}>message</button>
-        <button className="btn" onClick={() => {
-          let updateObj = {}
-          updateObj[user.uid] = new Date()
-          firebase.database().ref(`Users/${currentAuthUser}/following`).update(updateObj)
-          this.props.history.push('/following')
-        }}
-          >Follow</button> */}
         <div className="container buttons">
           <RaisedButton label="Message" primary={true} style={style}
             onClick={() => this.props.history.push(`/messages/${user.uid}`)}
