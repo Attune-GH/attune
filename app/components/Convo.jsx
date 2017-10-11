@@ -65,9 +65,12 @@ class Convo extends Component {
 
     return(
     <div className = "container">
+      <h4>Your Chat with {friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}</h4>
       <br/>
+      <div className = "messages">
         <ChatBubble messages = {chatty}/>
-      <div >
+      </div>
+      <div className = "chat">
         <form onSubmit = {this.handleSubmit}>
             <input
               className = "formInput"
@@ -82,7 +85,7 @@ class Convo extends Component {
             <button
               className="btn btn-default"
               type="submit">
-              Chat with {friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}!
+              Chat!
             </button>
           </span>
         </form>
