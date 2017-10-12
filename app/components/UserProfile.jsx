@@ -136,15 +136,12 @@ class UserProfile extends Component {
             </div> :
             <div style={{ width: '350px' }}>
               {
-                this.state.bio.length && this.state.bio ? <p style={{ width: '350px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1) || user.displayName}, maybe you should write a bio!`}</p>}
+                this.state.bio.length && this.state.bio ? <p style={{ width: '300px', marginLeft: '25px' }}>{this.state.bio}</p> : <p style={{ width: '300px', marginLeft: '25px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1) || user.displayName}, maybe you should write a bio!`}</p>}
               <RaisedButton label="edit bio" primary={true} style={editStyle}
                 onClick={() => { this.setState({ isEditing: true }) }}
               />
             </div>
         }
-        <div>
-          <button className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
-        </div>
         <div>
           <div><h2>Recently Played</h2></div>
           <div>
@@ -152,6 +149,9 @@ class UserProfile extends Component {
               recentSongs.map((song) => <div key={song.track.id}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
             }</div>
           </div>
+        </div>
+        <div>
+          <button style={{width: '300px'}}className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
       </div>
     )
@@ -198,7 +198,7 @@ class UserProfile extends Component {
           }</h2>
         </div>
         {
-          this.state.bio && this.state.bio.length ? <p style={{ width: '300px' }}>{this.state.bio}</p> : <p style={{ width: '300px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
+          this.state.bio && this.state.bio.length ? <p style={{ width: '300px', marginLeft: '25px' }}>{this.state.bio}</p> : <p style={{ width: '300px', marginLeft: '25px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
         }
         <div className="container buttons">
           <RaisedButton label="Message" primary={true} style={style}
@@ -208,7 +208,7 @@ class UserProfile extends Component {
         </div>
         <div>
           {user.uid &&
-            <button className="btn btn-primary"><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>Spotify Profile</a></button>
+            <button className="btn btn-primary" style={{width: '300px'}}><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>Spotify Profile</a></button>
           }
         </div>
         <div>
