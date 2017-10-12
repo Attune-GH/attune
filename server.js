@@ -17,6 +17,7 @@ if (process.env.NODE_ENV === 'development') {
   require('./.secrets/attune-d8afe-firebase-adminsdk-m5rub-8c85814d02.js'); // this will mutate the process.env object with your secrets.
 }
 
+console.log('BLEHHHH')
 
 var attune = admin.initializeApp({
   "credential": admin.credential.cert({
@@ -33,7 +34,7 @@ var attune = admin.initializeApp({
   })
 , "databaseURL": 'https://attune-d8afe.firebaseio.com/'});
 
-console.log('name', attune.name)
+
 
 var redirect_uri = 'http://localhost:1337/callback'; // Your cal uri
 
