@@ -5,7 +5,7 @@ import UserProfile from './UserProfile'
 import OneMatch from './OneMatch'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { getMatches } from 'APP/fire/refs'
+import { getMatches, getTopArtists, getTopTracks } from 'APP/fire/refs'
 import firebase from 'APP/fire'
 
 import store, { constantlyUpdateUser } from '../store'
@@ -15,7 +15,8 @@ class SimpleSlider extends React.Component {
   constructor(props) {
     super()
     this.state = {
-      matches: []
+      matches: [],
+      infoBool: false
     }
   }
 
@@ -23,15 +24,16 @@ class SimpleSlider extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.user.uid !== nextProps.user.uid) {
       getMatches(nextProps.user.uid).then(matches => {
-      this.setState({matches})
-    })
+        this.setState({matches})})
+      }
     }
-  }
+
 
 
 componentDidMount() {
       store.dispatch(constantlyUpdateUser())
       const uid = this.props.user.uid
+
       firebase.database().ref(`Users/${uid}/matches/matchScores`).on("child_added", ()=> {
           getMatches(uid).then(matches => this.setState({ matches }))
       })
@@ -48,6 +50,7 @@ componentDidMount() {
         matchesArr.push([person, matches[person]]);
       }
       console.log(matchesArr)
+      console.log('infoBool', this.state.infoBool)
 
       var doesntListenToMusic = Boolean(matchesArr.length) && matchesArr.every(element => element[1] === 0)
       console.log('matchesArr doesntListenTOMusic', doesntListenToMusic)
