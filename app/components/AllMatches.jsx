@@ -43,18 +43,31 @@ componentDidMount() {
       let matches
       matches = (this.state.matches ? this.state.matches : [])
       let matchNames = Object.keys(matches)
-      var sortable = [];
+      var matchesArr = [];
       for (var person in matches) {
-        sortable.push([person, matches[person]]);
+        matchesArr.push([person, matches[person]]);
       }
+      console.log(matchesArr)
 
+      var doesntListenToMusic = Boolean(matchesArr.length) && matchesArr.every(element => element[1] === 0)
+      console.log('matchesArr doesntListenTOMusic', doesntListenToMusic)
 
-      const goodMatches = sortable.filter(element => element[1] >= 0.02)
+      const intermediateGoodMatch = matchesArr.filter(element => element[1] >= 0.02)
 
-      const betterArr = goodMatches.sort(function (a, b) {
-        return b[1] - a[1];
-      })
+      console.log('intermediateGoodMatch', intermediateGoodMatch)
 
+      let goodMatches = ((matchesArr.length && doesntListenToMusic) ?
+                     'doesnt listen to music' :
+                     intermediateGoodMatch
+                     )
+
+      console.log('line 59 good matches', goodMatches);
+
+      const betterArr = (Array.isArray(goodMatches) ? goodMatches.sort(function (a, b) {
+        return b[1] - a[1]
+      }) : goodMatches)
+
+      console.log(betterArr)
 
       var settings = {
       initialSlide: 0,
@@ -76,16 +89,23 @@ componentDidMount() {
 
     const loaded = (
         <div>
-            {betterArr.length ?
-            (<Slider {...settings} className="container">
-            {betterArr.map(match =>{
-              return <div key={match[0]}><OneMatch match={match} /></div>})}
-           </Slider>)
+            {betterArr.length ? (
+              (typeof betterArr === 'string' ?
+                (<div className="container profile">
+                  <h3> Looks like u don't listen to any music</h3>
+                  <h2>{shrugMen}</h2>
+                </div>)
+                 :
+                (<Slider {...settings} className="container">
+                {betterArr.map(match =>{
+                  return <div key={match[0]}><OneMatch match={match} /></div>})}
+               </Slider>)
+              ))
             :
-            <div className="container profile">
-              <h3> Looks like u don't listen to any music</h3>
-              <h2>{shrugMen}</h2>
-            </div>
+          ( <div className="container matches">
+             <h1 style={{maxWidth: '350px', textAlign: 'center'}}>Calculating Good Friends 4 U</h1>
+             <img src="/img/Radio.svg" className="load" />
+          </div>)
             }
         </div>)
 
@@ -104,3 +124,12 @@ const mapStateToProps = (state) => {
 }
 
 export default withRouter(connect(mapStateToProps)(SimpleSlider))
+
+
+//all matches
+           //  (<Slider {...settings} className="container">
+           //  {betterArr.map(match =>{
+           //    return <div key={match[0]}><OneMatch match={match} /></div>})}
+           // </Slider>)
+
+
