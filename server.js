@@ -256,4 +256,6 @@ function createFirebaseAccount(uid, displayName, photoURL, birthdate, accessToke
 
 
 console.log('Listening on 1337');
-app.listen(1337);
+http.listen((process.env.PORT || 1337), function(){
+  console.log('listening on 1337');
+});
