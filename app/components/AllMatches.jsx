@@ -49,28 +49,23 @@ componentDidMount() {
       for (var person in matches) {
         matchesArr.push([person, matches[person]]);
       }
-      console.log(matchesArr)
-      console.log('infoBool', this.state.infoBool)
+
 
       var doesntListenToMusic = Boolean(matchesArr.length) && matchesArr.every(element => element[1] === 0)
-      console.log('matchesArr doesntListenTOMusic', doesntListenToMusic)
 
       const intermediateGoodMatch = matchesArr.filter(element => element[1] >= 0.02)
 
-      console.log('intermediateGoodMatch', intermediateGoodMatch)
 
       let goodMatches = ((matchesArr.length && doesntListenToMusic) ?
                      'doesnt listen to music' :
                      intermediateGoodMatch
                      )
 
-      console.log('line 59 good matches', goodMatches);
 
       const betterArr = (Array.isArray(goodMatches) ? goodMatches.sort(function (a, b) {
         return b[1] - a[1]
       }) : goodMatches)
 
-      console.log(betterArr)
 
       var settings = {
       initialSlide: 0,
