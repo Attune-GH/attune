@@ -123,9 +123,10 @@ class UserProfile extends Component {
                 floatingLabelText="Tell us about yourself..."
                 multiLine={true}
                 rows={2}
-                rowsMax={2}
+                rowsMax={4}
                 fullWidth={true}
                 onChange={this.writeBio}
+                value={this.state.bio.length ? this.state.bio : ''}
               />
               <div style={{ display: "block" }}>
                 <RaisedButton label="finish bio" primary={true} style={editStyle}
