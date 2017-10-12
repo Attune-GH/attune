@@ -51,7 +51,7 @@ class Footer extends Component {
       <div className="container footer navbar-fixed-bottom">
         <div>
           <Image src={`/img/${this.state.backImg}`}
-            style={{ height: '75px' }}
+            style={{ height: '55px' }}
             onMouseOver={() => this.handleMouseOver('back')}
             onMouseOut={() => this.handleMouseOut('back')}
             onClick={() => this.props.history.goBack()}
@@ -59,7 +59,7 @@ class Footer extends Component {
         </div>
         <div>
           <Image src={`/img/${this.state.homeImg}`}
-            style={{ height: '75px' }}
+            style={{ height: '55px' }}
             onMouseOver={() => this.handleMouseOver('dashboard')}
             onMouseOut={() => this.handleMouseOut('dashboard')}
             onClick={() => this.props.history.push('/dashboard')}
@@ -67,7 +67,7 @@ class Footer extends Component {
         </div>
         <div>
           <Image src={`/img/${this.state.forwardImg}`}
-            style={{ height: '75px' }}
+            style={{ height: '55px' }}
             onMouseOver={() => this.handleMouseOver('forward')}
             onMouseOut={() => this.handleMouseOut('forward')}
             onClick={() => this.props.history.goForward()}
