@@ -113,7 +113,7 @@ class UserProfile extends Component {
     const recentSongs = this.state.recentSongs.slice(0, 3)
     return (
       <div className="container profile">
-        <Image style={{ height: '150px', width: '150 px', borderRadius: '150px', margin: "0 auto"}} />
+        <Image src={user.photoURL} style={{ height: '150px', width: '150 px', borderRadius: '150px', margin: "0 auto" }} />
         <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         {
           this.state.isEditing ?
@@ -151,7 +151,7 @@ class UserProfile extends Component {
           </div>
         </div>
         <div>
-          <button style={{width: '300px'}}className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
+          <button style={{ width: '300px' }} className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
       </div>
     )
@@ -190,7 +190,7 @@ class UserProfile extends Component {
 
     return (
       <div className="container profile">
-        <Image src={user.photoURL} style={{ height: '150px', width: '150 px', borderRadius: '150px', margin: "0 auto"}} />
+        <Image src={user.photoURL} style={{ height: '150px', width: '150 px', borderRadius: '150px', margin: "0 auto" }} />
         <div>
           <h2>{user.displayName && (age ? (`${user.displayName.split(' ').slice(0, 1)}, ${age}` || `${user.displayName}, ${age}`) :
             (user.displayName.split(' ').slice(0, 1) || user.displayName))
@@ -207,7 +207,7 @@ class UserProfile extends Component {
         </div>
         <div>
           {user.uid &&
-            <button className="btn btn-primary" style={{width: '300px'}}><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>Spotify Profile</a></button>
+            <button className="btn btn-primary" style={{ width: '300px' }}><a href={user.uid && `https://open.spotify.com/user/${user.uid.split(':').slice(2)}`}>Spotify Profile</a></button>
           }
         </div>
         <div>
