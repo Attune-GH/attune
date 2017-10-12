@@ -78,7 +78,8 @@ body {
     letter-spacing: 1.2px;
     min-width: 130px;
     text-transform: uppercase;
-    white-space: normal
+    white-space: normal;
+    outline: 0
 }
 
 .btn {
@@ -96,7 +97,7 @@ body {
     -ms-user-select: none;
     user-select: none;
     text-decoration: none;
-}
+} 
 
 .btn-primary:focus,
 .btn-primary:hover{
@@ -134,7 +135,9 @@ body {
 
 .btn-dashboard {
     margin: 20px 0 20px 0;
-    background-color: #7E57C2
+    background-color: #7E57C2;
+    outline: 0;
+    width: 300px
 }
 
 .btn-dashboard:focus,
