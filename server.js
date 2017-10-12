@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'development') {
   require('./.secrets/attune-d8afe-firebase-adminsdk-m5rub-8c85814d02.js'); // this will mutate the process.env object with your secrets.
 }
 
-console.log('BLEHHHH')
+console.log('PRIV KEY', process.env.private_key)
 
 var attune = admin.initializeApp({
   "credential": admin.credential.cert({
