@@ -146,7 +146,7 @@ class UserProfile extends Component {
           <div><h2>Recently Played</h2></div>
           <div>
             <div>{
-              recentSongs.map((song) => <div key={song.track.id}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
+              recentSongs.map((song) => <div key={song.played_at}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
             }</div>
           </div>
         </div>
@@ -166,7 +166,6 @@ class UserProfile extends Component {
 
     let followed = false;
     this.state.following && ((this.props.match.params.userId in this.state.following) ? followed = true : followed = false)
-
 
     let followButton = null
     if (followed) {
@@ -215,7 +214,7 @@ class UserProfile extends Component {
           <div><h2>Recently Played</h2></div>
           <div>
             <div>{
-              recentSongs.map((song) => <div key={song.track.id}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
+              recentSongs.map((song) => <div key={song.played_at}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
             }</div>
           </div>
         </div>
