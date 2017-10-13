@@ -4,13 +4,13 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Link} from 'react-router-dom'
 import firebase from 'APP/fire'
+import {connect} from 'react-redux'
 
 // const buttonStyle = {
 //   backgroundColor: '#7E57C2'
 // }
 
-
-export default class DashboardDrawer extends React.Component {
+class DashboardDrawer extends React.Component {
   constructor(props){
     super(props);
     this.state = {open: false}
@@ -73,3 +73,13 @@ export default class DashboardDrawer extends React.Component {
 
 }
 
+const mapState = state => {
+  if(state.user){
+    return {
+      userId: state.user.uid
+    }
+  }
+  else return {}
+}
+
+export default connect(mapState)(DashboardDrawer)
