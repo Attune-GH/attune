@@ -17,10 +17,26 @@ if (process.env.NODE_ENV === 'development') {
   require('./.secrets/attune-d8afe-firebase-adminsdk-m5rub-8c85814d02.js'); // this will mutate the process.env object with your secrets.
 }
 
-console.log('PRIV KEY', process.env.private_key)
-console.log('type of PRIV KEY', typeof process.env.private_key)
+let attune
 
-var attune = admin.initializeApp({
+  ((process.env.NODE_ENV === 'development') ?
+   attune = admin.initializeApp({
+  "credential": admin.credential.cert({
+  "type": process.env.type,
+  "project_id": process.env.project_id,
+  "private_key": process.env.private_key,
+  "client_email": process.env.client_email,
+  "private_key_id": process.env.private_key_id,
+
+  "client_id": process.env.client_id,
+  "auth_uri": process.env.auth_uri,
+  "token_uri": process.env.token_uri,
+  "auth_provider_x509_cert_url": process.env.auth_provider_x509_cert_url,
+  "client_x509_cert_ur": process.env.client_x509_cert_url
+  })
+, "databaseURL": 'https://attune-d8afe.firebaseio.com/'})
+  :
+   attune = admin.initializeApp({
   "credential": admin.credential.cert({
   "type": process.env.type,
   "project_id": process.env.project_id,
@@ -34,7 +50,9 @@ var attune = admin.initializeApp({
   "auth_provider_x509_cert_url": process.env.auth_provider_x509_cert_url,
   "client_x509_cert_ur": process.env.client_x509_cert_url
   })
-, "databaseURL": 'https://attune-d8afe.firebaseio.com/'});
+, "databaseURL": 'https://attune-d8afe.firebaseio.com/'})
+  )
+
 
 
 
