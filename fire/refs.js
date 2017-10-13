@@ -6,6 +6,14 @@ exports.getRecentSongs = id => (
   db.ref(`Users/${id}/recentSongs/songs`).once('value').then(snapshot => snapshot.val()).catch(console.error)
 )
 
+exports.getTopTracks = id => (
+  db.ref(`Users/${id}/topTracks/tracks`).once('value').then(snapshot => snapshot.val()).catch(console.error)
+)
+
+exports.getTopArtists = id => (
+  db.ref(`Users/${id}/topArtists/artists`).once('value').then(snapshot => snapshot.val()).catch(console.error)
+)
+
 exports.getMatches = id => (
   db.ref(`Users/${id}/matches/matchScores`).once('value').then(snapshot => snapshot.val()).catch(console.error)
 )
