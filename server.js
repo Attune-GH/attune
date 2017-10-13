@@ -18,6 +18,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 console.log('PRIV KEY', process.env.private_key)
+console.log('type of PRIV KEY', typeof process.env.private_key)
 
 var attune = admin.initializeApp({
   "credential": admin.credential.cert({
