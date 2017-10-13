@@ -26,7 +26,7 @@ class Inbox extends React.Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount(){ 
     store.dispatch(constantlyUpdateUser())
     const uid = this.props.user.uid 
       getConvoIds(uid)
