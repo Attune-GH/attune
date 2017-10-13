@@ -24,8 +24,6 @@ class OneMatch extends Component {
   }
 
 
-
-
   render() {
 
     const { user } = this.state
