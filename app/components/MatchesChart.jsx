@@ -3,6 +3,7 @@ import {Radar} from 'react-chartjs-2'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getMatches, getAllMatches } from 'APP/fire/refs'
+import DashboardDrawer from './Drawer'
 
 class MatchesChart extends Component {
   constructor(props) {
@@ -95,6 +96,7 @@ class MatchesChart extends Component {
     return (
       
       <div>
+        <DashboardDrawer/>
         <div className="lgRadar">
           <Radar data={data} options={options} style={styles}/>
         </div>

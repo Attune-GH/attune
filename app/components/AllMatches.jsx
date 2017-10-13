@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { getMatches, getTopArtists, getTopTracks } from 'APP/fire/refs'
 import firebase from 'APP/fire'
+import DashboardDrawer from './Drawer'
 
 import store, { constantlyUpdateUser } from '../store'
 
@@ -87,6 +88,7 @@ componentDidMount() {
 
     const loaded = (
         <div>
+          <DashboardDrawer/>
             {betterArr.length ? (
               (typeof betterArr === 'string' ?
                 (<div className="container profile">
