@@ -115,7 +115,7 @@ class MatchesChart extends Component {
         <div className="smRadar">
           <Radar data={data} options={options} style={styles} width={99} height={99}/>
         </div>
-        {sortedMatches.map(user => {
+        {/*sortedMatches.map(user => {
           return (
             <div>
               {<Link to={`/profile/${user[0]}`} style={{ color: 'white' }}>
@@ -123,7 +123,7 @@ class MatchesChart extends Component {
               </Link>}
             </div>
           )
-        })}
+        })*/}
       </div>
     )
   }

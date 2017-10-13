@@ -107,11 +107,11 @@ class SingleMatchChart extends Component {
         <div className="smRadar">
           <Radar data={data} options={options} style={styles} width={99} height={99}/>
         </div>
-        <div>
+        {/*<div>
           <Link to={`/profile/${person[0]}`} style={{ color: 'white' }}>
           <RaisedButton label={users && users[person[0]]} primary={true} />
           </Link>
-        </div>
+        </div>*/}
       </div>
     )
   }
