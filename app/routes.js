@@ -17,6 +17,7 @@ import SingleMatchChart from './components/SingleMatchChart'
 import store, {constantlyUpdateUser} from './store'
 import firebase from 'APP/fire'
 import {Provider, connect} from 'react-redux'
+import DashboardDrawer from './components/Drawer'
 const auth = firebase.auth()
 
 class Routes extends Component {
@@ -37,6 +38,7 @@ class Routes extends Component {
     return (
       <div>
         <Navbar />
+        <DashboardDrawer/>
         <div className="content">
           <Switch>
             <Route exact path="/" component={WhoAmI} />

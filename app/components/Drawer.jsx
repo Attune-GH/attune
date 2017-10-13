@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Link} from 'react-router-dom'
 import firebase from 'APP/fire'
 import {connect} from 'react-redux'
-
+import { Image } from 'react-bootstrap'
 // const buttonStyle = {
 //   backgroundColor: '#7E57C2'
 // }
@@ -30,10 +30,10 @@ class DashboardDrawer extends React.Component {
   render(){
     return (
       <div >
-        <RaisedButton
+        {/* <RaisedButton
           label = "DASHBOARD"
           onClick={this.handleToggle}
-        />
+        /> */}
         <Drawer
           docked= {false}
           width={300}
@@ -41,6 +41,7 @@ class DashboardDrawer extends React.Component {
           onRequestChange={(open)=> this.setState({open})}
           containerStyle = {{paddingTop: '150px'}}
         >
+          {/* <Image src={'img/Attune-11.svg'} style = {{height: '100px'}}/> */}
           <MenuItem>
             <Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}>
             <RaisedButton primary = {true}  fullWidth = {true}>

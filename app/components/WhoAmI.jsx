@@ -20,7 +20,7 @@ export const WhoAmI = ({user}) => {
         <Login auth={auth}/>
         /// ...otherwise, go to dashboard
         :
-        <Redirect to="/dashboard"/>
+        <Redirect to={`/profile/${user.uid}`}/>
         }
     </div>
   )

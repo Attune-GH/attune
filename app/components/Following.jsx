@@ -45,13 +45,15 @@ import store, { constantlyUpdateUser } from '../store'
       this.state.following ? followedPersons = Object.keys(this.state.following) : followedPersons = null
 
       return (
-        <div style={{overflow: 'hidden'}}>
-          {/* <h1  style={{textAlign: 'center'}}>Following</h1> */}
-          <List>
-          {followedPersons && followedPersons.map(person => {
-            return <div key={person}><FollowedPerson person={person}/></div>
-          })}
-          </List>
+        <div>
+          <div style={{overflow: 'hidden'}}>
+            {/* <h1  style={{textAlign: 'center'}}>Following</h1> */}
+            <List>
+            {followedPersons && followedPersons.map(person => {
+              return <div key={person}><FollowedPerson person={person}/></div>
+            })}
+            </List>
+          </div>
         </div>
       )
 

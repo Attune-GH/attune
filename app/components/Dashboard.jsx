@@ -3,7 +3,7 @@ import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router-dom
 import firebase from 'APP/fire'
 import store, { fetchUser } from '../store'
 import {connect} from 'react-redux'
-import DashboardDrawer from './Drawer'
+
 
 const auth = firebase.auth()
 
@@ -27,7 +27,6 @@ class Dashboard extends Component {
     //text color should change on hover
     return (
       <div className="dashboard">
-        <DashboardDrawer/>
         <Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}><button className="btn btn-dashboard">Profile</button></Link>
         <Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}><button className='btn btn-dashboard' onClick={() => this.onRequestMatches()}>See Your Matches</button></Link>
         <Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}><button className="btn btn-dashboard">Messages Inbox</button></Link>

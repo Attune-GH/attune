@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import MessageLine from './MessageLine'
 
-
 class Inbox extends React.Component {
   constructor(props){
     super(props)
