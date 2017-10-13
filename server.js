@@ -39,6 +39,7 @@ var attune = admin.initializeApp({
 
 
 var redirect_uri = (process.env.NODE_ENV === 'development' ? 'http://localhost:1337/callback' : 'http://attune-music.herokuapp.com/callback'); // Your cal uri
+console.log(redirect_uri)
 
 
 /**
