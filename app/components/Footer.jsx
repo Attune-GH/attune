@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom"
 import { Image } from 'react-bootstrap'
-
+import {connect} from 'react-redux'
 
 //hold for logo and also  a redirect to Dashboard
 class Footer extends Component {
@@ -62,7 +62,7 @@ class Footer extends Component {
             style={{ height: '55px' }}
             onMouseOver={() => this.handleMouseOver('dashboard')}
             onMouseOut={() => this.handleMouseOut('dashboard')}
-            onClick={() => this.props.history.push('/dashboard')}
+            onClick={() => this.props.history.push(`/profile/${this.props.userId}`)}
           />
         </div>
         <div>
@@ -78,5 +78,14 @@ class Footer extends Component {
   }
 }
 
-export default withRouter(Footer)
+const mapState = state => {
+  if(state.user){
+    return {
+      userId: state.user.uid
+    }
+  }
+  else return {}
+}
+
+export default withRouter(connect(mapState)(Footer))
 

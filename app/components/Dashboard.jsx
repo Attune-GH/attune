@@ -3,6 +3,8 @@ import {Route, IndexRedirect, IndexRoute, Link, Redirect} from 'react-router-dom
 import firebase from 'APP/fire'
 import store, { fetchUser } from '../store'
 import {connect} from 'react-redux'
+
+
 const auth = firebase.auth()
 
 
