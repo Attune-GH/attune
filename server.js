@@ -12,14 +12,52 @@ var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 const admin = require('firebase-admin');
+if (process.env.NODE_ENV === 'development') {
+  require('./.secrets/spotify.js');
+  require('./.secrets/attune-d8afe-firebase-adminsdk-m5rub-8c85814d02.js'); // this will mutate the process.env object with your secrets.
+}
 
-admin.initializeApp(Object.assign({
-  credential: admin.credential.cert(require('./.secrets/attune-d8afe-firebase-adminsdk-m5rub-8c85814d02.json'))
-}, require('./fire/config')));
+let attune
 
-const {client_id, client_secret} = require('./.secrets/spotify')
+  ((process.env.NODE_ENV === 'development') ?
+   attune = admin.initializeApp({
+  "credential": admin.credential.cert({
+  "type": process.env.type,
+  "project_id": process.env.project_id,
+  "private_key": process.env.private_key,
+  "client_email": process.env.client_email,
+  "private_key_id": process.env.private_key_id,
 
-var redirect_uri = 'http://localhost:1337/callback'; // Your cal uri
+  "client_id": process.env.client_id,
+  "auth_uri": process.env.auth_uri,
+  "token_uri": process.env.token_uri,
+  "auth_provider_x509_cert_url": process.env.auth_provider_x509_cert_url,
+  "client_x509_cert_ur": process.env.client_x509_cert_url
+  })
+, "databaseURL": 'https://attune-d8afe.firebaseio.com/'})
+  :
+   attune = admin.initializeApp({
+  "credential": admin.credential.cert({
+  "type": process.env.type,
+  "project_id": process.env.project_id,
+  "private_key": JSON.parse(process.env.private_key),
+  "client_email": process.env.client_email,
+  "private_key_id": process.env.private_key_id,
+
+  "client_id": process.env.client_id,
+  "auth_uri": process.env.auth_uri,
+  "token_uri": process.env.token_uri,
+  "auth_provider_x509_cert_url": process.env.auth_provider_x509_cert_url,
+  "client_x509_cert_ur": process.env.client_x509_cert_url
+  })
+, "databaseURL": 'https://attune-d8afe.firebaseio.com/'})
+  )
+
+
+
+
+var redirect_uri = (process.env.NODE_ENV === 'development' ? 'http://localhost:1337/callback' : 'http://attune-music.herokuapp.com/callback'); // Your cal uri
+console.log(redirect_uri)
 
 
 /**
@@ -54,7 +92,7 @@ app.get('/login', function(req, res) {
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
-      client_id: client_id,
+      client_id: process.env.spotify_client_id,
       scope: scope,
       redirect_uri: redirect_uri,
       state: state
@@ -85,7 +123,7 @@ app.get('/callback', function(req, res) {
         grant_type: 'authorization_code'
       },
       headers: {
-        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+        'Authorization': 'Basic ' + (new Buffer(process.env.spotify_client_id + ':' + process.env.spotify_client_secret).toString('base64'))
       },
       json: true
     };
@@ -133,7 +171,7 @@ app.get('/refresh_token', function(req, res) {
   var refresh_token = req.query.refresh_token;
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
-    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+    headers: { 'Authorization': 'Basic ' + (process.env.spotify_client_id + ':' + process.env.spotify_client_secret).toString('base64') },
     form: {
       grant_type: 'refresh_token',
       refresh_token: refresh_token
@@ -214,7 +252,7 @@ function createFirebaseAccount(uid, displayName, photoURL, birthdate, accessToke
         .set({tracks: items})
     })
 
-    
+
     const databaseTask = admin.database().ref(`/spotifyAccessToken/${uid}`)
         .set({accessToken, refreshToken});
     const userCreationTask = admin.auth().updateUser(uid, {
@@ -240,4 +278,6 @@ function createFirebaseAccount(uid, displayName, photoURL, birthdate, accessToke
 
 
 console.log('Listening on 1337');
-app.listen(1337);
+app.listen((process.env.PORT || 1337), function(){
+  console.log('listening on 1337');
+});

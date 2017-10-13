@@ -19,9 +19,7 @@ module.exports = {
     filename: './public/bundle.js'
   },
   context: __dirname,
-  devtool: devMode && USE_FAST_SOURCE_MAPS
-    ? 'cheap-module-eval-source-map'
-    : 'inline-source-map',
+  devtool: 'source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.json', '*']
   },
