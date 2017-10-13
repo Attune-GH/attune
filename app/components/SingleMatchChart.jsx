@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {Radar} from 'react-chartjs-2'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getMatches, getAllMatches } from 'APP/fire/refs'
+import { getMatches, getAllMatches, getUserProfile } from 'APP/fire/refs'
+import RaisedButton from 'material-ui/RaisedButton'
 
 class SingleMatchChart extends Component {
   constructor(props) {
@@ -10,13 +11,26 @@ class SingleMatchChart extends Component {
     console.log("I'm in the constructor")
     this.state = {
       matches: {},
-      allMatches: {}
+      allMatches: {},
+      users: {}
     }
   }
 
   fetchMatches(props) {
-    getMatches(props.user.uid).then(matches => this.setState({matches}))
-    getAllMatches(props.user.uid).then(allMatches => this.setState({allMatches}))
+    getMatches(props.user.uid).then(matches => {
+      this.setState({matches})
+      Object.keys(matches).forEach(person => {
+        return getUserProfile(person).then(user => {
+          let userId = user.uid
+          let newUsers = this.state.users
+          let userName = user.displayName.split(" ").slice(0, 1).join("")
+          newUsers[userId] = userName
+          this.setState({users: newUsers})
+        })
+      })
+    }).then(() => {
+      getAllMatches(props.user.uid).then(allMatches => this.setState({allMatches}))
+    })
   }
 
   componentDidMount() {
@@ -30,11 +44,6 @@ class SingleMatchChart extends Component {
   }
 
   render() {
-    console.log('now in render')
-    console.log('this.props', this.props)
-    console.log('this.state', this.state)
-    
-  
     const options = {
       scale: {
         display: true,
@@ -61,6 +70,7 @@ class SingleMatchChart extends Component {
     const person = [this.props.match.params.userId ,this.state.matches[this.props.match.params.userId]]
 
     var allMatches = this.state.allMatches
+    var users = this.state.users
 
     const translucentColors = ['rgba(179,181,198,0.2)', 'rgba(255,99,132,0.2)', 'rgba(201,81,232,0.2)', 'rgba(86,170,234,0.2)', 'rgba(92,224,138,0.2)']
 
@@ -68,7 +78,7 @@ class SingleMatchChart extends Component {
 
 
     let dataset$ = allMatches.artistsScores ? [{
-        label: person[0].slice(13),
+        label: users[person[0]],
         backgroundColor: translucentColors[4],
         borderColor: opaqueColors[4],
         pointBackgroundColor: opaqueColors[4],
@@ -97,11 +107,11 @@ class SingleMatchChart extends Component {
         <div className="smRadar">
           <Radar data={data} options={options} style={styles} width={99} height={99}/>
         </div>
-        <div>
-          {/*<Link to={`/profile/${person[0]}`} style={{ color: 'white' }}>
-            <button className="btn btn-match" style={{ width: '250px' }}>{person[0].slice(13)}</button>
-    </Link>*/}
-        </div>
+        {/*<div>
+          <Link to={`/profile/${person[0]}`} style={{ color: 'white' }}>
+          <RaisedButton label={users && users[person[0]]} primary={true} />
+          </Link>
+        </div>*/}
       </div>
     )
   }
