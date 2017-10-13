@@ -38,33 +38,34 @@ class DashboardDrawer extends React.Component {
           docked= {false}
           width={300}
           open={this.state.open}
+          swipeAreaWidth={70}
           onRequestChange={(open)=> this.setState({open})}
           containerStyle = {{paddingTop: '150px'}}
         >
           {/* <Image src={'img/Attune-11.svg'} style = {{height: '100px'}}/> */}
           <MenuItem>
             <Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}>
-            <RaisedButton primary = {true}  fullWidth = {true}>
+            <RaisedButton backgroundColor = '#7E57C2' fullWidth = {true}>
               Profile</RaisedButton></Link>
           </MenuItem>
           <MenuItem>
             <Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton primary = {true} fullWidth = {true} onClick={() => this.onRequestMatches()}>
+            <RaisedButton backgroundColor = '#7E57C2' fullWidth = {true} onClick={() => this.onRequestMatches()}>
               See Your Matches</RaisedButton></Link>
           </MenuItem>
           <MenuItem>
             <Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton primary = {true} fullWidth = {true}>
+            <RaisedButton backgroundColor = '#7E57C2' fullWidth = {true}>
               Messages Inbox</RaisedButton></Link>
           </MenuItem>
           <MenuItem>
             <Link to='/matchesChart' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton primary = {true} fullWidth = {true}> 
+            <RaisedButton backgroundColor = '#7E57C2'fullWidth = {true}> 
               Matches Chart</RaisedButton></Link>
           </MenuItem>
           <MenuItem>
             <Link to='/following' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton primary = {true} fullWidth = {true}>
+            <RaisedButton backgroundColor = '#7E57C2' fullWidth = {true}>
               Following</RaisedButton></Link>
           </MenuItem>
         </Drawer>

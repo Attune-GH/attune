@@ -131,7 +131,7 @@ class UserProfile extends Component {
                 value={this.state.bio.length ? this.state.bio : ''}
               />
               <div style={{ display: "block" }}>
-                <RaisedButton label="finish bio" primary={true} style={editStyle}
+                <RaisedButton label="finish bio" backgroundColor = '#7E57C2' style={editStyle}
                   onClick={this.submitBio}
                 />
               </div>
@@ -139,7 +139,7 @@ class UserProfile extends Component {
             <div style={{ width: '350px' }}>
               {
                 this.state.bio.length && this.state.bio ? <p style={{ width: '300px', marginLeft: '25px' }}>{this.state.bio}</p> : <p style={{ width: '300px', marginLeft: '25px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1) || user.displayName}, maybe you should write a bio!`}</p>}
-              <RaisedButton label="edit bio" primary={true} style={editStyle}
+              <RaisedButton label="edit bio" backgroundColor = '#7E57C2' style={editStyle}
                 onClick={() => { this.setState({ isEditing: true }) }}
               />
             </div>
@@ -171,14 +171,14 @@ class UserProfile extends Component {
 
     let followButton = null
     if (followed) {
-      followButton = (<RaisedButton label="Unfollow" primary={true} style={style}
+      followButton = (<RaisedButton label="Unfollow" backgroundColor = '#7E57C2' style={style}
         onClick={() => {
           firebase.database().ref(`Users/${currentAuthUser}/following`).child(`${user.uid}`).remove()
 
         }}
       />)
     } else {
-      followButton = (<RaisedButton label="Follow" primary={true} style={style}
+      followButton = (<RaisedButton label="Follow" backgroundColor = '#7E57C2' style={style}
         onClick={() => {
 
           let updateObj = {}
@@ -203,7 +203,7 @@ class UserProfile extends Component {
           this.state.bio && this.state.bio.length ? <p style={{ width: '300px', marginLeft: '25px' }}>{this.state.bio}</p> : <p style={{ width: '300px', marginLeft: '25px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
         }
         <div className="container buttons">
-          <RaisedButton label="Message" primary={true} style={style}
+          <RaisedButton label="Message" backgroundColor = '#7E57C2' style={style}
             onClick={() => this.props.history.push(`/messages/${user.uid}`)}
           />
           {followButton}
