@@ -24,8 +24,9 @@ var attune = admin.initializeApp({
   "type": process.env.type,
   "project_id": process.env.project_id,
   "private_key": process.env.private_key,
-  "private_key_id": process.env.private_key_id,
   "client_email": process.env.client_email,
+  "private_key_id": process.env.private_key_id,
+
   "client_id": process.env.client_id,
   "auth_uri": process.env.auth_uri,
   "token_uri": process.env.token_uri,
@@ -36,7 +37,7 @@ var attune = admin.initializeApp({
 
 
 
-var redirect_uri = 'http://localhost:1337/callback'; // Your cal uri
+var redirect_uri = (process.env.NODE_ENV === 'development' ? 'http://localhost:1337/callback' : 'http://attune-music.herokuapp.com/callback'); // Your cal uri
 
 
 /**
