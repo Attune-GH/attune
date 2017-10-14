@@ -51,7 +51,7 @@ body {
   background-color: #212121;
   height: 150px;
   padding: 20px;
-  color: white;
+  color:  #212121;
 }
 
 .App-intro {
@@ -248,14 +248,9 @@ body {
 }
 .chatty {
     position: fixed;
-    /* bottom: 100px; */
     bottom: 60px;
     width: 92%;
     align-self: center;
     background-color: #212121;
     padding-bottom: 10px
-}
-
-.drawerButton {
-    padding-bottom: 20px
 }

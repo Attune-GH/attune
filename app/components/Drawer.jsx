@@ -2,13 +2,13 @@ import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import firebase from 'APP/fire'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { Image } from 'react-bootstrap'
 
 class DashboardDrawer extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.onRequestMatches = this.onRequestMatches.bind(this)
@@ -20,47 +20,45 @@ class DashboardDrawer extends React.Component {
     });
   }
 
-  render(){
+  render() {
     return (
       <div >
         <Drawer
-          docked= {false}
+          docked={false}
           width={300}
           open={this.props.open}
           swipeAreaWidth={70}
           onRequestChange={this.props.handleToggle}
-          containerStyle = {{paddingTop: '125px'}}>
+          containerStyle={{ paddingTop: '125px' }}>
 
-          <MenuItem>
-            <Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}>
-            <RaisedButton className='drawerButton' onClick={()=> this.props.handleClose()} backgroundColor = '#7E57C2' fullWidth = {true}>
+          <Link to={`/profile/${this.props.userId}`} style={{ textDecoration: 'none', color: 'white' }}>
+            <RaisedButton
+              style={{ padding: '20px' }} onClick={() => this.props.handleClose()} backgroundColor='#7E57C2' fullWidth={true}>
               Profile</RaisedButton></Link>
-          </MenuItem>
-          <MenuItem>
-            <Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton className='drawerButton' backgroundColor = '#7E57C2' fullWidth = {true}
-            onClick={() => {
-              this.onRequestMatches()
-              this.props.handleClose()
-            }}>
+          <Link to='/matches' style={{ textDecoration: 'none', color: 'white' }}>
+            <RaisedButton
+              style={{ padding: '20px' }} backgroundColor='#7E57C2' fullWidth={true}
+              onClick={() => {
+                this.onRequestMatches()
+                this.props.handleClose()
+              }}>
               See Your Matches</RaisedButton></Link>
-          </MenuItem>
-          <MenuItem>
-            <Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton className='drawerButton' onClick={()=> this.props.handleClose()} backgroundColor = '#7E57C2' fullWidth = {true}>
+          <Link to='/messages' style={{ textDecoration: 'none', color: 'white' }}>
+            <RaisedButton
+              style={{ padding: '20px' }}
+              onClick={() => this.props.handleClose()} backgroundColor='#7E57C2' fullWidth={true}>
               Messages Inbox</RaisedButton></Link>
-          </MenuItem>
-          <MenuItem>
-            <Link to='/matchesChart' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton className='drawerButton' onClick={()=> this.props.handleClose()} backgroundColor = '#7E57C2'fullWidth = {true}>
-              Matches Chart</RaisedButton></Link>
-          </MenuItem>
-          <MenuItem>
-            <Link to='/following' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton className='drawerButton' onClick={()=> this.props.handleClose()} backgroundColor = '#7E57C2' fullWidth = {true}>
-              Following</RaisedButton></Link>
-          </MenuItem>
-          {/* <Image className='drawerLogo' src={'img/Attune-11.svg'} style = {{height: '100px'}}/> */}
+            <Link to='/matchesChart' style={{ textDecoration: 'none', color: 'white' }}>
+              <RaisedButton
+                style={{ padding: '20px' }}
+                onClick={() => this.props.handleClose()} backgroundColor='#7E57C2' fullWidth={true}>
+                Matches Chart</RaisedButton></Link>
+            <Link to='/following' style={{ textDecoration: 'none', color: 'white' }}>
+              <RaisedButton
+                style={{ padding: '20px' }}
+                onClick={() => this.props.handleClose()} backgroundColor='#7E57C2' fullWidth={true}>
+                Following</RaisedButton></Link>
+
         </Drawer>
       </div>
     )
@@ -69,7 +67,7 @@ class DashboardDrawer extends React.Component {
 }
 
 const mapState = state => {
-  if(state.user){
+  if (state.user) {
     return {
       userId: state.user.uid
     }
