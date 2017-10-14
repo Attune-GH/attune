@@ -9,7 +9,6 @@ import { withRouter } from 'react-router'
 import ChatBubble from 'react-chat-bubble'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
-// import DashboardDrawer from './Drawer'
 
 class Convo extends Component {
   constructor(props) {
@@ -21,12 +20,18 @@ class Convo extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.scrollToBottom = this.scrollToBottom.bind(this)
   }
 
   componentDidMount() {
     const friendUid = this.props.match.params.userId
     this.props.initializeConvo(this.props.user.uid, friendUid)
     getUserProfile(friendUid).then(friendUser => this.setState({ friendUser }))
+    this.scrollToBottom()
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom()
   }
 
   handleChange(event) {
@@ -47,6 +52,10 @@ class Convo extends Component {
     this.setState({ enteredMessage: '' })
   }
 
+  scrollToBottom() {
+    this.el.scrollIntoView({ behaviour: 'smooth' });
+  }
+
   render() {
     const { friendUser } = this.state
     const messageArray = Object.entries(this.props.messages)
@@ -65,11 +74,11 @@ class Convo extends Component {
 
     return (
       <div className="container">
-        {/* <DashboardDrawer/> */}
         <br />
-        <div >
-        <ChatBubble messages={chatty}/>
+        <div>
+          <ChatBubble messages={chatty} />
         </div>
+        <div ref={el => { this.el = el; }} style={{marginBottom: '60px'}} />
         <div className="chatty" >
           <form onSubmit={this.handleSubmit}>
             <TextField
@@ -80,7 +89,7 @@ class Convo extends Component {
             />
             <br />
             <span>
-              <RaisedButton label={`Chat with ${friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}!`} fullWidth={true} onClick={this.handleSubmit}/>
+              <RaisedButton label={`Chat with ${friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}!`} fullWidth={true} onClick={this.handleSubmit} />
             </span>
           </form>
         </div>
