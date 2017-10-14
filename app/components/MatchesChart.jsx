@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Radar} from 'react-chartjs-2'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import DashboardDrawer from './Drawer'
+// import DashboardDrawer from './Drawer'
 import { getMatches, getAllMatches, getUserProfile } from 'APP/fire/refs'
 import RaisedButton from 'material-ui/RaisedButton'
 
@@ -110,7 +110,7 @@ class MatchesChart extends Component {
     return (
       
       <div>
-        <DashboardDrawer/>
+        {/* <DashboardDrawer/> */}
         <div className="lgRadar">
           <Radar data={data} options={options} style={styles}/>
         </div>

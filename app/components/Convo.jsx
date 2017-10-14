@@ -9,7 +9,7 @@ import { withRouter } from 'react-router'
 import ChatBubble from 'react-chat-bubble'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
-import DashboardDrawer from './Drawer'
+// import DashboardDrawer from './Drawer'
 
 class Convo extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class Convo extends Component {
 
     return (
       <div className="container">
-        <DashboardDrawer/>
+        {/* <DashboardDrawer/> */}
         <br />
         <ChatBubble messages={chatty} />
         <div className="chatty" >

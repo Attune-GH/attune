@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from "react-router-dom"
 import { Image } from 'react-bootstrap'
 import {connect} from 'react-redux'
+import DashboardDrawer from './Drawer'
 
 //hold for logo and also  a redirect to Dashboard
 class Footer extends Component {
@@ -48,6 +49,8 @@ class Footer extends Component {
 
   render() {
     return (
+    <div>
+      <DashboardDrawer/>
       <div className="container footer navbar-fixed-bottom">
         <div>
           <Image src={`/img/${this.state.backImg}`}
@@ -74,6 +77,7 @@ class Footer extends Component {
           />
         </div>
       </div>
+    </div>
     )
   }
 }
