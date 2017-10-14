@@ -4,7 +4,7 @@
  * the Spotify Accounts.
  *
  * For more information, read
- * 
+ *
  */
 
 var express = require('express'); // Express web server framework
@@ -145,7 +145,7 @@ app.get('/callback', function(req, res) {
           console.log("BODY!", body)
           if (body.birthdate === null || undefined) body.birthdate = '0'
           if (body.display_name === null || undefined)  body.display_name = body.id
-          if(!body.images.length) body.images.push({url: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAfRAAAAJGY5YjFhN2Q2LTUyNjMtNDQ4OS04Mzk5LTcyMGQyM2E0MTgwOA.jpg'})
+          if(!body.images.length) body.images.push({url: 'http://voice4thought.org/wp-content/uploads/2016/08/default2-1.jpg'})
           const {uri, id, display_name, images: [{url: profilePic}], birthdate} = body
 
           createFirebaseAccount(uri, display_name, profilePic, birthdate, access_token, refresh_token)

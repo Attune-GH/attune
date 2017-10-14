@@ -111,10 +111,12 @@ class UserProfile extends Component {
 
   renderAuthUser() {
     const { user } = this.props
-    const recentSongs = this.state.recentSongs.slice(0, 3)
+    let recentSongs = []
+    if (this.state.recentSongs) recentSongs = this.state.recentSongs.slice(0, 3)
+
     return (
       <div className="container profile">
-        <DashboardDrawer/>
+        <DashboardDrawer />
         <Image src={user.photoURL} style={{ height: '150px', width: '150 px', borderRadius: '150px', margin: "0 auto" }} />
         <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         {
@@ -130,15 +132,15 @@ class UserProfile extends Component {
                 onChange={this.writeBio}
               />
               <div style={{ display: "block" }}>
-                <RaisedButton label="finish bio" backgroundColor = '#7E57C2' style={editStyle}
+                <RaisedButton label="finish bio" backgroundColor='#7E57C2' style={editStyle}
                   onClick={this.submitBio}
                 />
               </div>
             </div> :
             <div style={{ width: '350px' }}>
               {
-                this.state.bio.length && this.state.bio ? <p style={{ width: '300px', marginLeft: '25px' }}>{this.state.bio}</p> : <p style={{ width: '300px', marginLeft: '25px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1) || user.displayName}, maybe you should write a bio!`}</p>}
-              <RaisedButton label="edit bio" backgroundColor = '#7E57C2' style={editStyle}
+                this.state.bio ? <p style={{ width: '300px', marginLeft: '25px' }}>{this.state.bio}</p> : <p style={{ width: '300px', marginLeft: '25px' }}>{`Hey ${user.displayName.split(' ').slice(0, 1) || user.displayName}, maybe you should write a bio!`}</p>}
+              <RaisedButton label="edit bio" backgroundColor='#7E57C2' style={editStyle}
                 onClick={() => { this.setState({ isEditing: true }) }}
               />
             </div>
@@ -159,8 +161,10 @@ class UserProfile extends Component {
   }
 
   renderUser() {
-    const recentSongs = this.state.recentSongs.slice(0, 3)
     const { user } = this.state
+    let recentSongs = []
+    if (this.state.recentSongs) recentSongs = this.state.recentSongs.slice(0, 3)
+
 
     let currentAuthUser
     auth.currentUser && (currentAuthUser = firebase.auth().currentUser.uid)
@@ -170,14 +174,14 @@ class UserProfile extends Component {
 
     let followButton = null
     if (followed) {
-      followButton = (<RaisedButton label="Unfollow" backgroundColor = '#7E57C2' style={style}
+      followButton = (<RaisedButton label="Unfollow" backgroundColor='#7E57C2' style={style}
         onClick={() => {
           firebase.database().ref(`Users/${currentAuthUser}/following`).child(`${user.uid}`).remove()
 
         }}
       />)
     } else {
-      followButton = (<RaisedButton label="Follow" backgroundColor = '#7E57C2' style={style}
+      followButton = (<RaisedButton label="Follow" backgroundColor='#7E57C2' style={style}
         onClick={() => {
 
           let updateObj = {}
@@ -191,7 +195,7 @@ class UserProfile extends Component {
 
     return (
       <div className="container profile">
-        <DashboardDrawer/>
+        <DashboardDrawer />
         <Image src={user.photoURL} style={{ height: '150px', width: '150 px', borderRadius: '150px', margin: "0 auto" }} />
         <div>
           <h2>{user.displayName && (age ? (`${user.displayName.split(' ').slice(0, 1)}, ${age}` || `${user.displayName}, ${age}`) :
@@ -202,7 +206,7 @@ class UserProfile extends Component {
           this.state.bio && this.state.bio.length ? <p style={{ width: '300px', marginLeft: '25px' }}>{this.state.bio}</p> : <p style={{ width: '300px', marginLeft: '25px' }}>{`${user.displayName} hasn't written a bio yet!`}</p>
         }
         <div className="container buttons">
-          <RaisedButton label="Message" backgroundColor = '#7E57C2' style={style}
+          <RaisedButton label="Message" backgroundColor='#7E57C2' style={style}
             onClick={() => this.props.history.push(`/messages/${user.uid}`)}
           />
           {followButton}
@@ -215,9 +219,9 @@ class UserProfile extends Component {
         <div>
           <div><h2>Recently Played</h2></div>
           <div>
-            <div>{
-              recentSongs.map((song) => <div key={song.played_at}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)
-            }</div>
+            <div>
+              {recentSongs.map((song) => <div key={song.played_at}><iframe src={`https://open.spotify.com/embed?uri=${song.track.uri}`} width="300" height="80" frameBorder="0" allowTransparency="true"></iframe></div>)}
+            </div>
           </div>
         </div>
       </div>
