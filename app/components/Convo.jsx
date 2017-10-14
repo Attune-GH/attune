@@ -36,7 +36,6 @@ class Convo extends Component {
   }
 
   handleSubmit(event) {
-    console.log('hey submits')
     event.preventDefault()
     // Write message to the appropriate Convo Key
     const messageObject = { from: this.props.user.uid, content: this.state.enteredMessage }
