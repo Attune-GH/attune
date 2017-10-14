@@ -31,7 +31,8 @@ body {
     position: sticky;
     background-color: #212121;
     width: 100%;
-    top: 0
+    top: 0;
+    z-index: 10;
 }
 
 .chat {
@@ -50,7 +51,7 @@ body {
   background-color: #212121;
   height: 150px;
   padding: 20px;
-  color: white;
+  color:  #212121;
 }
 
 .App-intro {
@@ -247,20 +248,9 @@ body {
 }
 .chatty {
     position: fixed;
-    bottom: 100px;
-    width: 90%;
-}
-
-.drawerButton {
-    padding-bottom: 20px
-}
-
-.drawerLogo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    bottom: 60px;
     width: 100%;
-    top: 0
+    align-self: center;
+    background-color: #212121;
+    padding: 0 30px 10px 0
 }
-
-

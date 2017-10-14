@@ -10,7 +10,6 @@ import { withRouter } from 'react-router'
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import { connect } from 'react-redux'
 import store, { constantlyUpdateUser } from '../store'
-// import DashboardDrawer from './Drawer'
 
   class Following extends React.Component {
 
@@ -46,15 +45,13 @@ import store, { constantlyUpdateUser } from '../store'
 
       return (
         <div style={{overflow: 'hidden'}}>
-          {/* <DashboardDrawer/> */}
-            {/* <h1  style={{textAlign: 'center'}}>Following</h1> */}
             <List>
             {followedPersons && followedPersons.map(person => {
               return <div key={person}><FollowedPerson person={person}/></div>
             })}
             </List>
         </div>
-       
+
       )
 
     }

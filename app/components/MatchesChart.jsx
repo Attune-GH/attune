@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {Radar} from 'react-chartjs-2'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-// import DashboardDrawer from './Drawer'
 import { getMatches, getAllMatches, getUserProfile } from 'APP/fire/refs'
 import RaisedButton from 'material-ui/RaisedButton'
 
@@ -40,7 +39,7 @@ class MatchesChart extends Component {
   componentWillReceiveProps(nextProps) {
     if(this.props.user.uid !== nextProps.user.uid) {
       this.fetchMatches(nextProps)
-    }  
+    }
   }
 
 
@@ -74,7 +73,7 @@ class MatchesChart extends Component {
   let sortedMatches = sortable.sort(function(a, b) {
         return b[1] - a[1];
     });
-    
+
     if(sortedMatches.length > 5) sortedMatches = sortedMatches.slice(0, 5)
 
     var allMatches = this.state.allMatches
@@ -84,7 +83,7 @@ class MatchesChart extends Component {
 
     const opaqueColors = ['rgba(179,181,198,1)', 'rgba(211,82,138,1)', 'rgba(201,81,232,1)', 'rgba(86,170,234,1)', 'rgba(92,224,138,1)']
 
- 
+
     let dataset$ = allMatches.artistsScores
       ? sortedMatches.map((person, ind) => {
         let name = users[person[0]]
@@ -108,9 +107,8 @@ class MatchesChart extends Component {
     }
 
     return (
-      
+
       <div>
-        {/* <DashboardDrawer/> */}
         <div className="lgRadar">
           <Radar data={data} options={options} style={styles}/>
         </div>
@@ -137,4 +135,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(MatchesChart)  
+export default connect(mapStateToProps)(MatchesChart)
