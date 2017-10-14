@@ -125,10 +125,9 @@ class UserProfile extends Component {
                 floatingLabelText="Tell us about yourself..."
                 multiLine={true}
                 rows={2}
-                rowsMax={4}
+                rowsMax={2}
                 fullWidth={true}
                 onChange={this.writeBio}
-                value={this.state.bio.length ? this.state.bio : ''}
               />
               <div style={{ display: "block" }}>
                 <RaisedButton label="finish bio" backgroundColor = '#7E57C2' style={editStyle}
