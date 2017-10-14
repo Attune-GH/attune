@@ -251,3 +251,16 @@ body {
     width: 90%;
 }
 
+.drawerButton {
+    padding-bottom: 20px
+}
+
+.drawerLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    top: 0
+}
+
+

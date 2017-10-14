@@ -8,7 +8,7 @@ import { getRecentSongs, getUserProfile, getUserBio, setUserBio, getFollowing } 
 import TextField from 'material-ui/TextField'
 import store, { constantlyUpdateUser } from '../store'
 import RaisedButton from 'material-ui/RaisedButton'
-import DashboardDrawer from './Drawer'
+// import DashboardDrawer from './Drawer'
 
 const auth = firebase.auth()
 
@@ -116,7 +116,7 @@ class UserProfile extends Component {
 
     return (
       <div className="container profile">
-        <DashboardDrawer />
+        {/* <DashboardDrawer/> */}
         <Image src={user.photoURL} style={{ height: '150px', width: '150 px', borderRadius: '150px', margin: "0 auto" }} />
         <h2>Hello, {user.displayName && (user.displayName.split(' ').slice(0, 1) || user.displayName)}</h2>
         {
@@ -195,7 +195,8 @@ class UserProfile extends Component {
 
     return (
       <div className="container profile">
-        <DashboardDrawer />
+        {/* <DashboardDrawer/> */}
+
         <Image src={user.photoURL} style={{ height: '150px', width: '150 px', borderRadius: '150px', margin: "0 auto" }} />
         <div>
           <h2>{user.displayName && (age ? (`${user.displayName.split(' ').slice(0, 1)}, ${age}` || `${user.displayName}, ${age}`) :

@@ -7,7 +7,7 @@ import store, { constantlyUpdateUser } from '../store'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import MessageLine from './MessageLine'
-import DashboardDrawer from './Drawer'
+// import DashboardDrawer from './Drawer'
 
 class Inbox extends React.Component {
   constructor(props){
@@ -45,7 +45,7 @@ class Inbox extends React.Component {
 
     return (
       <div style={{overflow: 'hidden'}}>
-      <DashboardDrawer/>
+      {/* <DashboardDrawer/> */}
       <List>
         {convoArray.length && convoArray.map(convo => {
           if (convo[0]!== "undefined") {

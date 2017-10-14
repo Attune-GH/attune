@@ -6,9 +6,6 @@ import {Link} from 'react-router-dom'
 import firebase from 'APP/fire'
 import {connect} from 'react-redux'
 import { Image } from 'react-bootstrap'
-// const buttonStyle = {
-//   backgroundColor: '#7E57C2'
-// }
 
 class DashboardDrawer extends React.Component {
   constructor(props){
@@ -42,32 +39,37 @@ class DashboardDrawer extends React.Component {
           onRequestChange={(open)=> this.setState({open})}
           containerStyle = {{paddingTop: '150px'}}
         >
-          {/* <Image src={'img/Attune-11.svg'} style = {{height: '100px'}}/> */}
+          
           <MenuItem>
             <Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}>
-            <RaisedButton backgroundColor = '#7E57C2' fullWidth = {true}>
+            <RaisedButton className='drawerButton' onClick={()=> this.handleClose()} backgroundColor = '#7E57C2' fullWidth = {true}>
               Profile</RaisedButton></Link>
           </MenuItem>
           <MenuItem>
             <Link to='/matches' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton backgroundColor = '#7E57C2' fullWidth = {true} onClick={() => this.onRequestMatches()}>
+            <RaisedButton className='drawerButton' backgroundColor = '#7E57C2' fullWidth = {true} 
+            onClick={() => {
+              this.onRequestMatches()
+              this.handleClose()
+            }}>
               See Your Matches</RaisedButton></Link>
           </MenuItem>
           <MenuItem>
             <Link to='/messages' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton backgroundColor = '#7E57C2' fullWidth = {true}>
+            <RaisedButton className='drawerButton' onClick={()=> this.handleClose()} backgroundColor = '#7E57C2' fullWidth = {true}>
               Messages Inbox</RaisedButton></Link>
           </MenuItem>
           <MenuItem>
             <Link to='/matchesChart' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton backgroundColor = '#7E57C2'fullWidth = {true}> 
+            <RaisedButton className='drawerButton' onClick={()=> this.handleClose()} backgroundColor = '#7E57C2'fullWidth = {true}> 
               Matches Chart</RaisedButton></Link>
           </MenuItem>
           <MenuItem>
             <Link to='/following' style={{ textDecoration: 'none', color: 'white'  }}>
-            <RaisedButton backgroundColor = '#7E57C2' fullWidth = {true}>
+            <RaisedButton className='drawerButton' onClick={()=> this.handleClose()} backgroundColor = '#7E57C2' fullWidth = {true}>
               Following</RaisedButton></Link>
           </MenuItem>
+          {/* <Image className='drawerLogo' src={'img/Attune-11.svg'} style = {{height: '100px'}}/> */}
         </Drawer>
       </div>
     )
