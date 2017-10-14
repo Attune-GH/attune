@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { getMatches, getTopArtists, getTopTracks } from 'APP/fire/refs'
 import firebase from 'APP/fire'
-// import DashboardDrawer from './Drawer'
 
 import store, { constantlyUpdateUser } from '../store'
 
@@ -21,7 +20,6 @@ class SimpleSlider extends React.Component {
     }
   }
 
-  //not sure i understand this function --eks
   componentWillReceiveProps(nextProps) {
     if (this.props.user.uid !== nextProps.user.uid) {
       getMatches(nextProps.user.uid).then(matches => {
@@ -88,7 +86,6 @@ componentDidMount() {
 
     const loaded = (
         <div>
-          {/* <DashboardDrawer/> */}
             {betterArr.length ? (
               (typeof betterArr === 'string' ?
                 (<div className="container profile">
@@ -124,12 +121,3 @@ const mapStateToProps = (state) => {
 }
 
 export default withRouter(connect(mapStateToProps)(SimpleSlider))
-
-
-//all matches
-           //  (<Slider {...settings} className="container">
-           //  {betterArr.map(match =>{
-           //    return <div key={match[0]}><OneMatch match={match} /></div>})}
-           // </Slider>)
-
-

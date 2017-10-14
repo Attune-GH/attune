@@ -7,7 +7,6 @@ import store, { constantlyUpdateUser } from '../store'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import MessageLine from './MessageLine'
-// import DashboardDrawer from './Drawer'
 
 class Inbox extends React.Component {
   constructor(props){
@@ -26,9 +25,9 @@ class Inbox extends React.Component {
     }
   }
 
-  componentDidMount(){ 
+  componentDidMount(){
     store.dispatch(constantlyUpdateUser())
-    const uid = this.props.user.uid 
+    const uid = this.props.user.uid
       getConvoIds(uid)
       .then(convoIds => {
         this.setState({convoIds})
@@ -41,11 +40,9 @@ class Inbox extends React.Component {
     let convoArray
 
     this.state.convoIds ? convoArray = Object.entries(this.state.convoIds) : convoArray = null
-    // const convoArray = Object.entries(this.state.convoIds)
 
     return (
       <div style={{overflow: 'hidden'}}>
-      {/* <DashboardDrawer/> */}
       <List>
         {convoArray.length && convoArray.map(convo => {
           if (convo[0]!== "undefined") {
