@@ -29,7 +29,7 @@ class DashboardDrawer extends React.Component {
           open={this.props.open}
           swipeAreaWidth={70}
           onRequestChange={this.props.handleToggle}
-          containerStyle = {{paddingTop: '150px'}}>
+          containerStyle = {{paddingTop: '125px'}}>
 
           <MenuItem>
             <Link to={`/profile/${this.props.userId}`}style={{ textDecoration: 'none', color: 'white' }}>

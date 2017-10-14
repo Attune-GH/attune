@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom"
 import { Image } from 'react-bootstrap'
 import {connect} from 'react-redux'
 
-//hold for logo and also  a redirect to Dashboard
 class Footer extends Component {
 
   constructor(props) {

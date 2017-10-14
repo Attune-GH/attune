@@ -5,7 +5,6 @@ import { BrowserRouter as Router, withRouter } from 'react-router-dom'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import UserProfile from './components/UserProfile'
-import Dashboard from './components/Dashboard'
 import AllConversations from './components/AllConversations'
 import Convo from './components/Convo'
 import AllMatches from './components/AllMatches'
@@ -48,7 +47,6 @@ class Routes extends Component {
             <Route exact path="/" component={WhoAmI} />
             <Route exact path='/chart/:userId' component={SingleMatchChart} />
             <Route exact path='/matchesChart' component={MatchesChart} />
-            <Route path='/dashboard' component={Dashboard} />
             <Route exact path='/messages/:userId' component={(props) => <Convo auth={auth} />} />
             <Route path='/messages' component={AllConversations} />
             <Route exact path='/matches' component={AllMatches} />
