@@ -43,11 +43,11 @@ class OneMatch extends Component {
           </div>
           <p style={{textAlign: 'center'}}>{`${Math.ceil(this.props.match[1] * 200)}% overlap in your listening history`}</p>
         </div>
-        { user && <Link to={`/chart/${user.uid}`} style={{ color: 'white' }}> <button className="btn btn-match">Compatibility</button>
-        </Link>}
         <div>
+        { user && <Link to={`/chart/${user.uid}`} style={{ color: 'white' }}> <button className="btn-match">Compatibility</button>
+        </Link>}
           {user && <Link to={`/profile/${user.uid}`} style={{ color: 'white' }}>
-            <button className="btn btn-match" style={{ width: '250px' }}>View Profile</button>
+            <button className="btn-match" >View Profile</button>
           </Link>}
         </div>
       </div>
@@ -56,4 +56,3 @@ class OneMatch extends Component {
 }
 
 export default OneMatch
-
