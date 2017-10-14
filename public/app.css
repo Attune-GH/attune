@@ -248,7 +248,8 @@ body {
 .chatty {
     position: fixed;
     bottom: 100px;
-    width: 90%;
+    width: 92%;
+    align-self: center
 }
 
 .drawerButton {

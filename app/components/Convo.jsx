@@ -67,7 +67,9 @@ class Convo extends Component {
       <div className="container">
         {/* <DashboardDrawer/> */}
         <br />
-        <ChatBubble messages={chatty} />
+        <div >
+        <ChatBubble messages={chatty}/>
+        </div>
         <div className="chatty" >
           <form onSubmit={this.handleSubmit}>
             <TextField
