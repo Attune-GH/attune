@@ -36,11 +36,11 @@ class Convo extends Component {
   }
 
   handleSubmit(event) {
+    console.log('hey submits')
     event.preventDefault()
     // Write message to the appropriate Convo Key
     const messageObject = { from: this.props.user.uid, content: this.state.enteredMessage }
     if (messageObject.content.length) firebase.database().ref(`Convos/${this.props.convoId}`).push(messageObject)
-
     //Listen for updates to Firebase and update the Messages store to trigger re-render
     firebase.database().ref(`Convos/${this.props.convoId}`).on("child_added", () => {
       this.props.dispatchGetMessagesThunk(`${this.props.convoId}`)
@@ -79,7 +79,7 @@ class Convo extends Component {
             />
             <br />
             <span>
-              <RaisedButton label={`Chat with ${friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}!`} fullWidth={true} />
+              <RaisedButton label={`Chat with ${friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}!`} fullWidth={true} onClick={this.handleSubmit}/>
             </span>
           </form>
         </div>
