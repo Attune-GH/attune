@@ -152,7 +152,7 @@ class UserProfile extends Component {
           </div>
         </div>
         <div>
-          <button style={{ width: '300px' }} className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
+          <button style={{ width: '300px', marginTop: '10px' }} className='btn btn-primary' onClick={() => this.onLogout()}>Logout</button>
         </div>
       </div>
     )
