@@ -17,9 +17,9 @@ Create a GitHub repo and clone it. After you have a repo on your machine:
 ```sh
 npm install
 
-create a secrets file that contains your own firebase auth info (we named ours "witches_brew.env.js")
+create a secrets directory with a file that contains your own firebase auth info (we named ours something similar to "attune-firebase-admin.js")
 
-create a secrets file that contains your own twilio auth info (we named ours "secrets.js")
+create another file in the secrets directory that contains your own Spotify auth info (we named ours "spotify.js")
 
 npm run dev
 ```
