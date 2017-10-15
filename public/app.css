@@ -252,5 +252,9 @@ body {
     width: 100%;
     align-self: center;
     background-color: #212121;
-    padding: 0 30px 10px 0
+    align-self: start
+}
+
+.btn-chat {
+    width: 90%
 }
