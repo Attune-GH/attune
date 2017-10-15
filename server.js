@@ -147,7 +147,6 @@ app.get('/callback', function(req, res) {
           if (body.display_name === null || undefined)  body.display_name = body.id
           if(!body.images.length) body.images.push({url: 'http://voice4thought.org/wp-content/uploads/2016/08/default2-1.jpg'})
           const {uri, id, display_name, images: [{url: profilePic}], birthdate} = body
-
           createFirebaseAccount(uri, display_name, profilePic, birthdate, access_token, refresh_token)
             .then(firebaseToken => {
               res.send(signInFirebaseTemplate(firebaseToken));
@@ -235,7 +234,7 @@ function createFirebaseAccount(uid, displayName, photoURL, birthdate, accessToke
         .set({uid, displayName, photoURL, birthdate})
 
     request.get(optionsRecent, function(error, response, body){
-      const items = body.items       
+      const items = body.items      
       const getRecentSongs = admin.database().ref(`/Users/${uid}/recentSongs`)
         .set({songs: items})
     })
@@ -251,7 +250,6 @@ function createFirebaseAccount(uid, displayName, photoURL, birthdate, accessToke
       const getTopTracks = admin.database().ref(`/Users/${uid}/topTracks`)
         .set({tracks: items})
     })
-
 
     const databaseTask = admin.database().ref(`/spotifyAccessToken/${uid}`)
         .set({accessToken, refreshToken});
