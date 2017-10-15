@@ -55,9 +55,7 @@ let attune
 
 
 
-
 var redirect_uri = (process.env.NODE_ENV === 'development' ? 'http://localhost:1337/callback' : 'http://attune.fun/callback'); // Your cal uri
-console.log(redirect_uri)
 
 
 /**
@@ -143,6 +141,8 @@ app.get('/callback', function(req, res) {
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
           console.log("BODY!", body)
+          const encodeKey = (s)=> (s).replace(/\./g, '%2E')
+          body.uri = encodeKey(body.uri)
           if (body.birthdate === null || undefined) body.birthdate = '0'
           if (body.display_name === null || undefined)  body.display_name = body.id
           if(!body.images.length) body.images.push({url: 'http://voice4thought.org/wp-content/uploads/2016/08/default2-1.jpg'})
@@ -235,19 +235,19 @@ function createFirebaseAccount(uid, displayName, photoURL, birthdate, accessToke
         .set({uid, displayName, photoURL, birthdate})
 
     request.get(optionsRecent, function(error, response, body){
-      const items = body.items
+      const items = body.items       
       const getRecentSongs = admin.database().ref(`/Users/${uid}/recentSongs`)
         .set({songs: items})
     })
 
     request.get(optionsTopArtists, function(error, response, body){
-      const items = body.items
+      const items = body.items    
       const getTopArists = admin.database().ref(`/Users/${uid}/topArtists`)
         .set({artists: items})
     })
 
     request.get(optionsTopTracks, function(error, response, body){
-      const items = body.items
+      const items = body.items 
       const getTopTracks = admin.database().ref(`/Users/${uid}/topTracks`)
         .set({tracks: items})
     })
