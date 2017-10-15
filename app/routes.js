@@ -22,7 +22,9 @@ const auth = firebase.auth()
 class Routes extends Component {
   constructor(props) {
     super(props);
-    this.state = { open: false }
+    this.state = {
+      open: false
+    }
 
     this.handleToggle = this.handleToggle.bind(this)
     this.handleClose = this.handleClose.bind(this)
@@ -55,8 +57,8 @@ class Routes extends Component {
             <Route path='*' component={NotFound} />
           </Switch>
         </div>
-        <Footer
-          handleToggle={this.handleToggle}/>
+        {this.props.user.uid ? <Footer
+          handleToggle={this.handleToggle}/> : null}
       </div>
     )
   }
