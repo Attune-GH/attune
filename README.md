@@ -1,6 +1,6 @@
 # This is 🎶🎶Attune🎶🎶
 
-It's an 8-bit party game for 2-4 bad witches.
+Attune is a Progressive Web Application that uses data from the Spotify API to match users based on their listening history using a Jaccardian similarity index.
 
 ## How to use
 
@@ -24,7 +24,7 @@ create another file in the secrets directory that contains your own Spotify auth
 npm run dev
 ```
 
-Game will be running on localhost:1337
+App will be running on localhost:1337
 
 And then you'll have me! If I change – which I probably will – you can get the most recent
 version by doing this again:
