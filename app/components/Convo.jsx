@@ -83,13 +83,16 @@ class Convo extends Component {
           <form onSubmit={this.handleSubmit}>
             <TextField
               hintText="say hey"
+              style={{width: '90%'}}
               fullWidth={true}
               onChange={this.handleChange}
               value={this.state.enteredMessage}
             />
             <br />
             <span>
-              <RaisedButton label={`Chat with ${friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}!`} fullWidth={true} onClick={this.handleSubmit} />
+              <RaisedButton label={`Chat with ${friendUser.displayName && (friendUser.displayName.split(' ').slice(0, 1) || friendUser.displayName)}!`}
+              className="btn-chat"
+              onClick={this.handleSubmit} />
             </span>
           </form>
         </div>
