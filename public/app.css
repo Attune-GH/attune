@@ -154,12 +154,9 @@ body {
     transition: background-color .15s ease, border-color .15s ease, color .15s ease;
     border-width: 0;
     letter-spacing: 1.2px;
-    min-width: 130px;
+    /* min-width: 130px; */
     text-transform: uppercase;
     white-space: normal;
-    outline: 0;
-    height: 50px;
-    width: 350px;
     margin-bottom: 0;
     font-weight: 600;
     text-align: center;
@@ -171,14 +168,12 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    text-decoration: none;
-    margin-top: 10px;
-    width: 40px;
+    width: 120px;
     height: 40px;
     border-radius: 3px;
     background-color: #7E57C2;
     margin: 10px;
-    font-size: 12px
+    font-size: 11px
 }
 
 .btn-match:focus,
