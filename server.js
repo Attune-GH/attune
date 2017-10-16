@@ -140,8 +140,7 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log("BODY!", body)
-          const encodeKey = (s)=> (s).replace(/\./g, '%2E')
+          const encodeKey = (s)=> (s).replace(/\./g, ',')
           body.uri = encodeKey(body.uri)
           if (body.birthdate === null || undefined) body.birthdate = '0'
           if (body.display_name === null || undefined)  body.display_name = body.id
