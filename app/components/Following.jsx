@@ -43,6 +43,16 @@ import store, { constantlyUpdateUser } from '../store'
 
       this.state.following ? followedPersons = Object.keys(this.state.following) : followedPersons = null
 
+      const shrugMen = "¯\\_(ツ)_/¯"
+
+      if(!followedPersons){
+        return(
+        <div className = "container profile">
+          <h3>Looks like you aren't following anyone yet! </h3>
+          <h2>{shrugMen}</h2>
+        </div>
+        )
+      }
       return (
         <div style={{overflow: 'hidden'}}>
             <List>
