@@ -47,10 +47,10 @@ import store, { constantlyUpdateUser } from '../store'
 
       if(!followedPersons){
         return(
-        <div className = "container profile">
-          <h3>Looks like you aren't following anyone yet! </h3>
-          <h2>{shrugMen}</h2>
-        </div>
+          <div className = "container profile">
+            <h3>Looks like you aren't following anyone yet! </h3>
+            <h2>{shrugMen}</h2>
+          </div>
         )
       }
       return (

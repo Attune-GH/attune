@@ -37,18 +37,29 @@ class Inbox extends React.Component {
 
   render(){
 
-    let convoArray
+    let convoPersons
 
-    this.state.convoIds ? convoArray = Object.entries(this.state.convoIds) : convoArray = null
+    this.state.convoIds ? convoPersons = Object.keys(this.state.convoIds) : convoPersons = null
+
+    const shrugMen = "¯\\_(ツ)_/¯"
+    
+    if(!convoPersons){
+      return(
+        <div className = "container profile">
+          <h3>Looks like you don't have any messages!</h3>
+          <h2>{shrugMen}</h2>
+        </div>
+      )
+    }
 
     return (
       <div style={{overflow: 'hidden'}}>
       <List>
-        {convoArray.length && convoArray.map(convo => {
-          if (convo[0]!== "undefined") {
+        {convoPersons && convoPersons.map(person => {
+          if (person !== "undefined") {
             return (
-              <div key = {convo[1]}>
-                <MessageLine convo={convo[0]}/>
+              <div key = {person}>
+                <MessageLine person={person}/>
               </div>
             )}
         })}

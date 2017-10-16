@@ -23,7 +23,7 @@ class MessageLine extends Component {
   }
 
   componentDidMount(){
-    const uid = this.props.convo
+    const uid = this.props.person
     getUserProfile(uid).then(user => this.setState({ user }))
   }
 

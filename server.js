@@ -140,7 +140,6 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log("BODY!", body)
           const encodeKey = (s)=> (s).replace(/\./g, ',')
           body.uri = encodeKey(body.uri)
           if (body.birthdate === null || undefined) body.birthdate = '0'
@@ -273,8 +272,6 @@ function createFirebaseAccount(uid, displayName, photoURL, birthdate, accessToke
       return token;
     });
   }
-
- 
 
 
 console.log('Listening on 1337');
