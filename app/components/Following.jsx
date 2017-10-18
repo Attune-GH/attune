@@ -4,12 +4,12 @@ import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import { getFollowing } from 'APP/fire/refs'
-import FollowedPerson from './FollowedPerson'
 import firebase from 'APP/fire'
 import { withRouter } from 'react-router'
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
 import { connect } from 'react-redux'
 import store, { constantlyUpdateUser } from '../store'
+import FollowedPerson from './FollowedPerson'
 
   class Following extends React.Component {
 
@@ -43,13 +43,13 @@ import store, { constantlyUpdateUser } from '../store'
 
       this.state.following ? followedPersons = Object.keys(this.state.following) : followedPersons = null
 
-      const shrugMen = "¯\\_(ツ)_/¯"
+      const shrugMan = "¯\\_(ツ)_/¯"
 
       if(!followedPersons){
         return(
           <div className = "container profile">
             <h3>Looks like you aren't following anyone yet! </h3>
-            <h2>{shrugMen}</h2>
+            <h2>{shrugMan}</h2>
           </div>
         )
       }
