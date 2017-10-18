@@ -1,5 +1,7 @@
 # This is 🎶🎶Attune🎶🎶
 
+![Alt Text](attune-walkthrough.gif)
+
 Attune is a Progressive Web Application that uses data from the Spotify API to match users based on their listening history using a Jaccardian similarity index.
 
 ## How to use
@@ -33,7 +35,6 @@ version by doing this again:
 git fetch attune
 git merge attune/master
 ```
-
 
 ## My anatomy
 
