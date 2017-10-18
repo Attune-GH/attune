@@ -1,7 +1,7 @@
 # This is 🎶🎶Attune🎶🎶
 
 Attune is a Progressive Web Application that uses data from the Spotify API to match users based on their listening history using a Jaccardian similarity index.
-
+![Alt Text](attune-walk.gif)
 ## How to use
 
 You can use Attune on desktop or mobile, but it is best experienced on mobile.
@@ -9,7 +9,7 @@ You can use Attune on desktop or mobile, but it is best experienced on mobile.
 * Click 'login with Spotify' to register.
 * Hit the record icon in your footer to open the drawer app
 * Customize your bio, see your matches, follow users, or message users!
-
+![Alt Text](attune-chatting.gif)
 ## Configuration on local machine
 
 Create a GitHub repo and clone it. After you have a repo on your machine:
@@ -33,7 +33,7 @@ version by doing this again:
 git fetch attune
 git merge attune/master
 ```
-
+![Alt Text](attune-charts.gif)
 
 ## My anatomy
 
