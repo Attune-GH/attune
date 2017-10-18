@@ -1,12 +1,12 @@
 import React from 'react'
-import Slider from 'react-slick'
-import { Image } from 'react-bootstrap'
+import { withRouter } from 'react-router'
+import firebase from 'APP/fire'
+import { getMatches, getTopArtists, getTopTracks } from 'APP/fire/refs'
 import UserProfile from './UserProfile'
 import OneMatch from './OneMatch'
+import { Image } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
-import { getMatches, getTopArtists, getTopTracks } from 'APP/fire/refs'
-import firebase from 'APP/fire'
+import Slider from 'react-slick'
 
 import store, { constantlyUpdateUser } from '../store'
 
@@ -111,7 +111,7 @@ class SimpleSlider extends React.Component {
       </div>
     )
   }
-}
+}:
 
 const mapStateToProps = (state) => {
   return {

@@ -1,15 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import store, { constantlyUpdateUser } from '../store'
+import { withRouter } from 'react-router'
+import firebase from 'APP/fire'
+import { getFollowing } from 'APP/fire/refs'
+import FollowedPerson from './FollowedPerson'
 import Avatar from 'material-ui/Avatar';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
-import { getFollowing } from 'APP/fire/refs'
-import firebase from 'APP/fire'
-import { withRouter } from 'react-router'
 import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble';
-import { connect } from 'react-redux'
-import store, { constantlyUpdateUser } from '../store'
-import FollowedPerson from './FollowedPerson'
+
 
   class Following extends React.Component {
 

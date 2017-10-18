@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Image } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import store from '../store'
+import { Link } from 'react-router-dom'
 import { getUserProfile } from 'APP/fire/refs'
+import { Button, Image } from 'react-bootstrap'
 import RaisedButton from 'material-ui/RaisedButton'
 
 const style = {
