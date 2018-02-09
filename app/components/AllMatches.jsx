@@ -111,7 +111,7 @@ class SimpleSlider extends React.Component {
       </div>
     )
   }
-}:
+}
 
 const mapStateToProps = (state) => {
   return {
