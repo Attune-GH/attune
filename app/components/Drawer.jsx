@@ -31,7 +31,7 @@ class DashboardDrawer extends React.Component {
           onRequestChange={this.props.handleToggle}
           containerStyle={{ paddingTop: '100px' }}>
 
-          <Link to={`/profile/${this.props.userId}`} style={{ textDecoration: 'none', color: 'white' }}>
+          <Link to={`/profile/${this.props.userId}`} style={{ textDecoration: 'none' }}>
             <RaisedButton
               style={{ padding: '20px' }} onClick={() => this.props.handleClose()} backgroundColor='#7E57C2' fullWidth={true}>
               Profile</RaisedButton></Link>

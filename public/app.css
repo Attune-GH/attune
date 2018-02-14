@@ -6,6 +6,9 @@ body {
   margin-bottom: 60px
 }
 
+button {
+    color: white
+}
 
 #logo {
     margin-top: 57px;
@@ -37,10 +40,6 @@ body {
 
 .chat {
     color: white
-}
-
-.formInput {
-  color: black
 }
 
 .App {
@@ -192,7 +191,6 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    position: absolute;
     margin-left: auto;
     margin-right: auto;
     left: 0;
@@ -257,4 +255,9 @@ body {
 
 .btn-chat {
     width: 90%
+}
+
+.navbar-fixed-bottom {
+    position: fixed;
+    bottom: 0;
 }
